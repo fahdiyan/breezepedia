@@ -5,3 +5,54 @@
 //  Created by Sabri Ramadhani on 27/03/25.
 //
 
+import SwiftUI
+
+struct MenuCard: View {
+    @ObservedObject var menu: MenuModel
+    
+    var body: some View {
+        HStack(alignment: .center) {
+            Image(menu.image)
+                .resizable()
+                .scaledToFill()
+                .frame(width: 86, height: 86)
+                .clipShape(RoundedRectangle(cornerRadius: 5))
+                .padding(8)
+            
+            VStack(alignment: .leading) {
+                Text(menu.name)
+                    .font(.system(size: 16, weight: .semibold))
+                    .foregroundColor(.purple)
+                    .padding(.bottom, 4)
+               
+                Text(menu.description)
+                   .font(.system(size: 10, weight: .regular))
+                   .foregroundColor(.gray)
+                
+                Spacer()
+               
+                Text("Rp. \(menu.price),-")
+                   .font(.system(size: 16, weight: .regular))
+                   .foregroundColor(.purple)
+            }
+            .padding(.vertical, 12)
+            .padding(.horizontal, 6)
+        }
+        .frame(maxWidth: .infinity, maxHeight: 100, alignment: .leading)
+        .background(Color.white)
+        .clipShape(RoundedRectangle(cornerRadius: 10))
+        .padding(32)
+        .shadow(radius: 3)
+    }
+}
+
+#Preview {
+    MenuCard(
+        menu: MenuModel(
+            name: "Jcochino",
+            image: "jcochino",
+            description: "Double shot espresso + milk",
+            price: 27000
+        )
+    )
+}
