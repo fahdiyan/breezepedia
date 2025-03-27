@@ -47,7 +47,25 @@ struct ContentView: View {
                 
                 Spacer()
                 
-                // Button Preferensi
+                HStack {
+                    Button(action: {
+                        // Go to Sheet Preference
+                    }) {
+                        Text("Choose Preference")
+                            .font(.system(size: 16, weight: .medium))
+                            .foregroundColor(.white)
+                            .frame(width: 220, height: 48)
+                            .background(Color(UIColor(
+                                red: 0x70 / 255,
+                                green: 0x42 / 255,
+                                blue: 0x9A / 255,
+                                alpha: 1
+                            )))
+                            .cornerRadius(10)
+                            .shadow(radius: 4, y: 3)
+                    }
+                }
+                .padding(.bottom, 64)
             }
             .ignoresSafeArea(.all)
         }

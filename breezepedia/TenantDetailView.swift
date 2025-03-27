@@ -111,7 +111,7 @@ struct TenantDetailView: View {
                             .frame(width: 66, height: 66)
                             .padding(.vertical, 50)
                             .padding(.horizontal, 32)
-                            .shadow(radius: 4)
+                            .shadow(radius: 4, y: 3)
                     }
                 }
             }
