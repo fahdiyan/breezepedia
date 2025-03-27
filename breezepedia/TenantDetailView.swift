@@ -65,7 +65,6 @@ struct TenantDetailView: View {
                                 
                                 GeneralInfoView()
                                 
-                                
                                 // Menu List
                                 Divider()
                                     .frame(height: 1)
