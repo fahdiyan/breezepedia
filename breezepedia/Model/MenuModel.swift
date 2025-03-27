@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-class MenuModel: Identifiable, ObservableObject {
+class MenuModel: Identifiable {
     let id: UUID = UUID()
     let name: String
     let image: String
@@ -36,59 +36,58 @@ class MenuModel: Identifiable, ObservableObject {
             ),
             MenuModel(
                 name: "Vanilla Frappucino",
-                image: "vanilla-frappucino",
+                image: "vanilla_frappucino",
                 description: "Double shot espresso + milk",
                 price: 35000
             ),
             MenuModel(
                 name: "Lorem Ipsum",
-                image: "lorem-ipsum",
+                image: "lorem_ipsum",
                 description: "Lorem ipsum dolor sit amet",
                 price: 24000
             ),
             MenuModel(
                 name: "Lorem Ipsum",
-                image: "lorem-ipsum",
+                image: "lorem_ipsum",
                 description: "Lorem ipsum dolor sit amet",
                 price: 24000
             ),
             MenuModel(
                 name: "Lorem Ipsum",
-                image: "lorem-ipsum",
+                image: "lorem_ipsum",
                 description: "Lorem ipsum dolor sit amet",
                 price: 24000
             ),
             MenuModel(
                 name: "Lorem Ipsum",
-                image: "lorem-ipsum",
+                image: "lorem_ipsum",
                 description: "Lorem ipsum dolor sit amet",
                 price: 24000
             ),
             MenuModel(
                 name: "Lorem Ipsum",
-                image: "lorem-ipsum",
+                image: "lorem_ipsum",
                 description: "Lorem ipsum dolor sit amet",
                 price: 24000
             ),
             MenuModel(
                 name: "Lorem Ipsum",
-                image: "lorem-ipsum",
+                image: "lorem_ipsum",
                 description: "Lorem ipsum dolor sit amet",
                 price: 24000
             ),
             MenuModel(
                 name: "Lorem Ipsum",
-                image: "lorem-ipsum",
+                image: "lorem_ipsum",
                 description: "Lorem ipsum dolor sit amet",
                 price: 24000
             ),
             MenuModel(
                 name: "Lorem Ipsum",
-                image: "lorem-ipsum",
+                image: "lorem_ipsum",
                 description: "Lorem ipsum dolor sit amet",
                 price: 24000
             )
-
         ]
     }
 }

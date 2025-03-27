@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct MenuCard: View {
-    @ObservedObject var menu: MenuModel
+    var menu: MenuModel
     
     var body: some View {
         HStack(alignment: .center) {
@@ -41,7 +41,6 @@ struct MenuCard: View {
         .frame(maxWidth: .infinity, maxHeight: 100, alignment: .leading)
         .background(Color.white)
         .clipShape(RoundedRectangle(cornerRadius: 10))
-        .padding(32)
         .shadow(radius: 3)
     }
 }
