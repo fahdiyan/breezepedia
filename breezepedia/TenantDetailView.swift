@@ -54,7 +54,12 @@ struct TenantDetailView: View {
                                     .frame(width: 132, height: 28)
                                     .font(.system(size: 16, weight: .medium))
                                     .foregroundColor(.white)
-                                    .background(Color(hue: 130, saturation: 0.6, brightness: 0.5))
+                                    .background(Color(UIColor(
+                                        red: 0x70 / 255,
+                                        green: 0x42 / 255,
+                                        blue: 0x9A / 255,
+                                        alpha: 1
+                                    )))
                                     .clipShape(RoundedRectangle(cornerRadius: 5))
                                     .padding(.bottom, 16)
                                 
@@ -71,7 +76,12 @@ struct TenantDetailView: View {
                                     .frame(width: 132, height: 28)
                                     .font(.system(size: 16, weight: .medium))
                                     .foregroundColor(.white)
-                                    .background(Color(hue: 271, saturation: 0.6, brightness: 0.5))
+                                    .background(Color(UIColor(
+                                        red: 0x70 / 255,
+                                        green: 0x42 / 255,
+                                        blue: 0x9A / 255,
+                                        alpha: 1
+                                    )))
                                     .clipShape(RoundedRectangle(cornerRadius: 5))
                                     .padding(.bottom, 16)
                                 
@@ -133,17 +143,31 @@ struct TenantInfoView: View {
             Text(name)
                 .font(.custom("Poppins-ExtraBold", size: 30))
                 .fontWeight(.bold)
-                .foregroundColor(Color(hue: 0, saturation: 0, brightness: 0.47))
+                .foregroundColor(Color(UIColor(
+                    red: 0x70 / 255,
+                    green: 0x42 / 255,
+                    blue: 0x9A / 255,
+                    alpha: 1
+                )))
                 .frame(height: 30)
             Text(category)
                 .font(.custom("Poppins-Bold", size: 16))
                 .fontWeight(.bold)
-                .foregroundColor(Color(hue: 0, saturation: 0, brightness: 0.47))
+                .foregroundColor(Color(UIColor(
+                    red: 0x70 / 255,
+                    green: 0x42 / 255,
+                    blue: 0x9A / 255,
+                    alpha: 1
+                )))
                 .frame(height: 20)
             Text(info)
                 .font(.custom("Poppins-Regular", size: 16))
-                .foregroundColor(Color(hue: 0, saturation: 0, brightness: 0.47))
-
+                .foregroundColor(Color(UIColor(
+                    red: 0x70 / 255,
+                    green: 0x42 / 255,
+                    blue: 0x9A / 255,
+                    alpha: 1
+                )))
         }
     }
 }

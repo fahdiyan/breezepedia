@@ -22,7 +22,12 @@ struct MenuCard: View {
             VStack(alignment: .leading) {
                 Text(menu.name)
                     .font(.system(size: 16, weight: .semibold))
-                    .foregroundColor(.purple)
+                    .foregroundColor(Color(UIColor(
+                        red: 0x70 / 255,
+                        green: 0x42 / 255,
+                        blue: 0x9A / 255,
+                        alpha: 1
+                    )))
                     .padding(.bottom, 4)
                
                 Text(menu.description)
@@ -34,7 +39,12 @@ struct MenuCard: View {
                
                 Text("Rp. \(menu.price),-")
                    .font(.system(size: 16, weight: .regular))
-                   .foregroundColor(.purple)
+                   .foregroundColor(Color(UIColor(
+                    red: 0x70 / 255,
+                    green: 0x42 / 255,
+                    blue: 0x9A / 255,
+                    alpha: 1
+                )))
             }
             .padding(.vertical, 12)
             .padding(.horizontal, 6)
