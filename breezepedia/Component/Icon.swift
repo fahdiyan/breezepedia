@@ -1,0 +1,44 @@
+//
+//  Icon.swift
+//  breezepedia
+//
+//  Created by Muhammad Irhamdi Fahdiyan Noor on 27/03/25.
+//
+
+import SwiftUI
+
+struct Icon: View {
+    var type: String = "price_circle"
+    var text: String = "Rp. 10,000"
+    var isInlinetext: Bool = true
+
+    var body: some View {
+        if isInlinetext {
+            HStack {
+                Image(type)
+                    .resizable()
+                    .scaledToFit()
+                    .frame(width: 20, height: 20)
+                Text(text)
+                    .font(.custom("Poppins-Regular", size: 16))
+                    .foregroundColor(Color(hue: 0, saturation: 0, brightness: 0.47))
+            }
+            .padding(5)
+        } else {
+            VStack {
+                Image(type)
+                    .resizable()
+                    .scaledToFit()
+                    .frame(width: 20, height: 20)
+                Text(text)
+                    .font(.custom("Poppins-Regular", size: 16))
+                    .foregroundColor(Color(hue: 0, saturation: 0, brightness: 0.47))
+            }
+            .padding(5)
+        }
+    }
+}
+
+#Preview {
+    Icon(type: "wifi_circle", isInlinetext: true)
+}

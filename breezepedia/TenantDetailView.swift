@@ -9,8 +9,6 @@ import SwiftUI
 
 struct TenantDetailView: View {
     private var menus = MenuModel.generateMenuModel()
-    
-    @State private var offset: CGFloat = 240
 
     var body: some View {
         GeometryReader { geometry in
@@ -23,7 +21,7 @@ struct TenantDetailView: View {
                 ScrollView {
                     VStack(spacing: 0) {
                         Color.clear
-                            .frame(height: max(offset, 0))
+                            .frame(height: max(240, 0))
                         
                         ZStack {
                             Color.white
@@ -36,6 +34,15 @@ struct TenantDetailView: View {
                             
                             VStack(alignment: .leading) {
                                 // Logo & Name
+                                HStack {
+                                    Image("logo_jco")
+                                        .resizable()
+                                        .scaledToFit()
+                                        .aspectRatio(contentMode: .fill)
+                                        .frame(width: 120, height: 100)
+                                    
+                                    TenantInfoView()
+                                }
                                 
                                 // General Info
                                 Divider()
@@ -47,10 +54,11 @@ struct TenantDetailView: View {
                                     .frame(width: 132, height: 28)
                                     .font(.system(size: 16, weight: .medium))
                                     .foregroundColor(.white)
-                                    .background(.purple)
+                                    .background(Color(hue: 136, saturation: 0.54, brightness: 0.43))
                                     .clipShape(RoundedRectangle(cornerRadius: 5))
                                     .padding(.bottom, 16)
-                                // ...
+                                
+                                GeneralInfoView()
                                 
                                 
                                 // Menu List
@@ -63,7 +71,7 @@ struct TenantDetailView: View {
                                     .frame(width: 132, height: 28)
                                     .font(.system(size: 16, weight: .medium))
                                     .foregroundColor(.white)
-                                    .background(.purple)
+                                    .background(Color(hue: 136, saturation: 0.54, brightness: 0.43))
                                     .clipShape(RoundedRectangle(cornerRadius: 5))
                                     .padding(.bottom, 16)
                                 
@@ -100,6 +108,43 @@ struct TenantDetailView: View {
         }
         .ignoresSafeArea(.all, edges: .top)
         .edgesIgnoringSafeArea(.bottom)
+    }
+}
+
+struct GeneralInfoView: View {
+    var body: some View {
+        VStack(alignment: .leading) {
+            Icon(type: "price_circle", text: "Rp. 10,000")
+            Icon(type: "wifi_circle", text: "Wifi available")
+            Icon(type: "peak_hour_circle", text: "Peak hour")
+            Icon(type: "capacity_circle", text: "Capacity")
+            Icon(type: "halal_circle", text: "Halal")
+            Icon(type: "petfriendly_circle", text: "No Pets Allowed")
+        }
+    }
+}
+
+struct TenantInfoView: View {
+    var name: String = "J.Co"
+    var category: String = "Coffee and Donuts"
+    var info: String = "Open 08.00 - 20.00"
+    var body: some View {
+        VStack(alignment: .leading) {
+            Text(name)
+                .font(.custom("Poppins-ExtraBold", size: 30))
+                .fontWeight(.bold)
+                .foregroundColor(Color(hue: 0, saturation: 0, brightness: 0.47))
+                .frame(height: 30)
+            Text(category)
+                .font(.custom("Poppins-Bold", size: 16))
+                .fontWeight(.bold)
+                .foregroundColor(Color(hue: 0, saturation: 0, brightness: 0.47))
+                .frame(height: 20)
+            Text(info)
+                .font(.custom("Poppins-Regular", size: 16))
+                .foregroundColor(Color(hue: 0, saturation: 0, brightness: 0.47))
+
+        }
     }
 }
 
