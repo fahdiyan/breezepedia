@@ -54,7 +54,7 @@ struct TenantDetailView: View {
                                     .frame(width: 132, height: 28)
                                     .font(.system(size: 16, weight: .medium))
                                     .foregroundColor(.white)
-                                    .background(Color(hue: 136, saturation: 0.54, brightness: 0.43))
+                                    .background(Color(hue: 130, saturation: 0.6, brightness: 0.5))
                                     .clipShape(RoundedRectangle(cornerRadius: 5))
                                     .padding(.bottom, 16)
                                 
@@ -71,11 +71,11 @@ struct TenantDetailView: View {
                                     .frame(width: 132, height: 28)
                                     .font(.system(size: 16, weight: .medium))
                                     .foregroundColor(.white)
-                                    .background(Color(hue: 136, saturation: 0.54, brightness: 0.43))
+                                    .background(Color(hue: 271, saturation: 0.6, brightness: 0.5))
                                     .clipShape(RoundedRectangle(cornerRadius: 5))
                                     .padding(.bottom, 16)
                                 
-                                VStack(spacing: 12) {
+                                VStack(spacing: 18) {
                                     ForEach(menus) { menu in
                                         MenuCard(menu: menu)
                                     }
@@ -99,7 +99,7 @@ struct TenantDetailView: View {
                         Image("navigation_circle_sticky")
                             .resizable()
                             .frame(width: 66, height: 66)
-                            .padding(.vertical, 40)
+                            .padding(.vertical, 50)
                             .padding(.horizontal, 32)
                             .shadow(radius: 4)
                     }
@@ -117,7 +117,7 @@ struct GeneralInfoView: View {
             Icon(type: "price_circle", text: "Rp. 10,000")
             Icon(type: "wifi_circle", text: "Wifi available")
             Icon(type: "peak_hour_circle", text: "Peak hour")
-            Icon(type: "capacity_circle", text: "Capacity")
+            Icon(type: "capacity_circle", text: "Capacity: 16 tables")
             Icon(type: "halal_circle", text: "Halal")
             Icon(type: "petfriendly_circle", text: "No Pets Allowed")
         }

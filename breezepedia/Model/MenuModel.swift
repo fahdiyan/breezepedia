@@ -35,59 +35,50 @@ class MenuModel: Identifiable {
                 price: 27000
             ),
             MenuModel(
-                name: "Vanilla Frappucino",
-                image: "vanilla_frappucino",
-                description: "Double shot espresso + milk",
+                name: "Matcha Frappe",
+                image: "greenteafrappe",
+                description: "Premium matcha powder + milk, garnished with whipped cream",
                 price: 35000
             ),
             MenuModel(
-                name: "Lorem Ipsum",
-                image: "lorem_ipsum",
+                name: "Strawberry Yogurt Frappe",
+                image: "strawberryfrappe",
                 description: "Lorem ipsum dolor sit amet",
-                price: 24000
+                price: 35000
             ),
             MenuModel(
-                name: "Lorem Ipsum",
-                image: "lorem_ipsum",
+                name: "Jcoccino Frappe",
+                image: "jcoccinofrappe",
                 description: "Lorem ipsum dolor sit amet",
-                price: 24000
+                price: 35000
             ),
             MenuModel(
-                name: "Lorem Ipsum",
-                image: "lorem_ipsum",
+                name: "Iced Lemon Tea",
+                image: "lemontea",
                 description: "Lorem ipsum dolor sit amet",
-                price: 24000
+                price: 21000
             ),
             MenuModel(
-                name: "Lorem Ipsum",
-                image: "lorem_ipsum",
-                description: "Lorem ipsum dolor sit amet",
-                price: 24000
+                name: "Alcapoon",
+                image: "alcapoon",
+                description: "Soft donut dough with slices of almond",
+                price: 10000
             ),
             MenuModel(
-                name: "Lorem Ipsum",
-                image: "lorem_ipsum",
-                description: "Lorem ipsum dolor sit amet",
-                price: 24000
+                name: "Rainbow Choco",
+                image: "rainbowchoco",
+                description: "Soft donut dough with rainbow sprinkles on top",
+                price: 10000
             ),
             MenuModel(
-                name: "Lorem Ipsum",
-                image: "lorem_ipsum",
-                description: "Lorem ipsum dolor sit amet",
-                price: 24000
+                name: "Choco Caviar",
+                image: "caviarchoco",
+                description: "Soft donut dough with small crunchy choco balls",
+                price: 10000
             ),
-            MenuModel(
-                name: "Lorem Ipsum",
-                image: "lorem_ipsum",
-                description: "Lorem ipsum dolor sit amet",
-                price: 24000
-            ),
-            MenuModel(
-                name: "Lorem Ipsum",
-                image: "lorem_ipsum",
-                description: "Lorem ipsum dolor sit amet",
-                price: 24000
-            )
+           
+           
+            
         ]
     }
 }

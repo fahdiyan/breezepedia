@@ -28,6 +28,7 @@ struct MenuCard: View {
                 Text(menu.description)
                    .font(.system(size: 10, weight: .regular))
                    .foregroundColor(.gray)
+            
                 
                 Spacer()
                
@@ -42,6 +43,7 @@ struct MenuCard: View {
         .background(Color.white)
         .clipShape(RoundedRectangle(cornerRadius: 10))
         .shadow(radius: 3)
+     
     }
 }
 
@@ -50,7 +52,8 @@ struct MenuCard: View {
         menu: MenuModel(
             name: "Jcochino",
             image: "jcochino",
-            description: "Double shot espresso + milk",
+            description: "Double shot espresso + milk, garnished with foam aaaaaaaaaaaaaaaa",
+
             price: 27000
         )
     )
