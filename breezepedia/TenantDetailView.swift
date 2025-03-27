@@ -80,6 +80,23 @@ struct TenantDetailView: View {
                 }
                 .scrollBounceBehavior(.basedOnSize)
             }
+            
+            VStack {
+                Spacer()
+                HStack {
+                    Spacer()
+                    Button(action: {
+                        // Navigation
+                    }) {
+                        Image("navigation_circle_sticky")
+                            .resizable()
+                            .frame(width: 66, height: 66)
+                            .padding(.vertical, 40)
+                            .padding(.horizontal, 32)
+                            .shadow(radius: 4)
+                    }
+                }
+            }
         }
         .ignoresSafeArea(.all, edges: .top)
         .edgesIgnoringSafeArea(.bottom)
