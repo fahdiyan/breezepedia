@@ -22,7 +22,9 @@ struct ContentView: View {
                         Spacer()
                         SearchField()
                     }
-                    .padding(.horizontal, 24)
+//                    .padding(.horizontal, 24)
+                    .padding(.leading, 12)
+                    .padding(.trailing, 20)
                     
                     HStack {
                         Text("Let’s explore ")
@@ -88,7 +90,7 @@ struct SearchField: View {
 
             TextField("Search...", text: $searchText)
         }
-        .frame(width: 248, height: 40)
+        .frame(width: Double.infinity, height: 40)
         .background(Color.white)
         .cornerRadius(10)
     }
