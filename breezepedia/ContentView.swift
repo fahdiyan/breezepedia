@@ -131,6 +131,8 @@ struct PreferenceSheet: View {
             
             FlexibleGridView(items: outlineButtons)
             
+            // adek was here
+            
 //            Divider()
 //                .frame(height: 1)
 //                .overlay(.gray.opacity(0.3))
