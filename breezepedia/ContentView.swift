@@ -20,34 +20,34 @@ struct ContentView: View {
                     HStack {
                         Image("logo_breezepedia_white")
                             .resizable()
-                            .frame(width: 80, height: 60)
+                            .frame(width: 82, height: 65)
                         Spacer()
                         SearchField()
                     }
 //                    .padding(.horizontal, 24)
-                    .padding(.leading, 12)
-                    .padding(.trailing, 20)
+                    .padding(.leading, 15)
+                    .padding(.trailing, 25)
                     
                     HStack {
-                        Text("Let’s explore ")
+                        Text("Go explore ")
                             .font(.system(size: 16, weight: .regular)) +
-                        Text("52 Tenants")
+                        Text("52 tenants")
                             .font(.system(size: 16, weight: .bold)) +
-                        Text(" at the Breeze!")
+                        Text(" available at The Breeze!")
                             .font(.system(size: 16, weight: .regular))
                     }
                     .foregroundColor(.white)
-                    .padding(.bottom, 14)
+                    .padding(.bottom, 15)
                 }
-                .frame(width: .infinity, height: 128)
+                .frame(width: .infinity, height: 125)
                 .background(Color(UIColor(
                     red: 0x70 / 255,
                     green: 0x42 / 255,
                     blue: 0x9A / 255,
                     alpha: 1
                 )))
-                .padding(.top, 32)
-                .shadow(radius: 6, y: 3)
+                .padding(.top, 45)
+                .shadow(radius: 4, y: 2)
                 
                 Spacer()
                 
@@ -90,13 +90,14 @@ struct SearchField: View {
                     blue: 0x9A / 255,
                     alpha: 1
                 )))
-                .padding(.leading, 10)
+                .padding(.leading, 15)
+                .fixedSize()
 
-            TextField("Search...", text: $searchText)
+            TextField("Search tenant", text: $searchText)
         }
-        .frame(width: Double.infinity, height: 40)
+        .frame(width: Double.infinity, height: 45)
         .background(Color.white)
-        .cornerRadius(10)
+        .cornerRadius(8)
     }
 }
 
@@ -131,8 +132,7 @@ struct PreferenceSheet: View {
             
             FlexibleGridView(items: outlineButtons)
             
-            // adek was here
-            
+           
 //            Divider()
 //                .frame(height: 1)
 //                .overlay(.gray.opacity(0.3))
@@ -141,7 +141,7 @@ struct PreferenceSheet: View {
             Text("Any specific facilities you want to have?")
                 .font(.system(size: 16, weight: .semibold))
                 .foregroundColor(Color.black.opacity(0.6))
-                .padding(.bottom, 16)
+                .padding(.bottom, 20)
             
             LazyVGrid(columns: Array(repeating: GridItem(.flexible(), spacing: 16), count: 4), spacing: 16) {
                 ForEach(gridButtons, id: \..self) { item in

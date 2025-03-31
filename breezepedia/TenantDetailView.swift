@@ -123,9 +123,9 @@ struct TenantDetailView: View {
 struct GeneralInfoView: View {
     var body: some View {
         VStack(alignment: .leading) {
-            Icon(type: "price_circle", text: "Rp. 10,000")
+            Icon(type: "price_circle", text: "Rp. 10,000 (Cheapest menu)")
             Icon(type: "wifi_circle", text: "Wifi available")
-            Icon(type: "peak_hour_circle", text: "Peak hour")
+            Icon(type: "peak_hour_circle", text: "Peak hour: 13.00 pm - 16.00 pm")
             Icon(type: "capacity_circle", text: "Capacity: 16 tables")
             Icon(type: "halal_circle", text: "Halal")
             Icon(type: "petfriendly_circle", text: "No Pets Allowed")

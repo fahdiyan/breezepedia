@@ -18,7 +18,7 @@ struct Icon: View {
                 Image(type)
                     .resizable()
                     .scaledToFit()
-                    .frame(width: 20, height: 20)
+                    .frame(width: 30, height: 30)
                 Text(text)
                     .font(.custom("Poppins-Regular", size: 16))
                     .foregroundColor(Color(UIColor(
@@ -34,7 +34,7 @@ struct Icon: View {
                 Image(type)
                     .resizable()
                     .scaledToFit()
-                    .frame(width: 20, height: 20)
+                    .frame(width: 30, height: 30)
                 Text(text)
                     .font(.custom("Poppins-Regular", size: 16))
                     .foregroundColor(Color(UIColor(

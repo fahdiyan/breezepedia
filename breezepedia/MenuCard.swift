@@ -15,7 +15,7 @@ struct MenuCard: View {
             Image(menu.image)
                 .resizable()
                 .scaledToFill()
-                .frame(width: 86, height: 86)
+                .frame(width: 105, height: 105)
                 .clipShape(RoundedRectangle(cornerRadius: 5))
                 .padding(8)
             
@@ -31,7 +31,7 @@ struct MenuCard: View {
                     .padding(.bottom, 4)
                
                 Text(menu.description)
-                   .font(.system(size: 10, weight: .regular))
+                   .font(.system(size: 12, weight: .regular))
                    .foregroundColor(.gray)
             
                 
@@ -47,12 +47,12 @@ struct MenuCard: View {
                 )))
             }
             .padding(.vertical, 12)
-            .padding(.horizontal, 6)
+            .padding(.horizontal, 2)
         }
-        .frame(maxWidth: .infinity, maxHeight: 100, alignment: .leading)
+        .frame(maxWidth: .infinity, maxHeight: 120, alignment: .leading)
         .background(Color.white)
         .clipShape(RoundedRectangle(cornerRadius: 10))
-        .shadow(radius: 3)
+        .shadow(radius: 1, y:3)
      
     }
 }
