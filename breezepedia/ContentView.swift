@@ -101,11 +101,28 @@ struct SearchField: View {
     }
 }
 
+struct ButtonItem : Identifiable{
+    let id = UUID() // Unique identifier for each item
+    let label : String;
+    let icon : String;
+    
+}
+
 struct PreferenceSheet: View {
     @Environment(\.dismiss) var dismiss
     
     let outlineButtons = ["Western", "Dessert", "Beverages", "Japanese", "Coffee", "Seafood", "Healty", "Snacks", "Rice", "Sate"]
-    let gridButtons = ["Free Wifi", "Halal", "Spacious", "Silent", "Cheap", "Pet Friendly", "Smooking Area", "Rooftop"]
+    
+    let gridButtonsNew: [ButtonItem] = [
+        ButtonItem(label: "Free Wifi", icon: "star"),
+        ButtonItem(label: "Halal", icon: "wifi"),
+        ButtonItem(label: "Spacious", icon: "star"),
+        ButtonItem(label: "Silent", icon: "mute"),
+        ButtonItem(label: "Cheap", icon: "tag"),
+        ButtonItem(label: "Pet Friendly", icon: "cat"),
+        ButtonItem(label: "Smoking Area", icon: "smoking"),
+        ButtonItem(label: "Rooftop", icon: "house"),
+    ]
     
     var body: some View {
         
@@ -144,14 +161,16 @@ struct PreferenceSheet: View {
                 .padding(.bottom, 20)
             
             LazyVGrid(columns: Array(repeating: GridItem(.flexible(), spacing: 16), count: 4), spacing: 16) {
-                ForEach(gridButtons, id: \..self) { item in
+                ForEach(gridButtonsNew) { item in
                     VStack {
-                        Image(systemName: "star")
+                        Image(systemName: item.icon)
                             .resizable()
                             .scaledToFit()
                             .frame(width: 40, height: 40)
-                        Text(item)
+
+                        Text(item.label)
                             .font(.caption)
+                            
                     }
                     .frame(width: 76, height: 76)
                     .background(Color.gray.opacity(0.1))
