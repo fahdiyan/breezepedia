@@ -15,6 +15,7 @@ struct ContentView: View {
             // MapKit
             
             VStack (alignment: .center) {
+                // Main Header
                 VStack {
                     Spacer()
                     HStack {
@@ -22,7 +23,7 @@ struct ContentView: View {
                             .resizable()
                             .frame(width: 82, height: 65)
                         Spacer()
-                        SearchField()
+                        SearchField(hintText: "Search tenant")
                     }
 //                    .padding(.horizontal, 24)
                     .padding(.leading, 15)
@@ -51,6 +52,7 @@ struct ContentView: View {
                 
                 Spacer()
                 
+                // Preference Button
                 Button(action: {
                     showSheet.toggle()
                 }) {
@@ -78,29 +80,6 @@ struct ContentView: View {
     }
 }
 
-struct SearchField: View {
-    @State private var searchText: String = ""
-    
-    var body: some View {
-        HStack {
-            Image(systemName: "magnifyingglass")
-                .foregroundColor(Color(UIColor(
-                    red: 0x70 / 255,
-                    green: 0x42 / 255,
-                    blue: 0x9A / 255,
-                    alpha: 1
-                )))
-                .padding(.leading, 15)
-                .fixedSize()
-
-            TextField("Search tenant", text: $searchText)
-        }
-        .frame(width: Double.infinity, height: 45)
-        .background(Color.white)
-        .cornerRadius(8)
-    }
-}
-
 struct PreferenceSheet: View {
     @Environment(\.dismiss) var dismiss
     
@@ -110,6 +89,7 @@ struct PreferenceSheet: View {
     var body: some View {
         
         VStack(alignment: .leading) {
+            // Exit Preference Button
             HStack {
                 Spacer()
                 Image(systemName: "xmark")
@@ -132,7 +112,6 @@ struct PreferenceSheet: View {
             
             FlexibleGridView(items: outlineButtons)
             
-           
 //            Divider()
 //                .frame(height: 1)
 //                .overlay(.gray.opacity(0.3))
@@ -143,6 +122,7 @@ struct PreferenceSheet: View {
                 .foregroundColor(Color.black.opacity(0.6))
                 .padding(.bottom, 20)
             
+            // Facility Buttons
             LazyVGrid(columns: Array(repeating: GridItem(.flexible(), spacing: 16), count: 4), spacing: 16) {
                 ForEach(gridButtons, id: \..self) { item in
                     VStack {
@@ -159,6 +139,7 @@ struct PreferenceSheet: View {
                 }
             }
             
+            // Apply Preference Button
             HStack {
                 Spacer()
                 
