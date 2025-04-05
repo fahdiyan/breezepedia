@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct SelectableButton: View {
+struct CategoryButton: View {
     let label: String
     let isText: Bool
     let isSelected: Bool
