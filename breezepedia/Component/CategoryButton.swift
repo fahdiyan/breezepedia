@@ -38,7 +38,16 @@ struct CategoryButton: View {
                 )
                 .overlay(
                     RoundedRectangle(cornerRadius: 6)
-                        .stroke(Color.purple, lineWidth: 2)
+                        .stroke(
+                            Color(UIColor(
+                                red: 0x70 / 255,
+                                green: 0x42 / 255,
+                                blue: 0x9A / 255,
+                                alpha: 1
+                            )),
+                            lineWidth: 2
+                        )
+
                 )
                 .cornerRadius(6)
         }
