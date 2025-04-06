@@ -7,15 +7,31 @@
 
 import SwiftUI
 
+struct ButtonItem : Identifiable{
+    let id = UUID() // Unique identifier for each item
+    let label : String;
+    let icon : String;
+}
+
 struct PreferenceSheet: View {
     @Environment(\.dismiss) var dismiss
     
-    let categories = ["Western", "Dessert", "Beverages", "Japanese", "Coffee", "Seafood", "Healty", "Snacks", "Rice", "Sate"]
-    let gridButtons = ["Free Wifi", "Halal", "Spacious", "Silent", "Cheap", "Pet Friendly", "Smooking Area", "Rooftop"]
+    let outlineButtons = ["Western", "Dessert", "Beverages", "Japanese", "Coffee", "Seafood", "Healty", "Snacks", "Rice", "Sate"]
+    
+    let gridButtonsNew: [ButtonItem] = [
+        ButtonItem(label: "Free Wifi", icon: "star"),
+        ButtonItem(label: "Halal", icon: "wifi"),
+        ButtonItem(label: "Spacious", icon: "star"),
+        ButtonItem(label: "Silent", icon: "mute"),
+        ButtonItem(label: "Cheap", icon: "tag"),
+        ButtonItem(label: "Pet Friendly", icon: "cat"),
+        ButtonItem(label: "Smoking Area", icon: "smoking"),
+        ButtonItem(label: "Rooftop", icon: "house"),
+    ]
     
     var body: some View {
+        
         VStack(alignment: .leading) {
-            // Exit Preference Button
             HStack {
                 Spacer()
                 Image(systemName: "xmark")
@@ -30,16 +46,14 @@ struct PreferenceSheet: View {
                     .frame(width: 18, height: 18)
                     .onTapGesture { dismiss() }
             }
-            .padding(.top, 42)
-
             
             Text("What’s on your mood today?")
                 .font(.system(size: 16, weight: .semibold))
                 .foregroundColor(Color.black.opacity(0.6))
                 .padding(.bottom, 16)
             
-            CategoriesView(items: categories)
-            
+            CategoriesView(items: outlineButtons)
+           
             Divider()
                 .frame(height: 1)
                 .overlay(.gray.opacity(0.3))
@@ -48,26 +62,26 @@ struct PreferenceSheet: View {
             Text("Any specific facilities you want to have?")
                 .font(.system(size: 16, weight: .semibold))
                 .foregroundColor(Color.black.opacity(0.6))
+                .padding(.bottom, 20)
             
-            // Facility Buttons
             LazyVGrid(columns: Array(repeating: GridItem(.flexible(), spacing: 16), count: 4), spacing: 16) {
-                ForEach(gridButtons, id: \..self) { item in
+                ForEach(gridButtonsNew) { item in
                     VStack {
-                        Image(systemName: "star")
+                        Image(systemName: item.icon)
                             .resizable()
                             .scaledToFit()
                             .frame(width: 40, height: 40)
-                        Text(item)
+
+                        Text(item.label)
                             .font(.caption)
+                            
                     }
                     .frame(width: 76, height: 76)
                     .background(Color.gray.opacity(0.1))
                     .cornerRadius(10)
                 }
             }
-            .padding(.vertical, 20)
             
-            // Apply Preference Button
             HStack {
                 Spacer()
                 
@@ -87,12 +101,14 @@ struct PreferenceSheet: View {
                         .cornerRadius(10)
                         .shadow(radius: 4, y: 3)
                 }
+                .padding(.vertical, 36)
                 
                 Spacer()
             }
         }
         .padding(.horizontal, 32)
-        .presentationDetents([.fraction(0.75), .large])
+        .padding(.vertical, 40)
+        .presentationDetents([.fraction(0.8), .large])
         .ignoresSafeArea(edges: .all)
     }
 }
