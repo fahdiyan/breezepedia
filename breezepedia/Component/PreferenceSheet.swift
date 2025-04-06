@@ -19,14 +19,14 @@ struct PreferenceSheet: View {
     let outlineButtons = ["Western", "Dessert", "Beverages", "Japanese", "Coffee", "Seafood", "Healty", "Snacks", "Rice", "Sate"]
     
     let gridButtonsNew: [ButtonItem] = [
-        ButtonItem(label: "Free Wifi", icon: "star"),
+        ButtonItem(label: "Free Wifi", icon: "wifi"),
         ButtonItem(label: "Halal", icon: "wifi"),
         ButtonItem(label: "Spacious", icon: "star"),
-        ButtonItem(label: "Silent", icon: "mute"),
-        ButtonItem(label: "Cheap", icon: "tag"),
-        ButtonItem(label: "Pet Friendly", icon: "cat"),
+        ButtonItem(label: "Silent", icon: "speaker.wave.1.fill"),
+        ButtonItem(label: "Cheap", icon: "tag.fill"),
+        ButtonItem(label: "Pet Friendly", icon: "pawprint.fill"),
         ButtonItem(label: "Smoking Area", icon: "smoking"),
-        ButtonItem(label: "Rooftop", icon: "house"),
+        ButtonItem(label: "Outdoor", icon: "sun.max.fill"),
     ]
     
     var body: some View {
@@ -57,7 +57,7 @@ struct PreferenceSheet: View {
             Divider()
                 .frame(height: 1)
                 .overlay(.gray.opacity(0.3))
-                .padding(.vertical, 16)
+                .padding(.vertical, 20)
             
             Text("Any specific facilities you want to have?")
                 .font(.system(size: 16, weight: .semibold))
@@ -106,7 +106,9 @@ struct PreferenceSheet: View {
                 Spacer()
             }
         }
-        .padding(.horizontal, 32)
+        .padding(.leading, 20)
+        .padding(.trailing, 20)
+
         .padding(.vertical, 40)
         .presentationDetents([.fraction(0.8), .large])
         .ignoresSafeArea(edges: .all)

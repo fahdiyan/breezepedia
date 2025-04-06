@@ -26,11 +26,11 @@ struct ContentView: View {
                         SearchField(hintText: "Search tenant")
                     }
 //                    .padding(.horizontal, 24)
-                    .padding(.leading, 15)
-                    .padding(.trailing, 25)
+                    .padding(.leading, 10)
+                    .padding(.trailing, 18)
                     
                     HStack {
-                        Text("Go explore ")
+                        Text("Let's explore ")
                             .font(.system(size: 16, weight: .regular)) +
                         Text("52 tenants")
                             .font(.system(size: 16, weight: .bold)) +
