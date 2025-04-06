@@ -90,8 +90,8 @@ struct TenantDetailView: View {
                                     }
                                 }
                             }
-                            .padding(.vertical, 36)
-                            .padding(.horizontal, 32)
+                            .padding(.vertical, 24)
+                            .padding(.horizontal, 20)
                         }
                     }
                 }
