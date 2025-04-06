@@ -70,7 +70,14 @@ struct PreferenceSheet: View {
                         Image(systemName: item.icon)
                             .resizable()
                             .scaledToFit()
-                            .frame(width: 40, height: 40)
+                            .frame(width: 35, height: 35)
+                            .foregroundColor(Color(UIColor(
+                                red: 0x70 / 255,
+                                green: 0x42 / 255,
+                                blue: 0x9A / 255,
+                                alpha: 1
+                            )))
+
 
                         Text(item.label)
                             .font(.caption)
