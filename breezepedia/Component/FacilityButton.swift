@@ -10,13 +10,14 @@ import SwiftUI
 struct FacilityButton: View {
     let label: String
     let icon: String
+    let selectedIcon: String
     let isSelected: Bool
     let action: () -> Void
 
     var body: some View {
         Button(action: action) {
             VStack {
-                Image(icon)
+                Image(isSelected ? selectedIcon : icon)
                     .resizable()
                     .scaledToFit()
                     .frame(width: 28, height: 28)
@@ -66,7 +67,8 @@ struct FacilityButton: View {
         var body: some View {
             FacilityButton(
                 label: "Wifi",
-                icon: "wifi_circle",
+                icon: "wifi.fill",
+                selectedIcon: "wifi.white",
                 isSelected: isSelected,
                 action: { isSelected.toggle() }
             )

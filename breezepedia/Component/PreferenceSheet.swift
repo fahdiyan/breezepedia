@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct ButtonItem : Identifiable{
-    let id = UUID() // Unique identifier for each item
+    let id = UUID()
     let label : String;
     let icon : String;
 }
@@ -19,8 +19,10 @@ struct PreferenceSheet: View {
     let outlineButtons = ["Western", "Dessert", "Beverages", "Japanese", "Coffee", "Seafood", "Healty", "Snacks", "Rice", "Sate"]
     
     let facilityTexts = ["Wifi", "Halal", "Spacious", "Silent", "Cheap", "Pet Friendly", "Smoking Area", "Rooftop"]
-    let facilityIcons = ["wifi_circle", "wifi_circle", "wifi_circle", "wifi_circle", "wifi_circle", "wifi_circle", "wifi_circle", "wifi_circle"]
-//    let facilityIcons = ["wifi", "halal", "spacious", "silents", "cheap", "pet_friendly", "smoking_area", "rooftop"]
+    
+    let facilityIcons = ["wifi.fill", "halal_circle", "room.fill", "silent.fill", "pricetag.fill", "pet.fill", "mdi_smoking-area", "outfoor.fill"]
+    
+    let selectedFacilityIcons = ["wifi.white", "halal.white.circle", "Room.white", "silent.white", "pricetag.white", "pet.white", "smoking.white", "outfoor.white"]
         
     var body: some View {
         VStack(alignment: .leading) {
@@ -56,7 +58,11 @@ struct PreferenceSheet: View {
                 .foregroundColor(Color.black.opacity(0.6))
                 .padding(.bottom, 16)
 
-            FacilitiesView(texts: facilityTexts, icons: facilityIcons)
+            FacilitiesView(
+                texts: facilityTexts,
+                icons: facilityIcons,
+                selectedIcons: selectedFacilityIcons
+            )
             
             HStack {
                 Spacer()
@@ -123,11 +129,12 @@ struct CategoriesView: View {
 struct FacilitiesView: View {
     let texts: [String]
     let icons: [String]
+    let selectedIcons: [String]
 
     @State private var selectedIndexes: Set<Int> = []
 
     var body: some View {
-        let items = Array(zip(texts, icons))
+        let items = Array(zip3(texts, icons, selectedIcons))
         let rows = [
             Array(items.prefix(4)),
             Array(items.dropFirst(4).prefix(4))
@@ -138,9 +145,12 @@ struct FacilitiesView: View {
                 HStack(spacing: 8) {
                     ForEach(0..<rows[rowIndex].count, id: \.self) { colIndex in
                         let index = rowIndex * 4 + colIndex
+                        let item = rows[rowIndex][colIndex]
+
                         FacilityButton(
-                            label: rows[rowIndex][colIndex].0,
-                            icon: rows[rowIndex][colIndex].1,
+                            label: item.0,
+                            icon: item.1,
+                            selectedIcon: item.2,
                             isSelected: selectedIndexes.contains(index)
                         ) {
                             if selectedIndexes.contains(index) {
@@ -153,6 +163,10 @@ struct FacilitiesView: View {
                 }
             }
         }
+    }
+
+    private func zip3<A, B, C>(_ a: [A], _ b: [B], _ c: [C]) -> [(A, B, C)] {
+        Array(zip(a, zip(b, c))).map { ($0.0, $0.1.0, $0.1.1) }
     }
 }
 

@@ -75,10 +75,7 @@ class MenuModel: Identifiable {
                 image: "caviarchoco",
                 description: "Soft donut dough with small crunchy choco balls",
                 price: 10000
-            ),
-           
-           
-            
+            )
         ]
     }
 }
