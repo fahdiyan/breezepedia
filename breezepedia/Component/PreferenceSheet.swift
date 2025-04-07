@@ -54,7 +54,7 @@ struct PreferenceSheet: View {
             Text("Any specific facilities you want to have?")
                 .font(.system(size: 16, weight: .semibold))
                 .foregroundColor(Color.black.opacity(0.6))
-                .padding(.bottom, 20)
+                .padding(.bottom, 16)
 
             FacilitiesView(texts: facilityTexts, icons: facilityIcons)
             
@@ -77,14 +77,12 @@ struct PreferenceSheet: View {
                         .cornerRadius(10)
                         .shadow(radius: 4, y: 3)
                 }
-                .padding(.vertical, 36)
+                .padding(.top, 36)
                 
                 Spacer()
             }
         }
-        .padding(.leading, 20)
-        .padding(.trailing, 20)
-
+        .padding(.horizontal, 40)
         .padding(.vertical, 40)
         .presentationDetents([.fraction(0.8), .large])
         .ignoresSafeArea(edges: .all)
@@ -135,9 +133,9 @@ struct FacilitiesView: View {
             Array(items.dropFirst(4).prefix(4))
         ]
 
-        VStack(spacing: 12) {
+        VStack(spacing: 8) {
             ForEach(0..<rows.count, id: \.self) { rowIndex in
-                HStack(spacing: 12) {
+                HStack(spacing: 8) {
                     ForEach(0..<rows[rowIndex].count, id: \.self) { colIndex in
                         let index = rowIndex * 4 + colIndex
                         FacilityButton(
