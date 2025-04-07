@@ -9,7 +9,6 @@ import SwiftUI
 
 struct CategoryButton: View {
     let label: String
-    let isText: Bool
     let isSelected: Bool
     let action: () -> Void
 
@@ -53,4 +52,19 @@ struct CategoryButton: View {
         }
         .animation(.easeInOut(duration: 0.2), value: isSelected)
     }
+}
+#Preview {
+    struct PreviewWrapper: View {
+        @State private var isSelected = false
+
+        var body: some View {
+            CategoryButton(
+                label: "Dessert",
+                isSelected: isSelected,
+                action: { isSelected.toggle() }
+            )
+        }
+    }
+
+    return PreviewWrapper()
 }

@@ -18,19 +18,11 @@ struct PreferenceSheet: View {
     
     let outlineButtons = ["Western", "Dessert", "Beverages", "Japanese", "Coffee", "Seafood", "Healty", "Snacks", "Rice", "Sate"]
     
-    let gridButtonsNew: [ButtonItem] = [
-        ButtonItem(label: "Free Wifi", icon: "wifi"),
-        ButtonItem(label: "Halal", icon: "wifi"),
-        ButtonItem(label: "Spacious", icon: "star"),
-        ButtonItem(label: "Silent", icon: "speaker.wave.1.fill"),
-        ButtonItem(label: "Cheap", icon: "tag.fill"),
-        ButtonItem(label: "Pet Friendly", icon: "pawprint.fill"),
-        ButtonItem(label: "Smoking Area", icon: "smoking"),
-        ButtonItem(label: "Outdoor", icon: "sun.max.fill"),
-    ]
-    
-    var body: some View {
+    let facilityTexts = ["Wifi", "Halal", "Spacious", "Silent", "Cheap", "Pet Friendly", "Smoking Area", "Rooftop"]
+    let facilityIcons = ["wifi_circle", "wifi_circle", "wifi_circle", "wifi_circle", "wifi_circle", "wifi_circle", "wifi_circle", "wifi_circle"]
+//    let facilityIcons = ["wifi", "halal", "spacious", "silents", "cheap", "pet_friendly", "smoking_area", "rooftop"]
         
+    var body: some View {
         VStack(alignment: .leading) {
             HStack {
                 Spacer()
@@ -63,31 +55,8 @@ struct PreferenceSheet: View {
                 .font(.system(size: 16, weight: .semibold))
                 .foregroundColor(Color.black.opacity(0.6))
                 .padding(.bottom, 20)
-            
-            LazyVGrid(columns: Array(repeating: GridItem(.flexible(), spacing: 16), count: 4), spacing: 16) {
-                ForEach(gridButtonsNew) { item in
-                    VStack {
-                        Image(systemName: item.icon)
-                            .resizable()
-                            .scaledToFit()
-                            .frame(width: 35, height: 35)
-                            .foregroundColor(Color(UIColor(
-                                red: 0x70 / 255,
-                                green: 0x42 / 255,
-                                blue: 0x9A / 255,
-                                alpha: 1
-                            )))
 
-
-                        Text(item.label)
-                            .font(.caption)
-                            
-                    }
-                    .frame(width: 76, height: 76)
-                    .background(Color.gray.opacity(0.1))
-                    .cornerRadius(10)
-                }
-            }
+            FacilitiesView(texts: facilityTexts, icons: facilityIcons)
             
             HStack {
                 Spacer()
@@ -142,7 +111,6 @@ struct CategoriesView: View {
                     ForEach(row, id: \.self) { item in
                         CategoryButton(
                             label: item,
-                            isText: true,
                             isSelected: selectedItem == item
                         ) {
                             selectedItem = selectedItem == item ? nil : item
@@ -153,6 +121,43 @@ struct CategoriesView: View {
         }
     }
 }
+
+struct FacilitiesView: View {
+    let texts: [String]
+    let icons: [String]
+
+    @State private var selectedIndexes: Set<Int> = []
+
+    var body: some View {
+        let items = Array(zip(texts, icons))
+        let rows = [
+            Array(items.prefix(4)),
+            Array(items.dropFirst(4).prefix(4))
+        ]
+
+        VStack(spacing: 12) {
+            ForEach(0..<rows.count, id: \.self) { rowIndex in
+                HStack(spacing: 12) {
+                    ForEach(0..<rows[rowIndex].count, id: \.self) { colIndex in
+                        let index = rowIndex * 4 + colIndex
+                        FacilityButton(
+                            label: rows[rowIndex][colIndex].0,
+                            icon: rows[rowIndex][colIndex].1,
+                            isSelected: selectedIndexes.contains(index)
+                        ) {
+                            if selectedIndexes.contains(index) {
+                                selectedIndexes.remove(index)
+                            } else {
+                                selectedIndexes.insert(index)
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
 
 #Preview {
     PreferenceSheet()
