@@ -21,12 +21,7 @@ struct Icon: View {
                     .frame(width: 30, height: 30)
                 Text(text)
                     .font(.custom("Poppins-Regular", size: 16))
-                    .foregroundColor(Color(UIColor(
-                        red: 0x70 / 255,
-                        green: 0x42 / 255,
-                        blue: 0x9A / 255,
-                        alpha: 1
-                    )))
+                    .foregroundColor(Color(hue: 0, saturation: 0, brightness: 0.47))
             }
             .padding(5)
         } else {
@@ -37,12 +32,7 @@ struct Icon: View {
                     .frame(width: 30, height: 30)
                 Text(text)
                     .font(.custom("Poppins-Regular", size: 16))
-                    .foregroundColor(Color(UIColor(
-                        red: 0x70 / 255,
-                        green: 0x42 / 255,
-                        blue: 0x9A / 255,
-                        alpha: 1
-                    )))
+                    .foregroundColor(Color(hue: 0, saturation: 0, brightness: 0.47))
             }
             .padding(5)
         }
