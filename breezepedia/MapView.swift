@@ -18,7 +18,8 @@ struct MapView: View {
                 span: MKCoordinateSpan(latitudeDelta: 0.002, longitudeDelta: 0.002)
             )
         )) {
-//            Marker("The Breeze", coordinate: coordinate)
+            Marker("The Breeze", coordinate: coordinate)
+            Marker("Chakra Venue & Lounge", coordinate: CLLocationCoordinate2D(latitude: -6.300558, longitude: 106.653688))
         }
         .mapStyle(.standard(pointsOfInterest: .excludingAll))
 //        .frame(height: 300)

@@ -6,9 +6,12 @@
 //
 
 import SwiftUI
+import MapKit
 
 struct ContentView: View {
     @State private var showSheet = false
+    @State private var selectedAnnotation: MKAnnotation?
+    @State private var annotationPosition: CGPoint = .zero
     
     var body: some View {
         ZStack {
