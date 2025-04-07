@@ -11,6 +11,9 @@ struct Icon: View {
     var type: String = "price_circle"
     var text: String = "Rp. 10,000"
     var isInlinetext: Bool = true
+    var textSize: CGFloat = 16
+    var color: Color? = Color(hue: 0, saturation: 0, brightness: 0.47)
+    var size: CGFloat = 30
 
     var body: some View {
         if isInlinetext {
@@ -18,10 +21,10 @@ struct Icon: View {
                 Image(type)
                     .resizable()
                     .scaledToFit()
-                    .frame(width: 30, height: 30)
+                    .frame(width: size, height: size)
                 Text(text)
-                    .font(.custom("Poppins-Regular", size: 16))
-                    .foregroundColor(Color(hue: 0, saturation: 0, brightness: 0.47))
+                    .font(.custom("Poppins-Regular", size: textSize))
+                    .foregroundColor(color)
             }
             .padding(5)
         } else {
@@ -29,10 +32,10 @@ struct Icon: View {
                 Image(type)
                     .resizable()
                     .scaledToFit()
-                    .frame(width: 30, height: 30)
+                    .frame(width: size, height: size)
                 Text(text)
-                    .font(.custom("Poppins-Regular", size: 16))
-                    .foregroundColor(Color(hue: 0, saturation: 0, brightness: 0.47))
+                    .font(.custom("Poppins-Regular", size: textSize))
+                    .foregroundColor(color)
             }
             .padding(5)
         }
