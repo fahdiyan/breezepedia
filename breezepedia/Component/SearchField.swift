@@ -31,3 +31,7 @@ struct SearchField: View {
         .cornerRadius(8)
     }
 }
+
+#Preview {
+    SearchField(hintText: "Search")
+}
