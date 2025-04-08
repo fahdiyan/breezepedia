@@ -14,6 +14,26 @@ struct CustomMapView: View {
     @State private var mapViewRef: MKMapView?
     @State private var selectedTenantKey: String?
     @State var selectedTenant: TenantModel?
+    @State private var route: MKRoute?
+    
+    // titik pintu masuk
+    let entranceCoordinate = CLLocationCoordinate2D(latitude: -6.301453293388013, longitude: 106.653222511091)
+    
+    func calculateRoute(to destination: CLLocationCoordinate2D) {
+        let request = MKDirections.Request()
+        request.source = MKMapItem(placemark: MKPlacemark(coordinate: entranceCoordinate))
+        request.destination = MKMapItem(placemark: MKPlacemark(coordinate: destination))
+        request.transportType = .walking
+        
+        let directions = MKDirections(request: request)
+        directions.calculate { response, error in
+            if let route = response?.routes.first {
+                self.route = route
+            } else {
+                print("Error getting directions: \(error?.localizedDescription ?? "Unknown error")")
+            }
+        }
+    }
     
     var body: some View {
         ZStack {
@@ -23,23 +43,38 @@ struct CustomMapView: View {
                 mapViewRef: $mapViewRef,
                 selectedTenantKey: $selectedTenantKey,
                 selectedTenant: $selectedTenant,
+                route: $route,
                 tenants: dummyTenantsDict
             )
             .edgesIgnoringSafeArea(.all)
             
             // Tooltip
-            if let selectedTenantKey = selectedTenantKey,
-               let selectedTenant = dummyTenantsDict[selectedTenantKey],
+            if let tenantKey = selectedTenantKey,
+               let tenant = dummyTenantsDict[tenantKey],
                let mapView = mapViewRef {
                 GeometryReader { geometry in
-                    let point = mapView.convert(selectedTenant.coordinate, toPointTo: mapView)
+                    let point = mapView.convert(tenant.coordinate, toPointTo: mapView)
                     
                     VStack {
-                        CustomTooltip(tenant: selectedTenant)
+                        CustomTooltip(tenant: tenant) {
+                            calculateRoute(to: tenant.coordinate)
+                            selectedTenantKey = nil
+                            selectedAnnotation = nil
+                            selectedTenant = nil
+                        }
                     }
                     .position(x: point.x + 80, y: point.y - 40) // adjust offset if needed
-                    .animation(.easeInOut, value: selectedTenantKey)
+                    .animation(.easeInOut, value: tenantKey)
+                    .onAppear {
+                        // Clear the route when a new tooltip appears
+                        route = nil
+                    }
                 }
+            }
+        }
+        .onChange(of: selectedTenantKey) { newKey in
+            if newKey != nil {
+                route = nil // Hapus route lama
             }
         }
     }
@@ -51,6 +86,7 @@ struct MapViewWrapper: UIViewRepresentable {
     @Binding var mapViewRef: MKMapView?
     @Binding var selectedTenantKey: String?
     @Binding var selectedTenant: TenantModel?
+    @Binding var route: MKRoute?
     
     var tenants: [String: TenantModel]
     
@@ -105,11 +141,32 @@ struct MapViewWrapper: UIViewRepresentable {
                 annotationView.detailCalloutAccessoryView?.isHidden = true
             }
         }
+        
+        // Remove existing route overlays
+        uiView.removeOverlays(uiView.overlays)
+
+        // Cek apakah ada route baru
+            if let newRoute = route {
+                if context.coordinator.lastRoute?.polyline !== newRoute.polyline {
+                    uiView.addOverlay(newRoute.polyline)
+                    uiView.setVisibleMapRect(
+                        newRoute.polyline.boundingMapRect,
+                        edgePadding: UIEdgeInsets(top: 80, left: 40, bottom: 80, right: 40),
+                        animated: true
+                    )
+                    context.coordinator.lastRoute = newRoute
+                }
+            } else {
+                context.coordinator.lastRoute = nil
+                // Jangan zoom apapun
+            }
+        
     }
     
     class Coordinator: NSObject, MKMapViewDelegate, UIGestureRecognizerDelegate {
         var parent: MapViewWrapper
         weak var mapView: MKMapView?
+        var lastRoute: MKRoute?
         
         init(parent: MapViewWrapper) {
             self.parent = parent
@@ -132,11 +189,21 @@ struct MapViewWrapper: UIViewRepresentable {
             }
         }
         
+        // proses trigger ketika tap annotation
         func mapView(_ mapView: MKMapView, didSelect view: MKAnnotationView) {
             guard let tenantAnnotation = view.annotation as? TenantAnnotation else { return }
             
-            // Simpan state selected
-            parent.selectedTenantKey = tenantAnnotation.key
+            parent.selectedTenantKey = nil
+            parent.selectedTenant = nil
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.01) {
+                self.parent.selectedTenantKey = tenantAnnotation.key
+                self.parent.selectedTenant = tenantAnnotation.tenant
+                self.parent.route = nil
+            }
+            
+            
+            let point = mapView.convert(tenantAnnotation.coordinate, toPointTo: mapView)
+            parent.annotationPosition = point
             parent.selectedAnnotation = tenantAnnotation.annotation
         }
         
@@ -159,6 +226,7 @@ struct MapViewWrapper: UIViewRepresentable {
             }
         }
         
+        // proses override icon annotation
         func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
             let identifier = "CustomMarker"
             var annotationView = mapView.dequeueReusableAnnotationView(withIdentifier: identifier)
@@ -176,11 +244,23 @@ struct MapViewWrapper: UIViewRepresentable {
             return annotationView
         }
         
+        // trigger ketika tap di luar annotation
         func mapView(_ mapView: MKMapView, didDeselect view: MKAnnotationView) {
             DispatchQueue.main.async {
                 self.parent.selectedAnnotation = nil
                 self.parent.selectedTenantKey = nil
             }
+        }
+        
+        // trigger proses render navigation
+        func mapView(_ mapView: MKMapView, rendererFor overlay: MKOverlay) -> MKOverlayRenderer {
+            if let polyline = overlay as? MKPolyline {
+                let renderer = MKPolylineRenderer(polyline: polyline)
+                renderer.strokeColor = .systemBlue
+                renderer.lineWidth = 5
+                return renderer
+            }
+            return MKOverlayRenderer()
         }
     }
     
