@@ -16,7 +16,7 @@ struct ButtonItem : Identifiable{
 struct PreferenceSheet: View {
     @Environment(\.dismiss) var dismiss
     
-    let outlineButtons = ["Western", "Dessert", "Beverages", "Japanese", "Coffee", "Seafood", "Healty", "Snacks", "Rice", "Sate"]
+    let categories = ["Western", "Dessert", "Beverages", "Japanese", "Coffee", "Seafood", "Healty", "Snacks", "Rice", "Sate"]
     
     let facilityTexts = ["Wifi", "Halal", "Spacious", "Silent", "Cheap", "Pet Friendly", "Smoking Area", "Rooftop"]
     
@@ -46,7 +46,7 @@ struct PreferenceSheet: View {
                 .foregroundColor(Color.black.opacity(0.6))
                 .padding(.bottom, 16)
             
-            CategoriesView(items: outlineButtons)
+            CategoriesView(items: categories)
            
             Divider()
                 .frame(height: 1)
