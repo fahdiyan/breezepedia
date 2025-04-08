@@ -13,7 +13,7 @@ struct CustomMapView: View {
     @State private var annotationPosition: CGPoint = .zero
     @State private var mapViewRef: MKMapView?
     @State private var selectedTenantKey: String?
-    @State private var selectedTenant: TenantModel?
+    @State var selectedTenant: TenantModel?
     
     var body: some View {
         ZStack {

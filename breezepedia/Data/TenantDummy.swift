@@ -11,7 +11,8 @@ let dummyTenantsDict: [String: TenantModel] = [
     "J.Co" : TenantModel(
         coordinate: CLLocationCoordinate2D(latitude: -6.301864789006899, longitude: 106.65476774255488),
         name: "J.Co",
-        image: "logo_jco",
+        image: "jco",
+        coverImage: "jco_breeze",
         category: "Coffee",
         openTime: "08:00 - 20:00",
         cheapest: 10000,
@@ -20,12 +21,18 @@ let dummyTenantsDict: [String: TenantModel] = [
         capacity: 16,
         halal: true,
         pet: false,
-        menus: dummyMenus["J.Co"] ?? []
+        menus: dummyMenus["J.Co"] ?? [],
+        isCheap: true,
+        hasSmokingArea: false,
+        hasOutdoor: false,
+        isQuiet: true,
+        isSpacious: true
     ),
     "bebek bengil": TenantModel(
         coordinate: CLLocationCoordinate2D(latitude: -6.300613924151124, longitude: 106.6529659690328),
         name: "bebek bengil",
-        image: "logo_jco",
+        image: "bebekbengil",
+        coverImage: "bebekbengil_breeze",
         category: "Western",
         openTime: "08:00 - 22:00",
         cheapest: 20000,
@@ -34,12 +41,18 @@ let dummyTenantsDict: [String: TenantModel] = [
         capacity: 50,
         halal: true,
         pet: false,
-        menus: dummyMenus["bebek begil"] ?? []
+        menus: dummyMenus["bebek begil"] ?? [],
+        isCheap: true,
+        hasSmokingArea: false,
+        hasOutdoor: false,
+        isQuiet: true,
+        isSpacious: true
     ),
     "Burgreens": TenantModel(
         coordinate: CLLocationCoordinate2D(latitude: -6.301817238256368, longitude: 106.65358448881841),
         name: "Burgreens",
-        image: "logo_jco",
+        image: "burgreens",
+        coverImage: "bebekbengil_breeze",
         category: "Western",
         openTime: "08:00 - 22:00",
         cheapest: 20000,
@@ -48,12 +61,18 @@ let dummyTenantsDict: [String: TenantModel] = [
         capacity: 50,
         halal: true,
         pet: false,
-        menus: dummyMenus["Burgreens"] ?? []
+        menus: dummyMenus["Burgreens"] ?? [],
+        isCheap: true,
+        hasSmokingArea: false,
+        hasOutdoor: false,
+        isQuiet: true,
+        isSpacious: true
     ),
     "Boost": TenantModel(
         coordinate: CLLocationCoordinate2D(latitude: -6.301604216577298, longitude: 106.65389819148908),
         name: "Boost",
-        image: "logo_jco",
+        image: "boost",
+        coverImage: "boost_breeze",
         category: "Western",
         openTime: "08:00 - 17:00",
         cheapest: 20000,
@@ -62,7 +81,12 @@ let dummyTenantsDict: [String: TenantModel] = [
         capacity: 50,
         halal: true,
         pet: false,
-        menus: dummyMenus["Boost"] ?? []
+        menus: dummyMenus["Boost"] ?? [],
+        isCheap: true,
+        hasSmokingArea: false,
+        hasOutdoor: false,
+        isQuiet: true,
+        isSpacious: true
     )
 ]
 

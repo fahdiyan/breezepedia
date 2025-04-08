@@ -14,7 +14,7 @@ struct TenantDetailView: View {
     var body: some View {
         GeometryReader { geometry in
             ZStack(alignment: .top) {
-                Image("tenant-1")
+                Image(tenant.coverImage)
                     .resizable()
                     .scaledToFill()
                     .frame(width: geometry.size.width, height: 360)
@@ -36,13 +36,13 @@ struct TenantDetailView: View {
                             VStack(alignment: .leading) {
                                 // Logo & Name
                                 HStack {
-                                    Image("logo_jcopng")
+                                    Image(tenant.image)
                                         .resizable()
                                         .scaledToFit()
                                         .aspectRatio(contentMode: .fill)
                                         .frame(width: 70, height: 50)
                                     
-                                    TenantInfoView()
+                                    TenantInfoView(tenant: tenant)
                                 }
                                 
                                 // General Info
@@ -64,7 +64,7 @@ struct TenantDetailView: View {
                                     .clipShape(RoundedRectangle(cornerRadius: 5))
                                     .padding(.bottom, 16)
                                 
-                                GeneralInfoView()
+                                GeneralInfoView(tenant: tenant)
                                 
                                 // Menu List
                                 Divider()
@@ -122,12 +122,13 @@ struct TenantDetailView: View {
 }
 
 struct GeneralInfoView: View {
+    var tenant: TenantModel
     var body: some View {
         VStack(alignment: .leading) {
-            Icon(type: "price_circle", text: "Rp. 10,000 (Cheapest menu)")
-            Icon(type: "wifi_circle", text: "Wifi available")
-            Icon(type: "peak_hour_circle", text: "Peak hour: 13.00 pm - 16.00 pm")
-            Icon(type: "capacity_circle", text: "Capacity: 16 tables")
+            Icon(type: "price_circle", text: "Rp. \(tenant.cheapest). (Cheapest menu)")
+            Icon(type: "wifi_circle", text: tenant.wifi ? "Wifi available" : "Wifi not available")
+            Icon(type: "peak_hour_circle", text: "Peak hour: \(tenant.peakHour)")
+            Icon(type: "capacity_circle", text: "Capacity: \(tenant.capacity) tables")
             Icon(type: "halal_circle", text: "Halal")
             Icon(type: "petfriendly_circle", text: "No Pets Allowed")
         }
@@ -135,22 +136,20 @@ struct GeneralInfoView: View {
 }
 
 struct TenantInfoView: View {
-    var name: String = "J.Co"
-    var category: String = "Coffee and Donuts"
-    var info: String = "Open 08.00 - 20.00"
+    var tenant: TenantModel
     var body: some View {
         VStack(alignment: .leading) {
-            Text(name)
+            Text(tenant.name)
                 .font(.custom("Poppins-ExtraBold", size: 30))
                 .fontWeight(.bold)
                 .foregroundColor(Color(hue: 0, saturation: 0, brightness: 0.47))
                 .frame(height: 30)
-            Text(category)
+            Text(tenant.category)
                 .font(.custom("Poppins-Bold", size: 16))
                 .fontWeight(.bold)
                 .foregroundColor(Color(hue: 0, saturation: 0, brightness: 0.47))
                 .frame(height: 20)
-            Text(info)
+            Text(tenant.openTime)
                 .font(.custom("Poppins-Regular", size: 16))
                 .foregroundColor(Color(hue: 0, saturation: 0, brightness: 0.47))
         }
