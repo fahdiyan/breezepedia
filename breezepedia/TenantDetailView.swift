@@ -35,11 +35,11 @@ struct TenantDetailView: View {
                             VStack(alignment: .leading) {
                                 // Logo & Name
                                 HStack {
-                                    Image("logo_jco")
+                                    Image("logo_jcopng")
                                         .resizable()
                                         .scaledToFit()
                                         .aspectRatio(contentMode: .fill)
-                                        .frame(width: 120, height: 100)
+                                        .frame(width: 70, height: 50)
                                     
                                     TenantInfoView()
                                 }
