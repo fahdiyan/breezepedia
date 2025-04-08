@@ -47,7 +47,7 @@ struct MapViewWithOverlay: UIViewRepresentable {
 
         
         // Batasi zoom agar tidak bisa melihat seluruh dunia
-        let zoomRange = MKMapView.CameraZoomRange(minCenterCoordinateDistance: 100, maxCenterCoordinateDistance: 900)
+        let zoomRange = MKMapView.CameraZoomRange(minCenterCoordinateDistance: 100, maxCenterCoordinateDistance: 2000)
         mapView.setCameraZoomRange(zoomRange, animated: true)
         
         

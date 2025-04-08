@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import MapKit
 
 class TenantModel: Identifiable {
     let id: UUID = UUID()
@@ -13,6 +14,7 @@ class TenantModel: Identifiable {
     let image: String
     let category: String
     let openTime: String
+    let coordinate: CLLocationCoordinate2D
     
     // Facility
     let cheapest: Int
@@ -26,6 +28,7 @@ class TenantModel: Identifiable {
     let menus: [MenuModel]
     
     init(
+        coordinate: CLLocationCoordinate2D,
         name: String,
         image: String,
         category: String,
@@ -38,6 +41,7 @@ class TenantModel: Identifiable {
         pet: Bool,
         menus: [MenuModel]
     ) {
+        self.coordinate = coordinate
         self.name = name
         self.image = image
         self.category = category

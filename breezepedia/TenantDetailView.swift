@@ -8,7 +8,8 @@
 import SwiftUI
 
 struct TenantDetailView: View {
-    private var menus = MenuModel.generateMenuModel()
+    var tenant: TenantModel
+    var menus = MenuModel.generateMenuModel()
 
     var body: some View {
         GeometryReader { geometry in
@@ -157,6 +158,6 @@ struct TenantInfoView: View {
 }
 
 #Preview {
-    TenantDetailView()
+    TenantDetailView(tenant: dummyTenants[0])
 }
 
