@@ -60,7 +60,7 @@ struct CustomTooltip: View {
                 Button() {
                     
                 } label: {
-                    Image("navigation_circle_sticky")
+                    Image("navigation.fill.white")
                         .resizable()
                         .font(.system(size: 12, weight: .medium))
                         .aspectRatio(contentMode: .fit)
