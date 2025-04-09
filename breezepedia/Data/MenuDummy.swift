@@ -28,17 +28,17 @@ let dummyMenus: [String: [MenuModel]] = [
         MenuModel(
             name: "Jcoccino Frappe",
             image: "jcoccinofrappe",
-            description: "Lorem ipsum dolor sit amet",
+            description: "Double shot espresso, blended together with ice and fresh milk",
             price: 35000
         ),
         MenuModel(
             name: "Iced Lemon Tea",
             image: "lemontea",
-            description: "Lorem ipsum dolor sit amet",
+            description: "Cold tea infused with fresh lemon slice",
             price: 21000
         ),
         MenuModel(
-            name: "Alcapoon",
+            name: "Alcapon",
             image: "alcapoon",
             description: "Soft donut dough with slices of almond",
             price: 10000
@@ -58,152 +58,152 @@ let dummyMenus: [String: [MenuModel]] = [
     ],
     "bebek bengil": [
         MenuModel(
-            name: "Menu",
-            image: "strawberryfrappe",
-            description: "Lorem ipsum dolor sit amet",
-            price: 25000
+            name: "Bebek Bengil Crispy Original",
+            image: "bebekbengilori",
+            description: "Half portion of deep-fried duck, rich in spices and flavors combined with a set of steamed rice and Balinese vegetables or sauteed potato and salad",
+            price: 147500
         ),
         MenuModel(
-            name: "Menu",
-            image: "strawberryfrappe",
-            description: "Lorem ipsum dolor sit amet",
-            price: 25000
+            name: "Pelalah Crispy Duck",
+            image: "bebekpela",
+            description: "Chunk of duck In Balinese tomato sauce served with sweet potato rice",
+            price: 143500
         ),
         MenuModel(
-            name: "Menu",
-            image: "strawberryfrappe",
-            description: "Lorem ipsum dolor sit amet",
-            price: 25000
+            name: "Grilled Duck with Green Chili",
+            image: "sambalhijau",
+            description: "Served with sweet potato rice and vegetables",
+            price: 143500
         ),
         MenuModel(
-            name: "Menu",
-            image: "strawberryfrappe",
+            name: "Duck Fried Rice",
+            image: "duckfriedrice",
             description: "Lorem ipsum dolor sit amet",
-            price: 25000
+            price: 93500
         ),
         MenuModel(
-            name: "Menu",
-            image: "strawberryfrappe",
-            description: "Lorem ipsum dolor sit amet",
-            price: 25000
+            name: "Crispy Duck Salad",
+            image: "crispyducksalad",
+            description: "Duck salad with traditional balinese dressing",
+            price: 104500
         ),
         MenuModel(
-            name: "Menu",
-            image: "strawberryfrappe",
-            description: "Lorem ipsum dolor sit amet",
-            price: 25000
+            name: "Fresh Grilled Seafood",
+            image: "seafoodgrill",
+            description: "Prawn, squid and snapper served with garlic butter and chili sauce",
+            price: 139000
         ),
         MenuModel(
-            name: "Menu",
+            name: "Tomyam goong",
             image: "strawberryfrappe",
-            description: "Lorem ipsum dolor sit amet",
-            price: 25000
+            description: "Spicy Thai shrimp and mushroom soup with lemon grass",
+            price: 88000
         ),
         MenuModel(
-            name: "Menu",
-            image: "strawberryfrappe",
-            description: "Lorem ipsum dolor sit amet",
-            price: 25000
+            name: "Chicken Soup",
+            image: "supayam",
+            description: "Delicious soup with shredded chicken",
+            price: 60500
         )
     ],
     "Burgreens": [
         MenuModel(
-            name: "Menu",
+            name: "Crispy Chicken Burger",
             image: "strawberryfrappe",
+            description: "Lorem ipsum dolor sit amet",
+            price: 59000
+        ),
+        MenuModel(
+            name: "Beefless Cheeze Burger",
+            image: "strawberryfrappe",
+            description: "Plant - based bee fless minced patty topped with melted vegan cheeze , coleslaw salad. Sliced tomatoes and home made cucumber pickles in whole-wheat brioche bun",
+            price: 65000
+        ),
+        MenuModel(
+            name: "Mighty Mushroom Burger",
+            image: "",
+            description: "Juicy pan-grilled mushroom patty topped with lettuce, sliced tomatoes , home made cucumber pickles, sauteed onions, caesar dressing in whole-wheat briochebun",
+            price: 55000
+        ),
+        MenuModel(
+            name: "Trio Mini Burger",
+            image: "triomini",
+            description: " Mini veggie burgers consisting of crispy chick'n tender, shredded beefless meat and mini mighty mushroom patty in whole-wheat briochebun",
+            price: 69000
+        ),
+        MenuModel(
+            name: "Truffle Pasta",
+            image: "trufflepasta",
+            description: "Combination of pasta, truffle oil,vegan cheddar, sauteed champignon mushroom,pinach and served alongside garlic sourdough bread . Delizioso!",
+            price: 60000
+        ),
+        MenuModel(
+            name: "Kung Pao",
+            image: "kungpao",
+            description: "Chinese-style organic tofu, onion, served with organic brown rice a n d organic greens",
+            price: 55000
+        ),
+        MenuModel(
+            name: "Asian Platter",
+            image: "asianplatter",
             description: "Lorem ipsum dolor sit amet",
             price: 25000
         ),
         MenuModel(
-            name: "Menu",
-            image: "strawberryfrappe",
-            description: "Lorem ipsum dolor sit amet",
-            price: 25000
-        ),
-        MenuModel(
-            name: "Menu",
-            image: "strawberryfrappe",
-            description: "Lorem ipsum dolor sit amet",
-            price: 25000
-        ),
-        MenuModel(
-            name: "Menu",
-            image: "strawberryfrappe",
-            description: "Lorem ipsum dolor sit amet",
-            price: 25000
-        ),
-        MenuModel(
-            name: "Menu",
-            image: "strawberryfrappe",
-            description: "Lorem ipsum dolor sit amet",
-            price: 25000
-        ),
-        MenuModel(
-            name: "Menu",
-            image: "strawberryfrappe",
-            description: "Lorem ipsum dolor sit amet",
-            price: 25000
-        ),
-        MenuModel(
-            name: "Menu",
-            image: "strawberryfrappe",
-            description: "Lorem ipsum dolor sit amet",
-            price: 25000
-        ),
-        MenuModel(
-            name: "Menu",
-            image: "strawberryfrappe",
-            description: "Lorem ipsum dolor sit amet",
-            price: 25000
+            name: "Vegan Bimbimbap",
+            image: "veganbim",
+            description: "Vomes with brown rice, beefless bulgogi. steamed veggies, vegan kimchi and a special gochujang sauce",
+            price: 59000
         )
     ],
     "Boost": [
         MenuModel(
-            name: "Menu",
-            image: "strawberryfrappe",
-            description: "Lorem ipsum dolor sit amet",
-            price: 25000
+            name: "5 A Day Fit (Premium)",
+            image: "adayfit",
+            description: "Freshly squeezed orange, apple, carrot, celery, beetroot & ice + vita booster",
+            price: 75000
         ),
         MenuModel(
-            name: "Menu",
-            image: "strawberryfrappe",
-            description: "Lorem ipsum dolor sit amet",
-            price: 25000
+            name: "Energiser Juice (Premium)",
+            image: "energiser",
+            description: "Freshly squeezed orange, banana, strawberries & ice + energiser booster",
+            price: 55000
         ),
         MenuModel(
-            name: "Menu",
-            image: "strawberryfrappe",
-            description: "Lorem ipsum dolor sit amet",
-            price: 25000
+            name: "Lean and Green (Premium)",
+            image: "leangreen",
+            description: "Freshly juiced apple, celery, mint, cucumber & ice + wheat grass booster",
+            price: 75000
         ),
         MenuModel(
-            name: "Menu",
-            image: "strawberryfrappe",
-            description: "Lorem ipsum dolor sit amet",
-            price: 25000
+            name: "Wild Berry Juice (Premium)",
+            image: "wildberry",
+            description: "Freshly juiced pineapple, apple, raspberries, strawberries, blueberries & ice + energiser booster",
+            price: 75000
         ),
         MenuModel(
-            name: "Menu",
-            image: "strawberryfrappe",
-            description: "Lorem ipsum dolor sit amet",
-            price: 25000
+            name: "Strawbrekkie Protein",
+            image: "strawbrekkie",
+            description: "Banana, blueberries, strawberries, oats, whey protein, apple juice, TD4 strawberry yoghurt & ice + energiser booster",
+            price: 55000
         ),
         MenuModel(
-            name: "Menu",
-            image: "strawberryfrappe",
-            description: "Lorem ipsum dolor sit amet",
-            price: 25000
+            name: "Superfruit Energy",
+            image: "superfruit",
+            description: "Raspberries, blueberries, apple juice, TD4 vanilla yoghurt, TD4 strawberry yoghurt & ice + superfruit booster + energiser booster",
+            price: 59000
         ),
         MenuModel(
-            name: "Menu",
-            image: "strawberryfrappe",
-            description: "Lorem ipsum dolor sit amet",
-            price: 25000
+            name: "Protein Supreme",
+            image: "proteinsupreme",
+            description: "Banana, toasted muesli, whey protein, chia seeds, cinnamon, honey, coconut water, coconut milk & ice",
+            price: 55000
         ),
         MenuModel(
-            name: "Menu",
-            image: "strawberryfrappe",
-            description: "Lorem ipsum dolor sit amet",
-            price: 25000
+            name: "Vita C Detox Juice",
+            image: "vitac",
+            description: "Freshly squeezed orange, apple, carrot, ginger & ice + vita booster",
+            price: 65000
         )
     ]
 ]

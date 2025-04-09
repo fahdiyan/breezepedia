@@ -41,7 +41,7 @@ let dummyTenantsDict: [String: TenantModel] = [
         capacity: 50,
         halal: true,
         pet: false,
-        menus: dummyMenus["bebek begil"] ?? [],
+        menus: dummyMenus["Bebek Bengil"] ?? [],
         isCheap: true,
         hasSmokingArea: false,
         hasOutdoor: false,
@@ -49,7 +49,7 @@ let dummyTenantsDict: [String: TenantModel] = [
         isSpacious: true
     ),
     "Burgreens": TenantModel(
-        coordinate: CLLocationCoordinate2D(latitude: -6.301817238256368, longitude: 106.65358448881841),
+        coordinate: CLLocationCoordinate2D(latitude: -6.301834313032891, longitude:  106.65358780840859),
         name: "Burgreens",
         image: "burgreens",
         coverImage: "bebekbengil_breeze",

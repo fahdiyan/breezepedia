@@ -8,7 +8,7 @@
 import SwiftUI
 import MapKit
 
-struct CustomMapView: View {
+struct CustomMapView: View {  
     @State private var selectedAnnotation: MKPointAnnotation?
     @State private var annotationPosition: CGPoint = .zero
     @State private var mapViewRef: MKMapView?
