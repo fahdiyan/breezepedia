@@ -109,6 +109,11 @@ struct ContentView: View {
                             .cornerRadius(25)
                     }
                     .padding(.bottom, 64)
+                    .onChange(of: searchText) { newValue in
+                        if !newValue.isEmpty {
+                            filterOptions = FilterOptions(selectedCategory: nil, selectedFacilities: [])
+                        }
+                    }
                 }
                 .ignoresSafeArea(.all)
             }
