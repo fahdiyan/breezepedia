@@ -144,22 +144,22 @@ struct MapViewWrapper: UIViewRepresentable {
         
         // Remove existing route overlays
         uiView.removeOverlays(uiView.overlays)
-
+        
         // Cek apakah ada route baru
-            if let newRoute = route {
-                if context.coordinator.lastRoute?.polyline !== newRoute.polyline {
-                    uiView.addOverlay(newRoute.polyline)
-                    uiView.setVisibleMapRect(
-                        newRoute.polyline.boundingMapRect,
-                        edgePadding: UIEdgeInsets(top: 80, left: 40, bottom: 80, right: 40),
-                        animated: true
-                    )
-                    context.coordinator.lastRoute = newRoute
-                }
-            } else {
-                context.coordinator.lastRoute = nil
-                // Jangan zoom apapun
+        if let newRoute = route {
+            if context.coordinator.lastRoute?.polyline !== newRoute.polyline {
+                uiView.addOverlay(newRoute.polyline)
+                uiView.setVisibleMapRect(
+                    newRoute.polyline.boundingMapRect,
+                    edgePadding: UIEdgeInsets(top: 80, left: 40, bottom: 80, right: 40),
+                    animated: true
+                )
+                context.coordinator.lastRoute = newRoute
             }
+        } else {
+            context.coordinator.lastRoute = nil
+            // Jangan zoom apapun
+        }
         
     }
     
@@ -228,6 +228,10 @@ struct MapViewWrapper: UIViewRepresentable {
         
         // proses override icon annotation
         func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
+            guard let tenantAnnotation = annotation as? TenantAnnotation else {
+                return nil
+            }
+            
             let identifier = "CustomMarker"
             var annotationView = mapView.dequeueReusableAnnotationView(withIdentifier: identifier)
             
@@ -237,6 +241,28 @@ struct MapViewWrapper: UIViewRepresentable {
                 annotationView?.image = UIImage(named: "location.fill") // ganti dengan custom icon kalau mau
                 annotationView?.frame.size = CGSize(width: 40, height: 40)
                 annotationView?.centerOffset = CGPoint(x: 0, y: -20)
+                
+                // Label tenant
+                let label = UILabel()
+                label.attributedText = NSAttributedString(string: tenantAnnotation.tenant.name, attributes: [
+                    .strokeColor: UIColor.white,
+                    .foregroundColor: UIColor(
+                        red: 0x70 / 255,
+                        green: 0x42 / 255,
+                        blue: 0x9A / 255,
+                        alpha: 1
+                    ), // warna isi teks
+                    .strokeWidth: -1.0, // negatif = isi teks tetap tampil
+                    .font: UIFont.boldSystemFont(ofSize: 12)
+                ])
+                label.layer.cornerRadius = 4
+                label.clipsToBounds = true
+                label.textAlignment = .center
+                label.sizeToFit()
+                label.frame = CGRect(x: -label.frame.width - 10, y: (annotationView?.frame.height ?? 40) / 2 - 10, width: label.frame.width + 10, height: 20)
+                
+                // Tambahkan ke annotationView
+                annotationView?.addSubview(label)
             } else {
                 annotationView?.annotation = annotation
             }
