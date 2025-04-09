@@ -95,7 +95,7 @@ let dummyMenus: [String: [MenuModel]] = [
         ),
         MenuModel(
             name: "Tomyam goong",
-            image: "strawberryfrappe",
+            image: "tomyam",
             description: "Spicy Thai shrimp and mushroom soup with lemon grass",
             price: 88000
         ),
@@ -109,19 +109,19 @@ let dummyMenus: [String: [MenuModel]] = [
     "Burgreens": [
         MenuModel(
             name: "Crispy Chicken Burger",
-            image: "strawberryfrappe",
+            image: "crispychicken",
             description: "Lorem ipsum dolor sit amet",
             price: 59000
         ),
         MenuModel(
             name: "Beefless Cheeze Burger",
-            image: "strawberryfrappe",
+            image: "beeflesscheeze",
             description: "Plant - based bee fless minced patty topped with melted vegan cheeze , coleslaw salad. Sliced tomatoes and home made cucumber pickles in whole-wheat brioche bun",
             price: 65000
         ),
         MenuModel(
             name: "Mighty Mushroom Burger",
-            image: "",
+            image: "mightymushroom",
             description: "Juicy pan-grilled mushroom patty topped with lettuce, sliced tomatoes , home made cucumber pickles, sauteed onions, caesar dressing in whole-wheat briochebun",
             price: 55000
         ),
@@ -146,7 +146,7 @@ let dummyMenus: [String: [MenuModel]] = [
         MenuModel(
             name: "Asian Platter",
             image: "asianplatter",
-            description: "Lorem ipsum dolor sit amet",
+            description: "Set of meat, chicken grill with vegetable topping",
             price: 25000
         ),
         MenuModel(
