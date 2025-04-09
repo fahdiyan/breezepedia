@@ -18,10 +18,10 @@ struct ScreenView: View {
             )).ignoresSafeArea()
             
             VStack {
-                Image("logo_breezepedia_white")
+                Image("breezepediawordmark")
                     .resizable()
                     .scaledToFit()
-                    .frame(width: 300, height: 300)
+                    .frame(width: 320, height: 320)
             }
             Text("")
                 .foregroundColor(.white)
