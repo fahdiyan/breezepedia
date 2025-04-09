@@ -26,56 +26,12 @@ class MenuModel: Identifiable {
         self.price = price
     }
     
-    static func generateMenuModel() -> [MenuModel] {
-        return [
-            MenuModel(
-                name: "Jcochino",
-                image: "jcochino",
-                description: "Double shot espresso + milk",
-                price: 27000
-            ),
-            MenuModel(
-                name: "Matcha Frappe",
-                image: "greenteafrappe",
-                description: "Premium matcha powder + milk, garnished with whipped cream",
-                price: 35000
-            ),
-            MenuModel(
-                name: "Strawberry Yogurt Frappe",
-                image: "strawberryfrappe",
-                description: "Lorem ipsum dolor sit amet",
-                price: 35000
-            ),
-            MenuModel(
-                name: "Jcoccino Frappe",
-                image: "jcoccinofrappe",
-                description: "Lorem ipsum dolor sit amet",
-                price: 35000
-            ),
-            MenuModel(
-                name: "Iced Lemon Tea",
-                image: "lemontea",
-                description: "Lorem ipsum dolor sit amet",
-                price: 21000
-            ),
-            MenuModel(
-                name: "Alcapoon",
-                image: "alcapoon",
-                description: "Soft donut dough with slices of almond",
-                price: 10000
-            ),
-            MenuModel(
-                name: "Rainbow Choco",
-                image: "rainbowchoco",
-                description: "Soft donut dough with rainbow sprinkles on top",
-                price: 10000
-            ),
-            MenuModel(
-                name: "Choco Caviar",
-                image: "caviarchoco",
-                description: "Soft donut dough with small crunchy choco balls",
-                price: 10000
-            )
-        ]
+    static func generateMenuModel(forTenant tenantName: String) -> [MenuModel] {
+        // Cari key yang cocok tanpa peduli kapitalisasi
+        if let key = dummyMenus.keys.first(where: { $0.lowercased() == tenantName.lowercased() }) {
+            return dummyMenus[key] ?? []
+        } else {
+            return []
+        }
     }
 }

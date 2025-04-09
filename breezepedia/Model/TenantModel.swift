@@ -31,7 +31,9 @@ class TenantModel: Identifiable {
     let isSpacious: Bool
     
     // Menu
-    let menus: [MenuModel]
+    var menus: [MenuModel] {
+        MenuModel.generateMenuModel(forTenant: name)
+    }
     
     init(
         coordinate: CLLocationCoordinate2D,
@@ -65,7 +67,6 @@ class TenantModel: Identifiable {
         self.capacity = capacity
         self.halal = halal
         self.pet = pet
-        self.menus = menus
         self.isCheap = isCheap
         self.hasSmokingArea = hasSmokingArea
         self.hasOutdoor = hasOutdoor

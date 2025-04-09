@@ -9,7 +9,6 @@ import SwiftUI
 
 struct TenantDetailView: View {
     var tenant: TenantModel
-    var menus = MenuModel.generateMenuModel()
 
     var body: some View {
         GeometryReader { geometry in
@@ -88,7 +87,7 @@ struct TenantDetailView: View {
                                     .padding(.bottom, 16)
                                 
                                 VStack(spacing: 18) {
-                                    ForEach(menus) { menu in
+                                    ForEach(tenant.menus) { menu in
                                         MenuCard(menu: menu)
                                     }
                                 }
