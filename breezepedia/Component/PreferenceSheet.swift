@@ -16,9 +16,9 @@ struct ButtonItem : Identifiable{
 struct PreferenceSheet: View {
     @Environment(\.dismiss) var dismiss
     
-    let categories = ["Western", "Dessert", "Beverages", "Japanese", "Coffee", "Seafood", "Healty", "Snacks", "Rice", "Sate"]
+    let categories = ["Local Dish", "Dessert", "Beverages", "Japanese Dish", "Coffee", "Seafood", "Protein", "Snacks", "Western Dish"]
     
-    let facilityTexts = ["Wifi", "Halal", "Spacious", "Silent", "Cheap", "Pet Friendly", "Smoking Area", "Rooftop"]
+    let facilityTexts = ["Wifi", "Halal", "Spacious", "Silent", "Cheap", "Pet Friendly", "Smoking Area", "Outdoor"]
     
     let facilityIcons = ["wifi.fill", "halal_circle", "room.fill", "silent.fill", "pricetag.fill", "pet.fill", "mdi_smoking-area", "outfoor.fill"]
     
@@ -43,7 +43,7 @@ struct PreferenceSheet: View {
             
             Text("What’s on your mood today?")
                 .font(.system(size: 16, weight: .semibold))
-                .foregroundColor(Color.black.opacity(0.6))
+                .foregroundColor(Color.black.opacity(0.7))
                 .padding(.bottom, 16)
             
             CategoriesView(items: categories)
@@ -55,7 +55,7 @@ struct PreferenceSheet: View {
             
             Text("Any specific facilities you want to have?")
                 .font(.system(size: 16, weight: .semibold))
-                .foregroundColor(Color.black.opacity(0.6))
+                .foregroundColor(Color.black.opacity(0.7))
                 .padding(.bottom, 16)
 
             FacilitiesView(

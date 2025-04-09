@@ -24,8 +24,10 @@ struct FacilityButton: View {
                 Text(label)
                     .font(.system(size: 14, weight: .medium))
                     .lineLimit(2)
+                    
+            
             }
-            .frame(width: 64, height: 72)
+            .frame(width: 65, height: 75)
             .padding(6)
             .foregroundColor(isSelected
                              ? .white

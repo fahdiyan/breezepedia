@@ -142,9 +142,8 @@ struct TenantInfoView: View {
     var body: some View {
         VStack(alignment: .leading) {
             Text(tenant.name)
-                .font(.custom("Poppins-ExtraBold.ttf", size: 24))
-                .fontWeight(.bold)
-                .foregroundColor(Color(hue: 0, saturation: 0, brightness: 0))
+                .font(.system(size: 24, weight: .bold))
+                .foregroundColor(Color(hue: 0, saturation: 0, brightness: 0.3))
                 .frame(height: 30)
                 .padding(.leading, 10)
                 .padding(.top, 15)

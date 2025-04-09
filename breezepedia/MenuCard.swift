@@ -38,7 +38,7 @@ struct MenuCard: View {
                 Spacer()
                
                 Text("Rp. \(menu.price),-")
-                   .font(.system(size: 16, weight: .regular))
+                    .font(.system(size: 14, weight: .bold))
                    .foregroundColor(Color(UIColor(
                     red: 0x70 / 255,
                     green: 0x42 / 255,

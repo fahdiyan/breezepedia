@@ -15,8 +15,9 @@ struct CategoryButton: View {
     var body: some View {
         Button(action: action) {
             Text(label)
-                .padding(.horizontal, 12)
+                .padding(.horizontal, 10)
                 .padding(.vertical, 6)
+                .lineLimit(1)
                 .foregroundColor(isSelected
                                  ? .white
                                  : Color(UIColor(
@@ -53,6 +54,7 @@ struct CategoryButton: View {
 
                 )
                 .cornerRadius(6)
+               
         }
         .animation(.easeInOut(duration: 0.2), value: isSelected)
     }
