@@ -12,7 +12,7 @@ struct Icon: View {
     var text: String = "Rp. 10,000"
     var isInlinetext: Bool = true
     var textSize: CGFloat = 16
-    var color: Color? = Color(hue: 0, saturation: 0, brightness: 0.47)
+    var color: Color? = Color(hue: 0, saturation: 0, brightness: 0.3)
     var size: CGFloat = 30
 
     var body: some View {

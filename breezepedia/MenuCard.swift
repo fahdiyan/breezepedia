@@ -15,19 +15,14 @@ struct MenuCard: View {
             Image(menu.image)
                 .resizable()
                 .scaledToFill()
-                .frame(width: 105, height: 105)
+                .frame(width: 95, height: 95)
                 .clipShape(RoundedRectangle(cornerRadius: 5))
                 .padding(8)
             
             VStack(alignment: .leading) {
                 Text(menu.name)
                     .font(.system(size: 16, weight: .semibold))
-                    .foregroundColor(Color(UIColor(
-                        red: 0x70 / 255,
-                        green: 0x42 / 255,
-                        blue: 0x9A / 255,
-                        alpha: 1
-                    )))
+                    .foregroundColor(Color.black.opacity(0.7))
                     .padding(.bottom, 4)
                
                 Text(menu.description)
@@ -38,7 +33,7 @@ struct MenuCard: View {
                 Spacer()
                
                 Text("Rp. \(menu.price),-")
-                    .font(.system(size: 14, weight: .bold))
+                    .font(.system(size: 16, weight: .regular))
                    .foregroundColor(Color(UIColor(
                     red: 0x70 / 255,
                     green: 0x42 / 255,
@@ -52,7 +47,8 @@ struct MenuCard: View {
         .frame(maxWidth: .infinity, maxHeight: 120, alignment: .leading)
         .background(Color.white)
         .clipShape(RoundedRectangle(cornerRadius: 10))
-        .shadow(radius: 1, y:3)
+        .shadow(color: Color.black.opacity(0.07), radius: 1, y: 3)
+        
      
     }
 }
@@ -60,7 +56,7 @@ struct MenuCard: View {
 #Preview {
     MenuCard(
         menu: MenuModel(
-            name: "Jcochino",
+            name: "Jcocchino",
             image: "jcochino",
             description: "Double shot espresso + milk, garnished with foam aaaaaaaaaaaaaaaa",
 

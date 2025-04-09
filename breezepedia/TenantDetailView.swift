@@ -41,8 +41,8 @@ struct TenantDetailView: View {
                                         .scaledToFit()
                                         .aspectRatio(contentMode: .fill)
                                         .frame(width: 90, height: 60)
-                                        .padding(.top,15)
-                                        .padding(.bottom,15)
+                                        .padding(.top,10)
+                                        .padding(.bottom,10)
                                     
                                     TenantInfoView(tenant: tenant)
                                 }
@@ -51,7 +51,7 @@ struct TenantDetailView: View {
                                 Divider()
                                     .frame(height: 1)
                                     .overlay(.gray.opacity(0.3))
-                                    .padding(.vertical, 16)
+                                    .padding(.vertical, 20)
                                 
                                 Text("Tenant Detail")
                                     .frame(width: 132, height: 28)
@@ -72,7 +72,7 @@ struct TenantDetailView: View {
                                 Divider()
                                     .frame(height: 1)
                                     .overlay(.gray.opacity(0.3))
-                                    .padding(.vertical, 16)
+                                    .padding(.vertical, 20)
                                 
                                 Text("Menu List")
                                     .frame(width: 132, height: 28)
@@ -133,6 +133,7 @@ struct GeneralInfoView: View {
             Icon(type: "capacity_circle", text: "Capacity: \(tenant.capacity) tables")
             Icon(type: "halal_circle", text: "Halal")
             Icon(type: "petfriendly_circle", text: "No Pets Allowed")
+          
         }
     }
 }
@@ -146,7 +147,7 @@ struct TenantInfoView: View {
                 .foregroundColor(Color(hue: 0, saturation: 0, brightness: 0.3))
                 .frame(height: 30)
                 .padding(.leading, 10)
-                .padding(.top, 15)
+                .padding(.top, 10)
             
             Text(tenant.category)
                 .font(.custom("Poppins-Bold.ttf", size: 16))
@@ -160,7 +161,7 @@ struct TenantInfoView: View {
                 .font(.custom("Poppins-Regular", size: 16))
                 .foregroundColor(Color(hue: 0, saturation: 0, brightness: 0.47))
                 .padding(.leading,10)
-                .padding(.bottom,15)
+                .padding(.bottom,10)
           
         }
     }
