@@ -40,7 +40,9 @@ struct TenantDetailView: View {
                                         .resizable()
                                         .scaledToFit()
                                         .aspectRatio(contentMode: .fill)
-                                        .frame(width: 70, height: 50)
+                                        .frame(width: 90, height: 60)
+                                        .padding(.top,15)
+                                        .padding(.bottom,15)
                                     
                                     TenantInfoView(tenant: tenant)
                                 }
@@ -92,7 +94,7 @@ struct TenantDetailView: View {
                                 }
                             }
                             .padding(.vertical, 24)
-                            .padding(.horizontal, 20)
+                            .padding(.horizontal, 30)
                         }
                     }
                 }
@@ -140,18 +142,27 @@ struct TenantInfoView: View {
     var body: some View {
         VStack(alignment: .leading) {
             Text(tenant.name)
-                .font(.custom("Poppins-ExtraBold", size: 30))
+                .font(.custom("Poppins-ExtraBold.ttf", size: 24))
                 .fontWeight(.bold)
-                .foregroundColor(Color(hue: 0, saturation: 0, brightness: 0.47))
+                .foregroundColor(Color(hue: 0, saturation: 0, brightness: 0))
                 .frame(height: 30)
+                .padding(.leading, 10)
+                .padding(.top, 15)
+            
             Text(tenant.category)
-                .font(.custom("Poppins-Bold", size: 16))
+                .font(.custom("Poppins-Bold.ttf", size: 16))
                 .fontWeight(.bold)
                 .foregroundColor(Color(hue: 0, saturation: 0, brightness: 0.47))
                 .frame(height: 20)
+                .padding(.leading,10)
+            
+                
             Text(tenant.openTime)
                 .font(.custom("Poppins-Regular", size: 16))
                 .foregroundColor(Color(hue: 0, saturation: 0, brightness: 0.47))
+                .padding(.leading,10)
+                .padding(.bottom,15)
+          
         }
     }
 }
