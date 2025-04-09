@@ -15,6 +15,7 @@ struct ButtonItem : Identifiable{
 
 struct PreferenceSheet: View {
     @Environment(\.dismiss) var dismiss
+    @Binding var filterOptions: FilterOptions
     
     let categories = ["Local Dish", "Dessert", "Beverages", "Japanese Dish", "Coffee", "Seafood", "Protein", "Snacks", "Western Dish"]
     
@@ -23,7 +24,10 @@ struct PreferenceSheet: View {
     let facilityIcons = ["wifi.fill", "halal_circle", "room.fill", "silent.fill", "pricetag.fill", "pet.fill", "mdi_smoking-area", "outfoor.fill"]
     
     let selectedFacilityIcons = ["wifi.white", "halal.white.circle", "Room.white", "silent.white", "pricetag.white", "pet.white", "smoking.white", "outfoor.white"]
-        
+    
+    @State private var selectedCategory: String? = nil
+    @State private var selectedFacilities: Set<String> = []
+    
     var body: some View {
         VStack(alignment: .leading) {
             HStack {
@@ -46,8 +50,8 @@ struct PreferenceSheet: View {
                 .foregroundColor(Color.black.opacity(0.7))
                 .padding(.bottom, 16)
             
-            CategoriesView(items: categories)
-           
+            CategoriesView(items: categories, selectedItem: $selectedCategory)
+            
             Divider()
                 .frame(height: 1)
                 .overlay(.gray.opacity(0.3))
@@ -61,14 +65,19 @@ struct PreferenceSheet: View {
             FacilitiesView(
                 texts: facilityTexts,
                 icons: facilityIcons,
-                selectedIcons: selectedFacilityIcons
+                selectedIcons: selectedFacilityIcons,
+                selectedLabels: $selectedFacilities
             )
             
             HStack {
                 Spacer()
                 
                 Button(action: {
-                    // Apply Filter
+                    filterOptions = FilterOptions(
+                        selectedCategory: selectedCategory,
+                        selectedFacilities: selectedFacilities
+                    )
+                    dismiss()
                 }) {
                     Text("Apply Filter")
                         .font(.system(size: 16, weight: .medium))
@@ -97,8 +106,7 @@ struct PreferenceSheet: View {
 
 struct CategoriesView: View {
     let items: [String]
-    
-    @State private var selectedItem: String? = nil
+    @Binding var selectedItem: String?
     
     var rows: [[String]] {
         [
@@ -130,8 +138,7 @@ struct FacilitiesView: View {
     let texts: [String]
     let icons: [String]
     let selectedIcons: [String]
-
-    @State private var selectedIndexes: Set<Int> = []
+    @Binding var selectedLabels: Set<String>
 
     var body: some View {
         let items = Array(zip3(texts, icons, selectedIcons))
@@ -144,19 +151,18 @@ struct FacilitiesView: View {
             ForEach(0..<rows.count, id: \.self) { rowIndex in
                 HStack(spacing: 8) {
                     ForEach(0..<rows[rowIndex].count, id: \.self) { colIndex in
-                        let index = rowIndex * 4 + colIndex
                         let item = rows[rowIndex][colIndex]
-
+                        let label = item.0
                         FacilityButton(
-                            label: item.0,
+                            label: label,
                             icon: item.1,
                             selectedIcon: item.2,
-                            isSelected: selectedIndexes.contains(index)
+                            isSelected: selectedLabels.contains(label)
                         ) {
-                            if selectedIndexes.contains(index) {
-                                selectedIndexes.remove(index)
+                            if selectedLabels.contains(label) {
+                                selectedLabels.remove(label)
                             } else {
-                                selectedIndexes.insert(index)
+                                selectedLabels.insert(label)
                             }
                         }
                     }
@@ -170,7 +176,13 @@ struct FacilitiesView: View {
     }
 }
 
+struct FilterOptions {
+    var selectedCategory: String?
+    var selectedFacilities: Set<String>
+}
 
 #Preview {
-    PreferenceSheet()
+    StatefulPreviewWrapper(
+        FilterOptions(selectedCategory: nil, selectedFacilities: [])
+    ) { PreferenceSheet(filterOptions: $0) }
 }

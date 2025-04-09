@@ -15,13 +15,32 @@ struct ContentView: View {
     
     @State private var searchText: String = ""
     
+    @State private var filterOptions = FilterOptions(selectedCategory: nil, selectedFacilities: [])
+    
     var filteredTenants: [String: TenantModel] {
-        if searchText.isEmpty {
-            return dummyTenantsDict
-        } else {
-            return dummyTenantsDict.filter {
-                $0.value.name.lowercased().contains(searchText.lowercased())
+        dummyTenantsDict.filter { _, tenant in
+            let matchesSearch = searchText.isEmpty ||
+                tenant.name.lowercased().contains(searchText.lowercased()) ||
+                tenant.category.lowercased().contains(searchText.lowercased())
+
+            let matchesCategory = filterOptions.selectedCategory == nil ||
+                tenant.category.lowercased().contains(filterOptions.selectedCategory!.lowercased())
+
+            let matchesFacilities = filterOptions.selectedFacilities.allSatisfy { facility in
+                switch facility.lowercased() {
+                    case "wifi": return tenant.wifi
+                    case "halal": return tenant.halal
+                    case "spacious": return tenant.isSpacious
+                    case "silent": return tenant.isQuiet
+                    case "cheap": return tenant.isCheap
+                    case "pet friendly": return tenant.pet
+                    case "smoking area": return tenant.hasSmokingArea
+                    case "outdoor": return tenant.hasOutdoor
+                    default: return true
+                }
             }
+            
+            return matchesSearch && matchesCategory && matchesFacilities
         }
     }
     
@@ -86,7 +105,7 @@ struct ContentView: View {
                             .shadow(radius: 4, y: 3)
                     }
                     .sheet(isPresented: $showSheet) {
-                        PreferenceSheet()
+                        PreferenceSheet(filterOptions: $filterOptions)
                             .cornerRadius(25)
                     }
                     .padding(.bottom, 64)
