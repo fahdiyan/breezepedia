@@ -15,11 +15,12 @@ struct CustomMapView: View {
     @State private var selectedTenantKey: String?
     @State var selectedTenant: TenantModel?
     @State private var route: MKRoute?
+    @State private var showEntranceAnnotation = false
+    @State private var entranceCoordinate = CLLocationCoordinate2D(latitude: -6.301453293388013, longitude: 106.653222511091)
+    @State private var routingDestinationKey: String? = nil
+    @State private var showNavigation = false
     
-    // titik pintu masuk
-    let entranceCoordinate = CLLocationCoordinate2D(latitude: -6.301453293388013, longitude: 106.653222511091)
-    
-    func calculateRoute(to destination: CLLocationCoordinate2D) {
+    func calculateRoute(to destination: CLLocationCoordinate2D, key: String) {
         let request = MKDirections.Request()
         request.source = MKMapItem(placemark: MKPlacemark(coordinate: entranceCoordinate))
         request.destination = MKMapItem(placemark: MKPlacemark(coordinate: destination))
@@ -29,6 +30,7 @@ struct CustomMapView: View {
         directions.calculate { response, error in
             if let route = response?.routes.first {
                 self.route = route
+                self.routingDestinationKey = key // simpan tujuan
             } else {
                 print("Error getting directions: \(error?.localizedDescription ?? "Unknown error")")
             }
@@ -44,6 +46,9 @@ struct CustomMapView: View {
                 selectedTenantKey: $selectedTenantKey,
                 selectedTenant: $selectedTenant,
                 route: $route,
+                showEntranceAnnotation: $showEntranceAnnotation,
+                routingDestinationKey: $routingDestinationKey,
+                showNavigation: $showNavigation,
                 tenants: dummyTenantsDict
             )
             .edgesIgnoringSafeArea(.all)
@@ -52,15 +57,21 @@ struct CustomMapView: View {
             if let tenantKey = selectedTenantKey,
                let tenant = dummyTenantsDict[tenantKey],
                let mapView = mapViewRef {
+
+                if (showNavigation) {
+                    NavigationView(tenant: tenant)
+                }
+
                 GeometryReader { geometry in
                     let point = mapView.convert(tenant.coordinate, toPointTo: mapView)
                     
                     VStack {
                         CustomTooltip(tenant: tenant) {
-                            calculateRoute(to: tenant.coordinate)
+                            calculateRoute(to: tenant.coordinate, key: tenant.name)
                             selectedTenantKey = nil
                             selectedAnnotation = nil
                             selectedTenant = nil
+                            showEntranceAnnotation = true
                         }
                     }
                     .position(x: point.x + 80, y: point.y - 40) // adjust offset if needed
@@ -68,14 +79,20 @@ struct CustomMapView: View {
                     .onAppear {
                         // Clear the route when a new tooltip appears
                         route = nil
+                        showEntranceAnnotation = false
                     }
                 }
             }
         }
         .onChange(of: selectedTenantKey) { newKey in
-            if newKey != nil {
-                route = nil // Hapus route lama
+            guard let key = newKey,
+                  let tenant = dummyTenantsDict[key] else {
+                route = nil
+                routingDestinationKey = nil // ✅ reset saat tenant deselect
+                return
             }
+            
+            let destinationCoordinate = tenant.coordinate
         }
     }
 }
@@ -87,6 +104,10 @@ struct MapViewWrapper: UIViewRepresentable {
     @Binding var selectedTenantKey: String?
     @Binding var selectedTenant: TenantModel?
     @Binding var route: MKRoute?
+    @Binding var showEntranceAnnotation: Bool
+    @Binding var routingDestinationKey: String?
+    @Binding var showNavigation: Bool
+
     
     var tenants: [String: TenantModel]
     
@@ -158,7 +179,36 @@ struct MapViewWrapper: UIViewRepresentable {
             }
         } else {
             context.coordinator.lastRoute = nil
+            showEntranceAnnotation = false
             // Jangan zoom apapun
+        }
+        
+        if showEntranceAnnotation {
+            if !uiView.annotations.contains(where: { $0 is EntranceAnnotation }) {
+                uiView.addAnnotation(context.coordinator.entranceAnnotation)
+                showNavigation.toggle()
+            }
+        } else {
+            uiView.removeAnnotation(context.coordinator.entranceAnnotation)
+        }
+        
+        if let destinationKey = routingDestinationKey {
+            for annotation in uiView.annotations {
+                if let tenantAnnotation = annotation as? TenantAnnotation {
+                    if tenantAnnotation.key != destinationKey {
+                        uiView.view(for: annotation)?.isHidden = true
+                    } else {
+                        uiView.view(for: annotation)?.isHidden = false
+                    }
+                } else if annotation is EntranceAnnotation {
+                    uiView.view(for: annotation)?.isHidden = false
+                }
+            }
+        } else {
+            // Tampilkan semua annotation kembali jika tidak routing
+            for annotation in uiView.annotations {
+                uiView.view(for: annotation)?.isHidden = false
+            }
         }
         
     }
@@ -167,6 +217,8 @@ struct MapViewWrapper: UIViewRepresentable {
         var parent: MapViewWrapper
         weak var mapView: MKMapView?
         var lastRoute: MKRoute?
+        // titik pintu masuk
+        var entranceAnnotation = EntranceAnnotation(coordinate: CLLocationCoordinate2D(latitude: -6.301453293388013, longitude: 106.653222511091))
         
         init(parent: MapViewWrapper) {
             self.parent = parent
@@ -228,6 +280,21 @@ struct MapViewWrapper: UIViewRepresentable {
         
         // proses override icon annotation
         func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
+            if annotation is EntranceAnnotation {
+                let identifier = "EntranceAnnotation"
+                var view = mapView.dequeueReusableAnnotationView(withIdentifier: identifier)
+                
+                if view == nil {
+                    view = MKAnnotationView(annotation: annotation, reuseIdentifier: identifier)
+                    view?.image = UIImage(named: "navigation") // ganti dengan asset kamu
+                    view?.canShowCallout = true
+                } else {
+                    view?.annotation = annotation
+                }
+                
+                return view
+            }
+            
             guard let tenantAnnotation = annotation as? TenantAnnotation else {
                 return nil
             }
@@ -253,7 +320,7 @@ struct MapViewWrapper: UIViewRepresentable {
                         alpha: 1
                     ), // warna isi teks
                     .strokeWidth: -1.0, // negatif = isi teks tetap tampil
-                    .font: UIFont.boldSystemFont(ofSize: 12)
+                    .font: UIFont.boldSystemFont(ofSize: 14)
                 ])
                 label.layer.cornerRadius = 4
                 label.clipsToBounds = true
@@ -308,6 +375,15 @@ struct MapViewWrapper: UIViewRepresentable {
         
         var title: String? {
             tenant.name
+        }
+    }
+    
+    class EntranceAnnotation: NSObject, MKAnnotation {
+        let coordinate: CLLocationCoordinate2D
+        var title: String? = "Lobby Utama"
+        
+        init(coordinate: CLLocationCoordinate2D) {
+            self.coordinate = coordinate
         }
     }
 }
