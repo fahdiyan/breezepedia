@@ -28,9 +28,9 @@ let dummyTenantsDict: [String: TenantModel] = [
         isQuiet: true,
         isSpacious: true
     ),
-    "bebek bengil": TenantModel(
+    "Bebek Bengil": TenantModel(
         coordinate: CLLocationCoordinate2D(latitude: -6.300613924151124, longitude: 106.6529659690328),
-        name: "bebek bengil",
+        name: "Bebek Bengil",
         image: "bebekbengil",
         coverImage: "bebekbengil_breeze",
         category: "Western",

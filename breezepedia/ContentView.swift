@@ -35,7 +35,7 @@ struct ContentView: View {
                         .padding(.trailing, 18)
                         
                         HStack {
-                            Text("Let's explore")
+                            Text("Let's explore ")
                                 .font(.system(size: 16, weight: .regular)) +
                             Text("52 tenants")
                                 .font(.system(size: 16, weight: .bold)) +

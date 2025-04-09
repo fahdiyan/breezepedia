@@ -20,6 +20,10 @@ struct NavigationView: View {
                         Spacer()
                         VStack {
                             Icon(type: "exit", text: "Exit", isInlinetext: false, textSize: 14, color: Color(.white))
+                                .padding(.top, 10)
+                    
+                            
+
                             Divider()
                                 .frame(height: 1)
                                 .background(Color.white)
@@ -31,7 +35,10 @@ struct NavigationView: View {
                                 .background(Color.white)
                                 .overlay(.gray.opacity(0.3))
                             
-                            Icon(type: "distance", text: "Exit", isInlinetext: false, textSize: 14, color: Color(.white))
+                            Icon(type: "distance", text: "200 m", isInlinetext: false, textSize: 14, color: Color(.white))
+                                
+                                
+                            
                             Divider()
                                 .frame(height: 1)
                                 .background(Color.white)
@@ -62,14 +69,18 @@ struct NavigationView: View {
                     
                     VStack {
                         HStack {
-                            Image(systemName: "circle.fill")
-                                .foregroundColor(.red)
-                            Text("Destination")
+                            
+                            Text("Destination:")
                                 .font(.custom("Poppins-Bold", size: 16))
                                 .fontWeight(.bold)
                                 .foregroundColor(Color(hue: 0, saturation: 0, brightness: 0.47))
                         }
                         HStack {
+                            
+                            Image(systemName: "circle.fill")
+                                .resizable()
+                                .frame(width: 14, height: 14)
+                                .foregroundColor(.red)
                             Text(tenant.name)
                                 .font(.custom("Poppins-ExtraBold", size: 20))
                                 .fontWeight(.bold)
@@ -81,7 +92,7 @@ struct NavigationView: View {
                                 )))
                         }
                     }
-                    .padding(.horizontal, 30)
+                    .padding(.horizontal, 40)
                     .padding(.vertical, 0)
                 }
             }
