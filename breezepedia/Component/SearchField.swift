@@ -8,8 +8,7 @@
 import SwiftUI
 
 struct SearchField: View {
-    @State private var searchText: String = ""
-    
+    @Binding var searchText: String
     var hintText: String
     
     var body: some View {
@@ -32,6 +31,20 @@ struct SearchField: View {
     }
 }
 
+struct StatefulPreviewWrapper<Value, Content: View>: View {
+    @State var value: Value
+    var content: (Binding<Value>) -> Content
+
+    init(_ initialValue: Value, content: @escaping (Binding<Value>) -> Content) {
+        _value = State(wrappedValue: initialValue)
+        self.content = content
+    }
+
+    var body: some View {
+        content($value)
+    }
+}
+
 #Preview {
-    SearchField(hintText: "Search")
+    StatefulPreviewWrapper("") { SearchField(searchText: $0, hintText: "Search tenant") }
 }

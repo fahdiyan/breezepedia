@@ -8,7 +8,7 @@
 import SwiftUI
 import MapKit
 
-struct CustomMapView: View {  
+struct CustomMapView: View {
     @State private var selectedAnnotation: MKPointAnnotation?
     @State private var annotationPosition: CGPoint = .zero
     @State private var mapViewRef: MKMapView?
@@ -19,6 +19,8 @@ struct CustomMapView: View {
     @State private var entranceCoordinate = CLLocationCoordinate2D(latitude: -6.301453293388013, longitude: 106.653222511091)
     @State private var routingDestinationKey: String? = nil
     @State private var showNavigation = false
+    
+    var tenants: [String: TenantModel]
     
     func calculateRoute(to destination: CLLocationCoordinate2D, key: String) {
         let request = MKDirections.Request()
@@ -49,13 +51,13 @@ struct CustomMapView: View {
                 showEntranceAnnotation: $showEntranceAnnotation,
                 routingDestinationKey: $routingDestinationKey,
                 showNavigation: $showNavigation,
-                tenants: dummyTenantsDict
+                tenants: tenants
             )
             .edgesIgnoringSafeArea(.all)
             
             // Tooltip
             if let tenantKey = selectedTenantKey,
-               let tenant = dummyTenantsDict[tenantKey],
+               let tenant = tenants[tenantKey],
                let mapView = mapViewRef {
 
                 if (showNavigation) {
@@ -86,7 +88,7 @@ struct CustomMapView: View {
         }
         .onChange(of: selectedTenantKey) { newKey in
             guard let key = newKey,
-                  let tenant = dummyTenantsDict[key] else {
+                  let tenant = tenants[key] else {
                 route = nil
                 routingDestinationKey = nil // ✅ reset saat tenant deselect
                 return
@@ -151,17 +153,29 @@ struct MapViewWrapper: UIViewRepresentable {
     }
     
     func updateUIView(_ uiView: MKMapView, context: Context) {
-        // Update tooltip visibility based on selectedTenantKey
-        for annotation in uiView.annotations {
-            guard let annotationView = uiView.view(for: annotation),
-                  let tenantAnnotation = annotation as? TenantAnnotation else { continue }
-            
-            if tenantAnnotation.key == selectedTenantKey {
-                annotationView.detailCalloutAccessoryView?.isHidden = false
-            } else {
-                annotationView.detailCalloutAccessoryView?.isHidden = true
-            }
+        // Hapus semua tenant annotation sebelum update
+        let currentTenantAnnotations = uiView.annotations.compactMap { $0 as? TenantAnnotation }
+        for annotation in currentTenantAnnotations {
+            uiView.removeAnnotation(annotation)
         }
+ 
+        // Tambahkan kembali hasil tenant yang sesuai filter
+        for (key, tenant) in tenants {
+            let annotation = TenantAnnotation(tenant: tenant, key: key)
+            uiView.addAnnotation(annotation)
+        }
+        
+        // Update tooltip visibility based on selectedTenantKey
+//        for annotation in uiView.annotations {
+//            guard let annotationView = uiView.view(for: annotation),
+//                  let tenantAnnotation = annotation as? TenantAnnotation else { continue }
+//            
+//            if tenantAnnotation.key == selectedTenantKey {
+//                annotationView.detailCalloutAccessoryView?.isHidden = false
+//            } else {
+//                annotationView.detailCalloutAccessoryView?.isHidden = true
+//            }
+//        }
         
         // Remove existing route overlays
         uiView.removeOverlays(uiView.overlays)
@@ -308,31 +322,41 @@ struct MapViewWrapper: UIViewRepresentable {
                 annotationView?.image = UIImage(named: "location.fill") // ganti dengan custom icon kalau mau
                 annotationView?.frame.size = CGSize(width: 40, height: 40)
                 annotationView?.centerOffset = CGPoint(x: 0, y: -20)
-                
-                // Label tenant
-                let label = UILabel()
-                label.attributedText = NSAttributedString(string: tenantAnnotation.tenant.name, attributes: [
+            } else {
+                annotationView?.annotation = annotation
+                annotationView?.subviews.forEach { $0.removeFromSuperview() } // hapus label lama
+            }
+
+            annotationView?.image = UIImage(named: "location.fill")
+
+            // label tenant
+            let label = UILabel()
+            label.attributedText = NSAttributedString(
+                string: tenantAnnotation.tenant.name,
+                attributes: [
                     .strokeColor: UIColor.white,
                     .foregroundColor: UIColor(
                         red: 0x70 / 255,
                         green: 0x42 / 255,
                         blue: 0x9A / 255,
                         alpha: 1
-                    ), // warna isi teks
-                    .strokeWidth: -1.0, // negatif = isi teks tetap tampil
+                    ),
+                    .strokeWidth: -1.0,
                     .font: UIFont.boldSystemFont(ofSize: 14)
-                ])
-                label.layer.cornerRadius = 4
-                label.clipsToBounds = true
-                label.textAlignment = .center
-                label.sizeToFit()
-                label.frame = CGRect(x: -label.frame.width - 10, y: (annotationView?.frame.height ?? 40) / 2 - 10, width: label.frame.width + 10, height: 20)
-                
-                // Tambahkan ke annotationView
-                annotationView?.addSubview(label)
-            } else {
-                annotationView?.annotation = annotation
-            }
+                ]
+            )
+            label.layer.cornerRadius = 4
+            label.clipsToBounds = true
+            label.textAlignment = .center
+            label.sizeToFit()
+            label.frame = CGRect(
+                x: -label.frame.width - 10,
+                y: (annotationView?.frame.height ?? 40) / 2 - 10,
+                width: label.frame.width + 10,
+                height: 20
+            )
+
+            annotationView?.addSubview(label)
             
             return annotationView
         }
@@ -388,7 +412,7 @@ struct MapViewWrapper: UIViewRepresentable {
     }
 }
 
-#Preview {
-    CustomMapView()
-}
-
+//#Preview {
+//    CustomMapView()
+//}
+//

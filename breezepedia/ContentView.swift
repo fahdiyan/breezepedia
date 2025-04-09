@@ -13,10 +13,22 @@ struct ContentView: View {
     @State private var selectedAnnotation: MKAnnotation?
     @State private var annotationPosition: CGPoint = .zero
     
+    @State private var searchText: String = ""
+    
+    var filteredTenants: [String: TenantModel] {
+        if searchText.isEmpty {
+            return dummyTenantsDict
+        } else {
+            return dummyTenantsDict.filter {
+                $0.value.name.lowercased().contains(searchText.lowercased())
+            }
+        }
+    }
+    
     var body: some View {
         NavigationStack {
             ZStack {
-                CustomMapView()
+                CustomMapView(tenants: filteredTenants)
                     .edgesIgnoringSafeArea(.all)
                 
                 VStack (alignment: .center) {
@@ -28,9 +40,8 @@ struct ContentView: View {
                                 .resizable()
                                 .frame(width: 82, height: 65)
                             Spacer()
-                            SearchField(hintText: "Search tenant")
+                            SearchField(searchText: $searchText, hintText: "Search tenant")
                         }
-                        //                    .padding(.horizontal, 24)
                         .padding(.leading, 10)
                         .padding(.trailing, 18)
                         
