@@ -59,7 +59,7 @@ struct CustomMapView: View {
             if let tenantKey = selectedTenantKey,
                let tenant = tenants[tenantKey],
                let mapView = mapViewRef {
-
+                
                 GeometryReader { geometry in
                     let point = mapView.convert(tenant.coordinate, toPointTo: mapView)
                     
@@ -105,7 +105,7 @@ struct MapViewWrapper: UIViewRepresentable {
     @Binding var showEntranceAnnotation: Bool
     @Binding var routingDestinationKey: String?
     @Binding var showNavigation: Bool
-
+    
     
     var tenants: [String: TenantModel]
     
@@ -133,12 +133,30 @@ struct MapViewWrapper: UIViewRepresentable {
             center: coordinate,
             span: MKCoordinateSpan(latitudeDelta: 0.005, longitudeDelta: 0.005)
         )
+        // Membatasi area agar user tidak bisa keluar dari wilayah ini
+        let northEast = CLLocationCoordinate2D(latitude: -6.300, longitude: 106.656)
+        let southWest = CLLocationCoordinate2D(latitude: -6.303, longitude: 106.653)
+
+        let centerLat = (northEast.latitude + southWest.latitude) / 2
+        let centerLong = (northEast.longitude + southWest.longitude) / 2
+        let spanLat = abs(northEast.latitude - southWest.latitude)
+        let spanLong = abs(northEast.longitude - southWest.longitude)
+
+        let boundaryRegion = MKCoordinateRegion(
+            center: CLLocationCoordinate2D(latitude: centerLat, longitude: centerLong),
+            span: MKCoordinateSpan(latitudeDelta: spanLat, longitudeDelta: spanLong)
+        )
         mapView.setRegion(region, animated: false)
+        mapView.setCameraBoundary(MKMapView.CameraBoundary(coordinateRegion: boundaryRegion), animated: false)
         
         let config = MKStandardMapConfiguration()
         config.pointOfInterestFilter = .excludingAll // Hilangkan semua titik lokasi
         config.showsTraffic = false // Matikan lalu lintas jika tidak diperlukan
         mapView.preferredConfiguration = config
+        
+        // Batasi zoom agar tidak bisa melihat seluruh dunia
+        let zoomRange = MKMapView.CameraZoomRange(minCenterCoordinateDistance: 100, maxCenterCoordinateDistance: 1000)
+        mapView.setCameraZoomRange(zoomRange, animated: true)
         
         // Setup markers
         for (key, tenant) in tenants {
@@ -155,7 +173,7 @@ struct MapViewWrapper: UIViewRepresentable {
         for annotation in currentTenantAnnotations {
             uiView.removeAnnotation(annotation)
         }
- 
+        
         // Tambahkan kembali hasil tenant yang sesuai filter
         for (key, tenant) in tenants {
             let annotation = TenantAnnotation(tenant: tenant, key: key)
@@ -163,16 +181,16 @@ struct MapViewWrapper: UIViewRepresentable {
         }
         
         // Update tooltip visibility based on selectedTenantKey
-//        for annotation in uiView.annotations {
-//            guard let annotationView = uiView.view(for: annotation),
-//                  let tenantAnnotation = annotation as? TenantAnnotation else { continue }
-//            
-//            if tenantAnnotation.key == selectedTenantKey {
-//                annotationView.detailCalloutAccessoryView?.isHidden = false
-//            } else {
-//                annotationView.detailCalloutAccessoryView?.isHidden = true
-//            }
-//        }
+        //        for annotation in uiView.annotations {
+        //            guard let annotationView = uiView.view(for: annotation),
+        //                  let tenantAnnotation = annotation as? TenantAnnotation else { continue }
+        //
+        //            if tenantAnnotation.key == selectedTenantKey {
+        //                annotationView.detailCalloutAccessoryView?.isHidden = false
+        //            } else {
+        //                annotationView.detailCalloutAccessoryView?.isHidden = true
+        //            }
+        //        }
         
         // Remove existing route overlays
         uiView.removeOverlays(uiView.overlays)
@@ -326,9 +344,9 @@ struct MapViewWrapper: UIViewRepresentable {
                 annotationView?.annotation = annotation
                 annotationView?.subviews.forEach { $0.removeFromSuperview() } // hapus label lama
             }
-
+            
             annotationView?.image = UIImage(named: "location.fill")
-
+            
             // label tenant
             let label = UILabel()
             label.attributedText = NSAttributedString(
@@ -355,7 +373,7 @@ struct MapViewWrapper: UIViewRepresentable {
                 width: label.frame.width + 10,
                 height: 20
             )
-
+            
             annotationView?.addSubview(label)
             
             return annotationView
@@ -412,7 +430,9 @@ struct MapViewWrapper: UIViewRepresentable {
     }
 }
 
-//#Preview {
-//    CustomMapView(tenants= dummyTenants["J.co"])
-//}
+#Preview {
+    CustomMapView(
+        tenants: dummyTenantsDict
+    )
+}
 
