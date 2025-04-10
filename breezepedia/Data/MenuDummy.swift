@@ -89,7 +89,7 @@ let dummyMenus: [String: [MenuModel]] = [
         ),
         MenuModel(
             name: "Fresh Grilled Seafood",
-            image: "seafoodgrill",
+            image: "seafoodgrilled",
             description: "Prawn, squid and snapper served with garlic butter and chili sauce",
             price: 139000
         ),
