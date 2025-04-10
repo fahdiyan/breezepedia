@@ -60,10 +60,6 @@ struct CustomMapView: View {
                let tenant = tenants[tenantKey],
                let mapView = mapViewRef {
 
-                if (showNavigation) {
-                    NavigationView(tenant: tenant)
-                }
-
                 GeometryReader { geometry in
                     let point = mapView.convert(tenant.coordinate, toPointTo: mapView)
                     
@@ -120,6 +116,7 @@ struct MapViewWrapper: UIViewRepresentable {
     func makeUIView(context: Context) -> MKMapView {
         let mapView = MKMapView()
         mapView.delegate = context.coordinator
+        context.coordinator.mapView = mapView
         
         // Untuk handle hide / show / switch tooltip
         let tapGesture = UITapGestureRecognizer(target: context.coordinator, action: #selector(context.coordinator.handleMapTap(_:)))
@@ -190,10 +187,12 @@ struct MapViewWrapper: UIViewRepresentable {
                     animated: true
                 )
                 context.coordinator.lastRoute = newRoute
+                showNavigation = true
             }
         } else {
             context.coordinator.lastRoute = nil
             showEntranceAnnotation = false
+            showNavigation = false
             // Jangan zoom apapun
         }
         
@@ -252,6 +251,7 @@ struct MapViewWrapper: UIViewRepresentable {
             
             if tappedAnnotations.isEmpty {
                 parent.selectedTenantKey = nil
+                parent.selectedAnnotation = nil
             }
         }
         
@@ -259,8 +259,8 @@ struct MapViewWrapper: UIViewRepresentable {
         func mapView(_ mapView: MKMapView, didSelect view: MKAnnotationView) {
             guard let tenantAnnotation = view.annotation as? TenantAnnotation else { return }
             
-            parent.selectedTenantKey = nil
-            parent.selectedTenant = nil
+            self.parent.selectedTenantKey = nil
+            self.parent.selectedTenant = nil
             DispatchQueue.main.asyncAfter(deadline: .now() + 0.01) {
                 self.parent.selectedTenantKey = tenantAnnotation.key
                 self.parent.selectedTenant = tenantAnnotation.tenant
@@ -413,6 +413,6 @@ struct MapViewWrapper: UIViewRepresentable {
 }
 
 //#Preview {
-//    CustomMapView()
+//    CustomMapView(tenants= dummyTenants["J.co"])
 //}
-//
+
