@@ -78,7 +78,7 @@ let dummyMenus: [String: [MenuModel]] = [
         MenuModel(
             name: "Duck Fried Rice",
             image: "duckfriedrice",
-            description: "Lorem ipsum dolor sit amet",
+            description: "Delicious fried rice with crispy duck",
             price: 93500
         ),
         MenuModel(
@@ -110,7 +110,7 @@ let dummyMenus: [String: [MenuModel]] = [
         MenuModel(
             name: "Crispy Chicken Burger",
             image: "crispychicken",
-            description: "Lorem ipsum dolor sit amet",
+            description: "Thic burger with crispy spicy chicken",
             price: 59000
         ),
         MenuModel(
