@@ -127,7 +127,7 @@ let dummyMenus: [String: [MenuModel]] = [
         ),
         MenuModel(
             name: "Trio Mini Burger",
-            image: "triomini",
+            image: "minitrio",
             description: " Mini veggie burgers consisting of crispy chick'n tender, shredded beefless meat and mini mighty mushroom patty in whole-wheat briochebun",
             price: 69000
         ),
