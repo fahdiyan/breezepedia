@@ -5,6 +5,8 @@
 //  Created by Muhammad Irhamdi Fahdiyan Noor on 26/03/25.
 //
 
+// TUNG TUNG TUNG SAHUR
+
 import SwiftUI
 
 struct TenantDetailView: View {
