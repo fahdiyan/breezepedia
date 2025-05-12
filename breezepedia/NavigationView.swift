@@ -1,105 +1,115 @@
-//
-//  NavigationView.swift
-//  breezepedia
-//
-//  Created by Muhammad Irhamdi Fahdiyan Noor on 09/04/25.
-//
-
 import SwiftUI
 
 struct NavigationView: View {
     var tenant: TenantModel
-    
+
     var body: some View {
         GeometryReader { geometry in
-            VStack {
-                ZStack {
-                    Color.clear
-                        .frame(height: max(700, 0))
-                    HStack {
-                        Spacer()
-                        VStack {
-                            Icon(type: "exit", text: "Exit", isInlinetext: false, textSize: 14, color: Color(.white))
-                                .padding(.top, 10)
-                    
-                            
-
-                            Divider()
-                                .frame(height: 1)
-                                .background(Color.white)
-                                .overlay(.gray.opacity(0.3))
-                            
-                            Icon(type: "time", text: "5 min", isInlinetext: false, textSize: 14, color: Color(.white))
-                            Divider()
-                                .frame(height: 1)
-                                .background(Color.white)
-                                .overlay(.gray.opacity(0.3))
-                            
-                            Icon(type: "distance", text: "200 m", isInlinetext: false, textSize: 14, color: Color(.white))
-                                
-                                
-                            
-                            Divider()
-                                .frame(height: 1)
-                                .background(Color.white)
-                                .overlay(.gray.opacity(0.3))
-                        }
-                        .background(Color(UIColor(
-                            red: 0x70 / 255,
-                            green: 0x42 / 255,
-                            blue: 0x9A / 255,
-                            alpha: 1
-                        )))
-                        .cornerRadius(10)
-                        .shadow(radius: 4)
-                        .frame(width: 63, height: 223)
-                    }
-                    .padding()
-                    
-                }
+            VStack(spacing: 0) {
                 
+                // Map/Top content placeholder (no top right panel anymore)
+                ZStack {
+                    Color.clear.frame(height: max(700, 0))
+                }
+
+                // Bottom Card
                 ZStack(alignment: .leading) {
                     Color.white
                         .frame(width: geometry.size.width)
-                        .clipShape(
-                            RoundedRectangle(cornerRadius: 24)
-                                .offset(x: 0, y: 0)
-                        )
+                        .clipShape(RoundedRectangle(cornerRadius: 24))
                         .shadow(radius: 4)
-                    
-                    VStack {
+
+                    VStack(spacing: 20) {
+                        Capsule()
+                            .fill(Color.gray.opacity(0.4))
+                            .frame(width: 40, height: 5)
+                            .padding(.top, 8)
+
+                        // Start & Destination Section
                         HStack {
-                            
-                            Text("Destination:")
-                                .font(.custom("Poppins-Bold", size: 16))
-                                .fontWeight(.bold)
-                                .foregroundColor(Color(hue: 0, saturation: 0, brightness: 0.47))
+                            VStack(alignment: .leading, spacing: 5) {
+                                Text("Start Point")
+                                    .font(.custom("Poppins-Regular", size: 14))
+                                    .foregroundColor(.gray)
+                                    .padding(.bottom,4)
+                                Text("Main Gate")
+                                    .font(.custom("Poppins-ExtraBold", size: 19))
+                                    .foregroundColor(Color("breezepurple"))
+                                    .foregroundColor(.gray)
+                                    
+                            }
+
+                            Spacer()
+
+                            Image(systemName: "arrow.right")
+                                .foregroundColor(.breezeblue)
+                                .font(.system(size: 24, weight: .bold)) // Increase weight to make it thicker
+
+
+                             
+
+                            Spacer()
+
+                            VStack(alignment: .trailing, spacing: 4) {
+                                Text("Destination")
+                                    .font(.custom("Poppins-Regular", size: 14))
+                                    .foregroundColor(.gray)
+                                    .padding(.bottom,4)
+                                Text(tenant.name)
+                                    .font(.custom("Poppins-ExtraBold", size: 19))
+                                    .foregroundColor(Color("breezepurple"))
+                                  
+                            }
                         }
+
+                        // Divider between sections
+                        Divider()
+                            .padding(.horizontal, 0) // Optional: stretch divider edge to edge
+                            .frame(height: 0.6) // Adjust the height to make the divider thicker
+                                .background(Color.gray)
+                        
+
+                        // Duration, Distance, Exit Button
                         HStack {
-                            
-                            Image(systemName: "circle.fill")
-                                .resizable()
-                                .frame(width: 14, height: 14)
-                                .foregroundColor(.red)
-                            Text(tenant.name)
-                                .font(.custom("Poppins-ExtraBold", size: 20))
+                            Text("2 min")
+                                .font(.title3)
                                 .fontWeight(.bold)
-                                .foregroundColor(Color(UIColor(
-                                    red: 0x70 / 255,
-                                    green: 0x42 / 255,
-                                    blue: 0x9A / 255,
-                                    alpha: 1
-                                )))
+                                .foregroundColor(Color("breezeblue"))
+                            
+
+                            Text("•")
+                                .font(.title3)
+                                .foregroundColor(.gray)
+
+                            Text("150 m")
+                                .font(.title3)
+                                .fontWeight(.bold)
+                                .foregroundColor(Color("breezeblue"))
+
+                            Spacer()
+
+                            Button(action: {
+                                // Exit action
+                            }) {
+                                Text("Exit")
+                                    .fontWeight(.bold)
+                                    .frame(width: 160, height: 45)
+                                    .background(Color.red)
+                                    .foregroundColor(.white)
+                                    .cornerRadius(5)
+                            }
                         }
                     }
-                    .padding(.horizontal, 40)
-                    .padding(.vertical, 0)
+                    .padding(.horizontal, 25)
+                    .padding(.top, 12)
+                    .padding(.bottom, 80)
+
                 }
+                .frame(width: geometry.size.width, height: geometry.size.height * 0.3) // Adjust the height based on available space
+                .padding(.top, -50) // Adjust for slight top movement
+                .ignoresSafeArea(.container, edges: .bottom)
             }
             .ignoresSafeArea(.all, edges: .top)
-            .edgesIgnoringSafeArea(.bottom)
-            .padding(0)
-            
         }
     }
 }

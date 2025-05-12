@@ -15,7 +15,7 @@ struct CategoryButton: View {
     var body: some View {
         Button(action: action) {
             Text(label)
-                .padding(.horizontal, 10)
+                .padding(.horizontal, 20)
                 .padding(.vertical, 6)
                 .lineLimit(1)
                 .foregroundColor(isSelected

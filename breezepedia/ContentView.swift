@@ -55,7 +55,7 @@ struct ContentView: View {
                     VStack {
                         Spacer()
                         HStack {
-                            Image("logo_breezepedia_white")
+                            Image("")
                                 .resizable()
                                 .frame(width: 82, height: 65)
                             Spacer()

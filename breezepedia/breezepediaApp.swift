@@ -10,9 +10,9 @@ import SwiftUI
 @main
 struct breezepediaApp: App {
     var body: some Scene {
-        WindowGroup {
-//            TenantDetailView()
+        WindowGroup(content: {
+            //            TenantDetailView()
             ContentView()
-        }
+        })
     }
 }
