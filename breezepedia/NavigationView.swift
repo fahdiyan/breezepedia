@@ -29,7 +29,7 @@ struct NavigationView: View {
                         HStack {
                             VStack(alignment: .leading, spacing: 5) {
                                 Text("Start Point")
-                                    .font(.custom("Poppins-Regular", size: 14))
+                                    .font(.custom("Poppins-Regular", size: 16))
                                     .foregroundColor(.gray)
                                     .padding(.bottom,4)
                                 Text("Main Gate")
@@ -52,7 +52,7 @@ struct NavigationView: View {
 
                             VStack(alignment: .trailing, spacing: 4) {
                                 Text("Destination")
-                                    .font(.custom("Poppins-Regular", size: 14))
+                                    .font(.custom("Poppins-Regular", size: 16))
                                     .foregroundColor(.gray)
                                     .padding(.bottom,4)
                                 Text(tenant.name)

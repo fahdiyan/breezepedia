@@ -10,7 +10,7 @@ import MapKit
 let dummyTenantsDict: [String: TenantModel] = [
     "J.Co" : TenantModel(
         coordinate: CLLocationCoordinate2D(latitude: -6.301864789006899, longitude: 106.65476774255488),
-        name: "J.Co",
+        name: "J.Co Coffee",
         image: "jco",
         coverImage: "jco_breeze",
         category: "Coffee & Dessert",

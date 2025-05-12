@@ -1,32 +1,13 @@
 import SwiftUI
 
-struct Tenant: Identifiable {
-    let id = UUID()
-    let name: String
-    let logo: String
-    let openHours: String
-    let priceRange: String
-    let capacity: String
-    let hasWifi: Bool
-    let isHalal: Bool
-}
-
-let sampleTenants = [
-    Tenant(name: "J.co", logo: "tenantA_logo", openHours: "08.00 – 22.00", priceRange: "Rp.30,000 - Rp.90,000", capacity: "20 tables", hasWifi: true, isHalal: true),
-    Tenant(name: "Tenant B", logo: "tenantB_logo", openHours: "09.00 – 21.00", priceRange: "Rp 40.000 - Rp 90.000", capacity: "15 tables", hasWifi: true, isHalal: true),
-    Tenant(name: "Tenant C", logo: "tenantB_logo", openHours: "09.00 – 21.00", priceRange: "Rp 30.000 - Rp 90.000", capacity: "15 tables", hasWifi: true, isHalal: true),
-    Tenant(name: "Tenant C", logo: "tenantB_logo", openHours: "09.00 – 21.00", priceRange: "Rp 30.000 - Rp 90.000", capacity: "15 tables", hasWifi: true, isHalal: true),
-    Tenant(name: "Tenant C", logo: "tenantB_logo", openHours: "09.00 – 21.00", priceRange: "Rp 30.000 - Rp 90.000", capacity: "15 tables", hasWifi: true, isHalal: true)
-]
-
 struct TenantListView: View {
     @State private var searchText = ""
 
-    var filteredTenants: [Tenant] {
+    var filteredTenants: [TenantModel] {
         if searchText.isEmpty {
-            return sampleTenants
+            return dummyTenants
         } else {
-            return sampleTenants.filter { $0.name.localizedCaseInsensitiveContains(searchText) }
+            return dummyTenants.filter { $0.name.localizedCaseInsensitiveContains(searchText) }
         }
     }
 
@@ -115,41 +96,46 @@ struct TenantListView: View {
 }
 
 struct TenantCard: View {
-    let tenant: Tenant
+    let tenant: TenantModel
 
     var body: some View {
         VStack(alignment: .leading) {
             HStack(alignment: .top, spacing: 20)
             {
-                Rectangle()
-                    .foregroundColor(.clear)
-                    .frame(width: 153, height: 164)
-                    .background(Color(red: 0, green: 0.33, blue: 0.2))
-                    .cornerRadius(5)
-                    .padding(.top, 0)
-                    .padding(.leading, 0)
-                    .padding(.trailing,-2)
+//                Rectangle()
+//                    .foregroundColor(.clear)
+//                    .frame(width: 153, height: 164)
+//                    .background(Color(red: 0, green: 0.33, blue: 0.2))
+//                    .cornerRadius(5)
+//                    .padding(.top, 0)
+//                    .padding(.leading, 0)
+//                    .padding(.trailing,-2)
+                Image(tenant.image) // Replace with your image asset name
+                    .resizable()
+                    .aspectRatio(contentMode: .fill)
+                    .frame(width: 153, height: 164) // rectangle size
+                    .clipped() // ensures the image doesn't overflow the frame
 
-                VStack(alignment: .leading, spacing: 8) {
-                    Text("Kenangan Signature")
-                        .font(.system(size: 20, weight: .semibold))
-                        .foregroundColor(.black.opacity(0.8))
+                VStack(alignment: .leading, spacing: 7) {
+                    Text(tenant.name)
+                        .font(.custom("Poppins-SemiBold", size: 20))
+                        .foregroundColor(.black.opacity(0.7))
                    
                         .padding(.top, -4)
                         .padding(.bottom, 0) // Change 4 to your desired spacing
 
 
-                    Text("Open \(tenant.openHours)")
+                    Text(tenant.openTime)
                         .font(.subheadline)
                         .foregroundColor(.gray)
                         .padding(.bottom, 2)
-                        .font(.system(size: 15))
+                        .font(.custom("Poppins-Regular", size: 14))
                     
                       
 
                     Label {
-                        Text(tenant.priceRange)
-                            .font(.system(size: 14))
+                        Text("\(tenant.cheapest)")
+                            .font(.custom("Poppins-Regular", size: 15))
                             .foregroundColor(.black.opacity(0.8))
                     } icon: {
                         Image(systemName: "tag")
@@ -162,7 +148,7 @@ struct TenantCard: View {
 
                     Label {
                         Text("Capacity: \(tenant.capacity)")
-                            .font(.system(size: 14))
+                            .font(.custom("Poppins-Regular", size: 15))
                             .foregroundColor(.black.opacity(0.8))
                     } icon: {
                         Image(systemName: "square.3.stack.3d")
@@ -173,10 +159,10 @@ struct TenantCard: View {
                     
 
 
-                    if tenant.hasWifi {
+                    if tenant.wifi {
                         Label {
                             Text("Wifi Available")
-                                .font(.system(size: 14))
+                                .font(.custom("Poppins-Regular", size: 15))
                                 .foregroundColor(.black.opacity(0.8))
                         } icon: {
                             Image(systemName: "wifi")
@@ -185,10 +171,10 @@ struct TenantCard: View {
                 
                     }
 
-                    if tenant.isHalal {
+                    if tenant.halal {
                         Label {
                             Text("Halal")
-                                .font(.system(size: 14))
+                                .font(.custom("Poppins-Regular", size: 15))
                                 .foregroundColor(.black.opacity(0.8))
                         } icon: {
                             Image(systemName: "checkmark.seal")
@@ -212,8 +198,8 @@ struct TenantCard: View {
                         .frame(width: 122, height: 12)
                         .font(.system(size: 16))
                         .padding()
-                        .background(Color.breezeblue.opacity(0.15))
-                        .foregroundColor(.teal)
+                        .background(Color.breezeblue.opacity(0.14))
+                        .foregroundColor(.breezeblue)
                         .cornerRadius(5)
                         .padding(.top,2)
                     
