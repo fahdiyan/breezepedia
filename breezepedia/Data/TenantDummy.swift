@@ -87,7 +87,47 @@ let dummyTenantsDict: [String: TenantModel] = [
         hasOutdoor: false,
         isQuiet: true,
         isSpacious: true
-    )
+    ),
+    "Kenangansignature": TenantModel(
+        coordinate: CLLocationCoordinate2D(latitude: -6.301604216577298, longitude: 106.65389819148908),
+        name: "Chaterise",
+        image: "Boost",
+        coverImage: "boost_breeze",
+        category: "Beverages",
+        openTime: "Open 10.00 - 20.00",
+        cheapest: 20000,
+        wifi: true,
+        peakHour: "17.00 - 21.00",
+        capacity: 50,
+        halal: true,
+        pet: false,
+        menus: dummyMenus["Boost"] ?? [],
+        isCheap: true,
+        hasSmokingArea: false,
+        hasOutdoor: false,
+        isQuiet: true,
+        isSpacious: true
+        ),
+    "Kenangansignature": TenantModel(
+        coordinate: CLLocationCoordinate2D(latitude: -6.301604216577298, longitude: 106.65389819148908),
+        name: "Sate Senayan",
+        image: "Boost",
+        coverImage: "boost_breeze",
+        category: "Beverages",
+        openTime: "Open 10.00 - 20.00",
+        cheapest: 40000,
+        wifi: true,
+        peakHour: "17.00 - 21.00",
+        capacity: 50,
+        halal: true,
+        pet: false,
+        menus: dummyMenus["Boost"] ?? [],
+        isCheap: true,
+        hasSmokingArea: false,
+        hasOutdoor: false,
+        isQuiet: true,
+        isSpacious: true
+        )
 ]
 
 let dummyTenants: [TenantModel] = Array(dummyTenantsDict.values)

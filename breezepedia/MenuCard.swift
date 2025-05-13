@@ -21,19 +21,20 @@ struct MenuCard: View {
             
             VStack(alignment: .leading) {
                 Text(menu.name)
-                    .font(.system(size: 16, weight: .semibold))
+                    .font(.custom("Poppins-SemiBold", size: 19))
                     .foregroundColor(Color.black.opacity(0.7))
                     .padding(.bottom, 4)
                
                 Text(menu.description)
-                   .font(.system(size: 12, weight: .regular))
+                   .font(.system(size: 15, weight: .regular))
                    .foregroundColor(.gray)
+                   .lineLimit(2)
             
                 
                 Spacer()
                
                 Text("Rp. \(menu.price),-")
-                    .font(.system(size: 16, weight: .regular))
+                    .font(.custom("Poppins-SemiBold", size: 19))
                    .foregroundColor(Color(UIColor(
                     red: 0x70 / 255,
                     green: 0x42 / 255,
@@ -46,7 +47,7 @@ struct MenuCard: View {
         }
         .frame(maxWidth: .infinity, maxHeight: 120, alignment: .leading)
         .background(Color.white)
-        .clipShape(RoundedRectangle(cornerRadius: 10))
+        .clipShape(RoundedRectangle(cornerRadius: 0))
         .shadow(color: Color.black.opacity(0.07), radius: 1, y: 3)
         
      
@@ -58,7 +59,7 @@ struct MenuCard: View {
         menu: MenuModel(
             name: "Jcocchino",
             image: "jcochino",
-            description: "Double shot espresso + milk, garnished with foam aaaaaaaaaaaaaaaa",
+            description: "Double shot espresso + milk",
 
             price: 27000
         )

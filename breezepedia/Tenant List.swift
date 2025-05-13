@@ -120,6 +120,7 @@ struct TenantCard: View {
                     Text(tenant.name)
                         .font(.custom("Poppins-SemiBold", size: 20))
                         .foregroundColor(.black.opacity(0.7))
+                        .lineLimit(1)
                    
                         .padding(.top, -4)
                         .padding(.bottom, 0) // Change 4 to your desired spacing

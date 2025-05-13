@@ -33,7 +33,7 @@ struct NavigationView: View {
                                     .foregroundColor(.gray)
                                     .padding(.bottom,4)
                                 Text("Main Gate")
-                                    .font(.custom("Poppins-ExtraBold", size: 19))
+                                    .font(.custom("Poppins-SemiBold", size: 20))
                                     .foregroundColor(Color("breezepurple"))
                                     .foregroundColor(.gray)
                                     
@@ -56,7 +56,7 @@ struct NavigationView: View {
                                     .foregroundColor(.gray)
                                     .padding(.bottom,4)
                                 Text(tenant.name)
-                                    .font(.custom("Poppins-ExtraBold", size: 19))
+                                    .font(.custom("Poppins-SemiBold", size: 20))
                                     .foregroundColor(Color("breezepurple"))
                                   
                             }
@@ -72,18 +72,18 @@ struct NavigationView: View {
                         // Duration, Distance, Exit Button
                         HStack {
                             Text("2 min")
-                                .font(.title3)
-                                .fontWeight(.bold)
+                                .font(.custom("Poppins-SemiBold", size: 20))
+                                
                                 .foregroundColor(Color("breezeblue"))
                             
 
                             Text("•")
-                                .font(.title3)
+                                .font(.custom("Poppins-SemiBold", size: 18))
                                 .foregroundColor(.gray)
 
                             Text("150 m")
-                                .font(.title3)
-                                .fontWeight(.bold)
+                                .font(.custom("Poppins-SemiBold", size: 20))
+                                
                                 .foregroundColor(Color("breezeblue"))
 
                             Spacer()
