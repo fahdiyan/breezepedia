@@ -11,7 +11,7 @@ let dummyTenantsDict: [String: TenantModel] = [
     "J.Co" : TenantModel(
         coordinate: CLLocationCoordinate2D(latitude: -6.301864789006899, longitude: 106.65476774255488),
         name: "J.Co Coffee",
-        image: "jco",
+        image: "jco_logo1",
         coverImage: "jco_breeze",
         category: "Coffee & Dessert",
         openTime: "Open 08.00 - 20.00",
@@ -31,7 +31,7 @@ let dummyTenantsDict: [String: TenantModel] = [
     "Bebek Bengil": TenantModel(
         coordinate: CLLocationCoordinate2D(latitude: -6.300613924151124, longitude: 106.6529659690328),
         name: "Bebek Bengil",
-        image: "bebekbengil",
+        image: "bebekbengil_logo",
         coverImage: "bebekbengil_breeze",
         category: "Local Dish",
         openTime: "Open 08.00 - 22.00",
@@ -51,7 +51,7 @@ let dummyTenantsDict: [String: TenantModel] = [
     "Burgreens": TenantModel(
         coordinate: CLLocationCoordinate2D(latitude: -6.301834313032891, longitude:  106.65358780840859),
         name: "Burgreens",
-        image: "burgreens",
+        image: "burgreens_logo1",
         coverImage: "bebekbengil_breeze",
         category: "Western Dish",
         openTime: "Open 08.00 - 22.00",
@@ -71,7 +71,7 @@ let dummyTenantsDict: [String: TenantModel] = [
     "Boost": TenantModel(
         coordinate: CLLocationCoordinate2D(latitude: -6.301604216577298, longitude: 106.65389819148908),
         name: "Boost Juice",
-        image: "Boost",
+        image: "boost_logo3",
         coverImage: "boost_breeze",
         category: "Beverages",
         openTime: "Open 08.00 - 17.00",
@@ -88,10 +88,10 @@ let dummyTenantsDict: [String: TenantModel] = [
         isQuiet: true,
         isSpacious: true
     ),
-    "Kenangansignature": TenantModel(
+    "Chaterise": TenantModel(
         coordinate: CLLocationCoordinate2D(latitude: -6.301604216577298, longitude: 106.65389819148908),
         name: "Chaterise",
-        image: "Boost",
+        image: "chaterise_logo",
         coverImage: "boost_breeze",
         category: "Beverages",
         openTime: "Open 10.00 - 20.00",
@@ -108,14 +108,14 @@ let dummyTenantsDict: [String: TenantModel] = [
         isQuiet: true,
         isSpacious: true
         ),
-    "Kenangansignature": TenantModel(
+    "SateSenayan": TenantModel(
         coordinate: CLLocationCoordinate2D(latitude: -6.301604216577298, longitude: 106.65389819148908),
         name: "Sate Senayan",
-        image: "Boost",
+        image: "satesenayan_logo6",
         coverImage: "boost_breeze",
-        category: "Beverages",
-        openTime: "Open 10.00 - 20.00",
-        cheapest: 40000,
+        category: "Indonesianfood",
+        openTime: "Open 10.00 - 21.00",
+        cheapest: 20000,
         wifi: true,
         peakHour: "17.00 - 21.00",
         capacity: 50,
@@ -124,6 +124,26 @@ let dummyTenantsDict: [String: TenantModel] = [
         menus: dummyMenus["Boost"] ?? [],
         isCheap: true,
         hasSmokingArea: false,
+        hasOutdoor: false,
+        isQuiet: true,
+        isSpacious: true
+        ),
+    "D'Cost Seafood": TenantModel(
+        coordinate: CLLocationCoordinate2D(latitude: -6.301604216577298, longitude: 106.65389819148908),
+        name: "D'cost Seafood & Grill",
+        image: "dcost_logo",
+        coverImage: "boost_breeze",
+        category: "Indonesianfood",
+        openTime: "Open 10.00 - 20.00",
+        cheapest: 20000,
+        wifi: true,
+        peakHour: "17.00 - 21.00",
+        capacity: 50,
+        halal: true,
+        pet: false,
+        menus: dummyMenus["Boost"] ?? [],
+        isCheap: true,
+        hasSmokingArea: true,
         hasOutdoor: false,
         isQuiet: true,
         isSpacious: true

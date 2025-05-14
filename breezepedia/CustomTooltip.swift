@@ -49,7 +49,7 @@ struct CustomTooltip: View {
                     Button() {
                         goToDetail = true
                     } label: {
-                        Text("See details...")
+                        Text("See details")
                             .font(.system(size: 12, weight: .bold))
                             .foregroundColor(.white)
                             .frame(width: 104, height: 26)

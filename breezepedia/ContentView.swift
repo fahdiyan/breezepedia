@@ -16,7 +16,8 @@ struct ContentView: View {
     @State private var searchText: String = ""
     
     @State private var filterOptions = FilterOptions(selectedCategory: nil, selectedFacilities: [])
-    
+    @State private var navigateToTenantList = false
+
     var filteredTenants: [String: TenantModel] {
         dummyTenantsDict.filter { _, tenant in
             let matchesSearch = searchText.isEmpty ||
@@ -95,12 +96,8 @@ struct ContentView: View {
                             .font(.system(size: 16, weight: .medium))
                             .foregroundColor(.white)
                             .frame(width: 220, height: 48)
-                            .background(Color(UIColor(
-                                red: 0x70 / 255,
-                                green: 0x42 / 255,
-                                blue: 0x9A / 255,
-                                alpha: 1
-                            )))
+                            .background(.breezepurple)
+                            
                             .cornerRadius(10)
                             .shadow(radius: 4, y: 3)
                     }

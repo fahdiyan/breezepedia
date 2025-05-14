@@ -41,9 +41,10 @@ struct TenantDetailView: View {
                                         .resizable()
                                         .scaledToFit()
                                         .aspectRatio(contentMode: .fill)
-                                        .frame(width: 90, height: 60)
-                                        .padding(.top,10)
-                                        .padding(.bottom,10)
+                                        .frame(width: 90, height: 90)
+                                        .padding(.top,5)
+                                        .padding(.bottom,15)
+                                        .cornerRadius(2)
                                     
                                     TenantInfoView(tenant: tenant)
                                 }
@@ -52,20 +53,18 @@ struct TenantDetailView: View {
                                 Divider()
                                     .frame(height: 1)
                                     .overlay(.gray.opacity(0.3))
-                                    .padding(.vertical, 20)
+                                    .padding(.top, 5)
+                                    .padding(.bottom, 8)
                                 
                                 Text("Tenant Detail")
-                                    .frame(width: 132, height: 28)
-                                    .font(.system(size: 16, weight: .medium))
-                                    .foregroundColor(.white)
-                                    .background(Color(UIColor(
-                                        red: 0x70 / 255,
-                                        green: 0x42 / 255,
-                                        blue: 0x9A / 255,
-                                        alpha: 1
-                                    )))
+                                  
+                                    .font(.custom("Poppins-SemiBold", size: 19))
+                                    .foregroundColor(.black)
+                                    
+                                  
                                     .clipShape(RoundedRectangle(cornerRadius: 5))
-                                    .padding(.bottom, 16)
+                                    .padding(.bottom, 8)
+                                    .padding(.top, 6)
                                 
                                 GeneralInfoView(tenant: tenant)
                                 
@@ -73,18 +72,12 @@ struct TenantDetailView: View {
                                 Divider()
                                     .frame(height: 1)
                                     .overlay(.gray.opacity(0.3))
-                                    .padding(.vertical, 20)
+                                    .padding(.vertical, 15)
                                 
                                 Text("Menu List")
-                                    .frame(width: 132, height: 28)
-                                    .font(.system(size: 16, weight: .medium))
-                                    .foregroundColor(.white)
-                                    .background(Color(UIColor(
-                                        red: 0x70 / 255,
-                                        green: 0x42 / 255,
-                                        blue: 0x9A / 255,
-                                        alpha: 1
-                                    )))
+                                 
+                                    .font(.custom("Poppins-SemiBold", size: 19))
+                                    .foregroundColor(.black)
                                     .clipShape(RoundedRectangle(cornerRadius: 5))
                                     .padding(.bottom, 16)
                                 

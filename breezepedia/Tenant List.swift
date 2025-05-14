@@ -49,7 +49,7 @@ struct TenantListView: View {
                         }
                         .frame(width: 44, height: 44)
                     }
-                    .frame(height:10)
+                    .frame(height:20)
                     .padding(.horizontal)
 
                     // Subtitle
@@ -60,7 +60,7 @@ struct TenantListView: View {
                             Text(" available at The Breeze!")
                         )
                         .font(.system(size: 17))
-                        .padding(.top, 10)
+                        .padding(.top, 6)
                         .foregroundColor(.white)
                         .lineLimit(1)
                         .minimumScaleFactor(0.8)
@@ -113,24 +113,27 @@ struct TenantCard: View {
                 Image(tenant.image) // Replace with your image asset name
                     .resizable()
                     .aspectRatio(contentMode: .fill)
-                    .frame(width: 153, height: 164) // rectangle size
+                    .frame(width: 153, height: 153) // rectangle size
                     .clipped() // ensures the image doesn't overflow the frame
+                    .cornerRadius(5)
+                    .padding(.top, 0)
+                    .padding(.bottom,9)
 
-                VStack(alignment: .leading, spacing: 7) {
+                VStack(alignment: .leading, spacing: 5) {
                     Text(tenant.name)
                         .font(.custom("Poppins-SemiBold", size: 20))
                         .foregroundColor(.black.opacity(0.7))
                         .lineLimit(1)
                    
-                        .padding(.top, -4)
+                        .padding(.top, -6)
                         .padding(.bottom, 0) // Change 4 to your desired spacing
 
 
                     Text(tenant.openTime)
-                        .font(.subheadline)
                         .foregroundColor(.gray)
                         .padding(.bottom, 2)
-                        .font(.custom("Poppins-Regular", size: 14))
+                        .font(.custom("Poppins-Regular", size: 15))
+                        .padding(.top, -3)
                     
                       
 
@@ -186,7 +189,8 @@ struct TenantCard: View {
                 }
                 .background(Color.white)
                 .cornerRadius(0)
-                .padding(.vertical, 4) // Keeps vertical spacing but aligns horizontally
+                .padding(.vertical, 1) // Keeps vertical spacing but aligns horizontally
+                .padding(.bottom,5)
             }
 
             // Adjustable top padding for buttons
@@ -202,30 +206,27 @@ struct TenantCard: View {
                         .background(Color.breezeblue.opacity(0.14))
                         .foregroundColor(.breezeblue)
                         .cornerRadius(5)
-                        .padding(.top,2)
+                        .padding(.top,0)
                     
                         .overlay(
                         RoundedRectangle(cornerRadius: 5)
                             .stroke(Color.breezeblue, lineWidth: 1.5) // ✅ Stroke here
-                            .padding(.top,2)
+                            .padding(.top,0)
                         
                         )
                 }
 
-                // Menu & Details Button
-                Button(action: {
-                    // Handle details
-                }) {
-                    Text("Menu & Details")
-                        .frame(width: 160, height: 12)
-                        .font(.system(size: 16))
-                        .padding()
-                        .background(Color.breezepurple)
-                        .foregroundColor(.white)
-                        .cornerRadius(5)
-                        .padding(.top,2)
-                }
-            }
+                NavigationLink(destination: TenantDetailView(tenant: tenant)) {
+                       Text("Menu & Details")
+                           .frame(width: 160, height: 12)
+                           .font(.system(size: 16))
+                           .padding()
+                           .background(Color.breezepurple)
+                           .foregroundColor(.white)
+                           .cornerRadius(5)
+                           .padding(.top, 0)
+                   }
+               }
             .font(.subheadline)
             .padding(.top, 0)
 
