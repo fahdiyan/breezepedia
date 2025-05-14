@@ -11,8 +11,7 @@ import SwiftUI
 struct breezepediaApp: App {
     var body: some Scene {
         WindowGroup {
-//            TenantDetailView()
-            ContentView()
+            HomeView()
         }
     }
 }
