@@ -17,19 +17,17 @@ struct HomeView: View {
                 HStack {
                     Color.purple.frame(width: 300, height: 44)
                         .cornerRadius(12)
-                    Color.purple.frame(width: 44, height: 44)
-                        .cornerRadius(12)
+                    
+                    Buttons(icon: "arrow.up.arrow.down", action: {})
                 }
                 .padding(16)
                 
                 Spacer()
                 
                 HStack {
-                    Color.purple.frame(width: 44, height: 44)
-                        .cornerRadius(12)
+                    Buttons(icon: "menucard", action: {})
                     Spacer()
-                    Color.purple.frame(width: 44, height: 44)
-                        .cornerRadius(12)
+                    Buttons(icon: "location", action: {})
                 }
                 .padding(16)
             }
