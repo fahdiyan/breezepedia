@@ -66,10 +66,11 @@ struct PreferenceSheet: View {
                     )))
                     .frame(width: 18, height: 18)
                     .onTapGesture { dismiss() }
+                    .padding(.trailing,14)
             }
             
             Text("What’s on your mood today?")
-                .font(.system(size: 16, weight: .semibold))
+                .font(.custom("Poppins-SemiBold", size: 16))
                 .foregroundColor(Color.black.opacity(0.7))
                 .padding(.bottom, 12)
                 .padding(.leading,14)
@@ -87,7 +88,7 @@ struct PreferenceSheet: View {
                 .padding(.trailing,14)
             
             Text("Adjust the budget, maybe?")
-                .font(.system(size: 16, weight: .semibold))
+                .font(.custom("Poppins-SemiBold", size: 16))
                 .foregroundColor(Color.black.opacity(0.7))
                 .padding(.top, 15)
                 .padding(.leading,14)
@@ -121,12 +122,30 @@ struct PreferenceSheet: View {
                 .padding(.trailing,14)
                
             
-            Text("Any specific facilities you need?")
-                .font(.system(size: 16, weight: .semibold))
-                .foregroundColor(Color.black.opacity(0.7))
-                .padding(.bottom, 16)
-                .lineLimit(1)
-                .padding(.leading,14)
+            HStack {
+                Text("Any specific facilities?")
+                    .font(.custom("Poppins-SemiBold", size: 16))
+                    .foregroundColor(Color.black.opacity(0.7))
+                    .padding(.leading,14)
+                    .lineLimit(1)
+                
+
+                Spacer()
+
+                Button(action: {
+                    filterOptions.selectedCategory = nil
+                    filterOptions.selectedFacilities = []
+                }) {
+                    Text("Reset Filter")
+                        .font(.custom("Poppins-Regular", size: 16))
+                        .foregroundColor(.red)
+                        .padding(.horizontal, 8)
+                        .padding(.vertical, 4)
+                        .padding(.trailing,8)
+            
+                }
+            }
+
 
             FacilitiesView(
                 texts: facilityTexts,
@@ -153,7 +172,7 @@ struct PreferenceSheet: View {
                         .cornerRadius(5)
                         .shadow(radius: 4, y: 3)
                 }
-                .padding(.top, 36)
+                .padding(.top, 20)
                 
                 Spacer()
             }
