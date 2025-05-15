@@ -10,8 +10,7 @@ import SwiftUI
 struct HomeView: View {
     var body: some View {
         ZStack {
-            Color.green.opacity(0.15)
-                .ignoresSafeArea(.all)
+            MapView()
             
             VStack (alignment: .center) {
                 HStack {
