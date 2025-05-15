@@ -13,5 +13,9 @@ class MapViewModel: ObservableObject {
 }
 
 #Preview {
-    MapView()
+    MapView(
+        region: MapRegion.breezeCenterRegion,
+        overlayImage: UIImage(named: "breezeMap2.png")!
+    )
+    .ignoresSafeArea()
 }

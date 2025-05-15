@@ -10,7 +10,12 @@ import SwiftUI
 struct HomeView: View {
     var body: some View {
         ZStack {
-            MapView()
+            if let image = UIImage(named: "breezeMap2") {
+                MapView(region: MapRegion.breezeCenterRegion, overlayImage: image)
+                    .ignoresSafeArea()
+            } else {
+                Text("Map tidak tersedia")
+            }
             
             VStack (alignment: .center) {
                 HStack {
