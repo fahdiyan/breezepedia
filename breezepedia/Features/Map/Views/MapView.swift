@@ -25,7 +25,14 @@ struct MapView: View {
                     Text("Pintu")
                         .font(.caption2)
                         .padding(.top, 2)
-                } // Nanti ini pisahkan saja
+                }
+            }
+            
+            Annotation("J.Co", coordinate: CLLocationCoordinate2D(latitude: -6.3005, longitude: 106.6538)) {
+                CustomAnnotation(
+                    systemImageName: "bolt.horizontal.fill",
+                    tintColor: .white
+                )
             }
         }
         .mapStyle(.standard(elevation: .flat, pointsOfInterest: .excludingAll))
