@@ -22,13 +22,13 @@ struct FacilityButton: View {
                     .scaledToFit()
                     .frame(width: 28, height: 28)
                 Text(label)
-                    .font(.system(size: 14, weight: .medium))
+                    .font(.custom("Poppins-Regular", size: 16))
                     .lineLimit(2)
                     
             
             }
-            .frame(width: 65, height: 75)
-            .padding(6)
+            .frame(width: 70, height: 70)
+            .padding(6.5)
             .foregroundColor(isSelected
                              ? .white
                              : Color(UIColor(

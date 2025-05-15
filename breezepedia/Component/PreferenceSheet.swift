@@ -5,7 +5,28 @@
 //  Created by Sabri Ramadhani on 05/04/25.
 //
 
+
 import SwiftUI
+
+struct ContentPreference: View {
+    @State private var price: Double = 50.0  // Starting value
+
+    var body: some View {
+        VStack(spacing: 20) {
+            Text("Selected Price: $\(Int(price))")
+                .font(.headline)
+
+            Slider(value: $price, in: 0...100, step: 1)
+                .accentColor(Color("BreezeBlue")) // assuming you've defined this in Assets
+                .padding()
+
+            Spacer()
+        }
+        .padding()
+    }
+}
+
+
 
 struct ButtonItem : Identifiable{
     let id = UUID()
@@ -27,6 +48,8 @@ struct PreferenceSheet: View {
     
     @State private var selectedCategory: String? = nil
     @State private var selectedFacilities: Set<String> = []
+    @State private var priceRange: ClosedRange<Double> = 20000...300000
+
     
     var body: some View {
         VStack(alignment: .leading) {
@@ -48,19 +71,62 @@ struct PreferenceSheet: View {
             Text("What’s on your mood today?")
                 .font(.system(size: 16, weight: .semibold))
                 .foregroundColor(Color.black.opacity(0.7))
-                .padding(.bottom, 16)
+                .padding(.bottom, 12)
+                .padding(.leading,14)
             
+            
+     
             CategoriesView(items: categories, selectedItem: $selectedCategory)
             
             Divider()
                 .frame(height: 1)
                 .overlay(.gray.opacity(0.3))
-                .padding(.vertical, 20)
+               
+                .padding(.top,15)
+                .padding(.leading,14)
+                .padding(.trailing,14)
             
-            Text("Any specific facilities you want to have?")
+            Text("Adjust the budget, maybe?")
+                .font(.system(size: 16, weight: .semibold))
+                .foregroundColor(Color.black.opacity(0.7))
+                .padding(.top, 15)
+                .padding(.leading,14)
+
+            HStack {
+                
+                Text("0k")
+                    .font(.system(size: 14))
+                    .foregroundColor(.gray)
+                Slider(value: Binding(
+                    get: { priceRange.upperBound },
+                    set: { priceRange = 20000...$0 }
+                ), in: 20000...167000)
+                .accentColor(.breezeblue)
+                Text("999k")
+                    .font(.system(size: 14))
+                    .foregroundColor(.gray)
+            }
+
+            
+            
+            
+            
+            
+            Divider()
+                .frame(height: 1)
+                .overlay(.gray.opacity(0.3))
+                .padding(.top,15)
+                .padding(.bottom,15)
+                .padding(.leading,14)
+                .padding(.trailing,14)
+               
+            
+            Text("Any specific facilities you need?")
                 .font(.system(size: 16, weight: .semibold))
                 .foregroundColor(Color.black.opacity(0.7))
                 .padding(.bottom, 16)
+                .lineLimit(1)
+                .padding(.leading,14)
 
             FacilitiesView(
                 texts: facilityTexts,
@@ -82,14 +148,9 @@ struct PreferenceSheet: View {
                     Text("Apply Filter")
                         .font(.system(size: 16, weight: .medium))
                         .foregroundColor(.white)
-                        .frame(width: 220, height: 48)
-                        .background(Color(UIColor(
-                            red: 0x70 / 255,
-                            green: 0x42 / 255,
-                            blue: 0x9A / 255,
-                            alpha: 1
-                        )))
-                        .cornerRadius(10)
+                        .frame(width: 360, height: 48)
+                        .background(.breezepurple)
+                        .cornerRadius(5)
                         .shadow(radius: 4, y: 3)
                 }
                 .padding(.top, 36)
@@ -98,8 +159,8 @@ struct PreferenceSheet: View {
             }
         }
         .padding(.horizontal, 40)
-        .padding(.vertical, 40)
-        .presentationDetents([.fraction(0.8), .large])
+//        .padding(.vertical, 40)
+//        .presentationDetents([.fraction(0.8), .large])
         .ignoresSafeArea(edges: .all)
     }
 }

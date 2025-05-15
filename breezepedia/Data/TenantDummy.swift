@@ -130,7 +130,7 @@ let dummyTenantsDict: [String: TenantModel] = [
         ),
     "D'Cost Seafood": TenantModel(
         coordinate: CLLocationCoordinate2D(latitude: -6.301604216577298, longitude: 106.65389819148908),
-        name: "D'cost Seafood & Grill",
+        name: "D'cost Seafood",
         image: "dcost_logo",
         coverImage: "boost_breeze",
         category: "Indonesianfood",

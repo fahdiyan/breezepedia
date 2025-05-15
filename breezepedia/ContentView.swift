@@ -115,6 +115,7 @@ struct ContentView: View {
                 .ignoresSafeArea(.all)
             }
         }
+        .tint(Color.breezepurple)
     }
 }
 

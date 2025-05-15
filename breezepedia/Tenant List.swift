@@ -92,6 +92,7 @@ struct TenantListView: View {
             }
             .background(Color(.systemGray5))
         }
+        .tint(Color.breezepurple)
     }
 }
 
@@ -197,24 +198,25 @@ struct TenantCard: View {
             // Adjustable top padding for buttons
             HStack(spacing: 16) {
                 // Directions Button with stroke
-                Button(action: {
-                    // Handle directions
-                }) {
-                    Text("Directions")
-                        .frame(width: 122, height: 12)
-                        .font(.system(size: 16))
-                        .padding()
-                        .background(Color.breezeblue.opacity(0.14))
-                        .foregroundColor(.breezeblue)
-                        .cornerRadius(5)
-                        .padding(.top,0)
-                        .overlay(
-                        RoundedRectangle(cornerRadius: 5)
-                            .stroke(Color.breezeblue, lineWidth: 1.5) // ✅ Stroke here
+                NavigationLink(
+                    destination: NavigationView(tenant: tenant),
+                    label: {
+                        Text("Directions")
+                            .frame(width: 122, height: 12)
+                            .font(.system(size: 16))
+                            .padding()
+                            .background(Color.breezeblue.opacity(0.14))
+                            .foregroundColor(.breezeblue)
+                            .cornerRadius(5)
                             .padding(.top,0)
-                        
-                        )
-                }
+                            .overlay(
+                                RoundedRectangle(cornerRadius: 5)
+                                    .stroke(Color.breezeblue, lineWidth: 1.5) // ✅ Stroke here
+                                    .padding(.top,0)
+                                
+                            )
+                    }
+                )
 
                 NavigationLink(destination: TenantDetailView(tenant: tenant)) {
                        Text("Menu & Details")

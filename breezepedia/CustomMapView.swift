@@ -53,7 +53,9 @@ struct CustomMapView: View {
                 showNavigation: $showNavigation,
                 tenants: tenants
             )
-            .edgesIgnoringSafeArea(.all)
+//            .edgesIgnoringSafeArea(.all)
+//            NavigationView(tenant: dummyTenants[0])
+                
             
             // Tooltip
             if let tenantKey = selectedTenantKey,
@@ -347,7 +349,7 @@ struct MapViewWrapper: UIViewRepresentable {
             
             annotationView?.image = UIImage(named: "location.fill")
             
-            // label tenant - TENANT NAME
+            // label tenant
             let label = UILabel()
             label.attributedText = NSAttributedString(
                 string: tenantAnnotation.tenant.name,
