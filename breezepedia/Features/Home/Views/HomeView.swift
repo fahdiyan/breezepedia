@@ -15,19 +15,36 @@ struct HomeView: View {
             
             VStack (alignment: .center) {
                 HStack {
-                    Color.purple.frame(width: 300, height: 44)
+                    Color.white.frame(width: 300, height: 44)
                         .cornerRadius(12)
+                        .shadow(color: Color.black.opacity(0.2), radius: 4, x: 0, y: 2)
                     
-                    Buttons(icon: "arrow.up.arrow.down", action: {})
+                    CustomButton(
+                        type: .primary,
+                        width: .mini,
+                        icon: "arrow.up.arrow.down",
+                        action: {}
+                    )
                 }
                 .padding(16)
                 
                 Spacer()
                 
                 HStack {
-                    Buttons(icon: "menucard", action: {})
+                    CustomButton(
+                        type: .secondary,
+                        width: .mini,
+                        icon: "menucard",
+                        action: {}
+                    )
                     Spacer()
-                    Buttons(icon: "location", action: {})
+                    CustomButton(
+                        type: .secondary,
+                        width: .mini,
+                        label: nil,
+                        icon: "location",
+                        action: {}
+                    )
                 }
                 .padding(16)
             }
