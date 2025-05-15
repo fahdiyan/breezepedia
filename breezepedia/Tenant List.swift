@@ -2,8 +2,11 @@ import SwiftUI
 
 struct TenantListView: View {
     @State private var searchText = ""
+    @State private var isShowingPreferences = false // <--- New state for sheet
+    @State private var filterOptions = FilterOptions(selectedCategory: nil, selectedFacilities: []) // <--- New state for selected filters
 
     var filteredTenants: [TenantModel] {
+        // You can later apply `filterOptions` here too
         if searchText.isEmpty {
             return dummyTenants
         } else {
@@ -15,19 +18,18 @@ struct TenantListView: View {
         NavigationStack {
             VStack(spacing: 0) {
                 // Header with Search & Subtitle
-                VStack(spacing: 10)
-                {
+                VStack(spacing: 10) {
                     // Search bar + Filter button
                     HStack(spacing: 8) {
                         HStack {
                             Image(systemName: "magnifyingglass")
-
                                 .resizable()
                                 .scaledToFit()
                                 .frame(width: 20, height: 20)
                                 .foregroundColor(.gray)
                                 .padding(.leading,8)
                                 .padding(.trailing,8)
+
                             TextField("Search tenant", text: $searchText)
                                 .foregroundColor(.black)
                         }
@@ -35,10 +37,9 @@ struct TenantListView: View {
                         .background(Color.white)
                         .cornerRadius(6)
                         .padding(.trailing,-6)
-                     
 
                         Button(action: {
-                            // Handle filter tap
+                            isShowingPreferences = true // 👈 Show sheet on tap
                         }) {
                             Image(systemName: "slider.horizontal.3")
                                 .resizable()
@@ -48,6 +49,9 @@ struct TenantListView: View {
                                 .padding(.leading,12)
                         }
                         .frame(width: 44, height: 44)
+                        .sheet(isPresented: $isShowingPreferences) {
+                            PreferenceSheet(filterOptions: $filterOptions)
+                        }
                     }
                     .frame(height:20)
                     .padding(.horizontal)
@@ -80,20 +84,17 @@ struct TenantListView: View {
                         ForEach(filteredTenants) { tenant in
                             TenantCard(tenant: tenant)
                                 .contentShape(Rectangle())
-                                
-                            
-                                
                         }
                     }
                     .padding(.vertical)
                     .padding(.top,-5)
-    
                 }
             }
-            .background(Color(.systemGray5)) // Light grey background
+            .background(Color(.systemGray5))
         }
     }
 }
+
 
 struct TenantCard: View {
     let tenant: TenantModel
@@ -207,7 +208,6 @@ struct TenantCard: View {
                         .foregroundColor(.breezeblue)
                         .cornerRadius(5)
                         .padding(.top,0)
-                    
                         .overlay(
                         RoundedRectangle(cornerRadius: 5)
                             .stroke(Color.breezeblue, lineWidth: 1.5) // ✅ Stroke here

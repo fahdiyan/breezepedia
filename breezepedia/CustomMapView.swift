@@ -347,7 +347,7 @@ struct MapViewWrapper: UIViewRepresentable {
             
             annotationView?.image = UIImage(named: "location.fill")
             
-            // label tenant
+            // label tenant - TENANT NAME
             let label = UILabel()
             label.attributedText = NSAttributedString(
                 string: tenantAnnotation.tenant.name,
