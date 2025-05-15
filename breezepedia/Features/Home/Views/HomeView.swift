@@ -8,10 +8,11 @@
 import SwiftUI
 
 struct HomeView: View {
+    @ViewBuilder
     var body: some View {
         ZStack {
             if let image = UIImage(named: "breezeMap2") {
-                MapView(region: MapRegion.breezeCenterRegion, overlayImage: image)
+                MapView(region: MapRegion.breezeMapRegion, overlayImage: image)
                     .ignoresSafeArea()
             } else {
                 Text("Map tidak tersedia")
