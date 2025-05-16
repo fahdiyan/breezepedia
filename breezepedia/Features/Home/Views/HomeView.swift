@@ -8,12 +8,19 @@
 import SwiftUI
 
 struct HomeView: View {
+    let viewModel = MapViewModel()
+    
     @ViewBuilder
     var body: some View {
         ZStack {
             if let image = UIImage(named: "breezeMap2") {
-                MapView(region: MapRegion.breezeMapRegion, overlayImage: image)
-                    .ignoresSafeArea()
+                MapView(
+                    region: MapRegion.breezeMapRegion,
+                    overlayImage: image,
+                    tenants: dummyTenants2,
+                    viewModel: viewModel
+                )
+                .ignoresSafeArea()
             } else {
                 Text("Map tidak tersedia")
             }

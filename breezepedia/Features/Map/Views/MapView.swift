@@ -11,6 +11,9 @@ import MapKit
 struct MapView: UIViewRepresentable {
     let region: MKCoordinateRegion
     let overlayImage: UIImage
+    let tenants: [TenantModel2]
+    
+    @ObservedObject var viewModel: MapViewModel
     
     func makeUIView(context: Context) -> MKMapView {
         // Membuat map view dengan koordinat The Breeze
@@ -48,32 +51,52 @@ struct MapView: UIViewRepresentable {
         )
         mapView.setCameraZoomRange(zoomRange, animated: false)
         
+        // Menambahkan semua annotation tenants
+        for tenant in tenants {
+            let annotation = MKPointAnnotation()
+            annotation.coordinate = CLLocationCoordinate2D(latitude: tenant.latitude, longitude: tenant.longitude)
+            annotation.title = tenant.name
+            mapView.addAnnotation(annotation)
+        }
+        
         return mapView
     }
     
     func updateUIView(_ uiView: MKMapView, context: Context) {}
     
     func makeCoordinator() -> Coordinator {
-        Coordinator(overlayImage: overlayImage)
+        Coordinator(overlayImage: overlayImage, viewModel: viewModel)
     }
     
     class Coordinator: NSObject, MKMapViewDelegate {
         let overlayImage: UIImage
+        var viewModel: MapViewModel
         
-        init(overlayImage: UIImage) {
+        init(overlayImage: UIImage, viewModel: MapViewModel) {
             self.overlayImage = overlayImage
+            self.viewModel = viewModel
         }
         
         func mapView(_ mapView: MKMapView, rendererFor overlay: MKOverlay) -> MKOverlayRenderer {
             return MapOverlayRenderer(overlay: overlay, overlayImage: overlayImage)
         }
+        
+        func mapView(_ mapView: MKMapView, didSelect view: MKAnnotationView) {
+            guard let title = view.annotation?.title ?? nil,
+                  let selected = dummyTenantsDict2[title] else { return }
+            viewModel.selectedTenant = selected
+        }
     }
 }
 
 #Preview {
-    MapView(
+    let viewModel = MapViewModel()
+    return MapView(
         region: MapRegion.breezeMapRegion,
-        overlayImage: UIImage(named: "breezeMap2.png")!
+        overlayImage: UIImage(named: "breezeMap2.png")!,
+        tenants: dummyTenants2,
+        viewModel: viewModel
     )
     .ignoresSafeArea()
 }
+

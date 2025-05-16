@@ -10,12 +10,13 @@ import SwiftUI
 
 class MapViewModel: ObservableObject {
     @Published var region = MapRegion.breezeMapRegion
+    @Published var selectedTenant: TenantModel2? = nil
 }
 
-#Preview {
-    MapView(
-        region: MapRegion.breezeMapRegion,
-        overlayImage: UIImage(named: "breezeMap2.png")!
-    )
-    .ignoresSafeArea()
-}
+//#Preview {
+//    MapView(
+//        region: MapRegion.breezeMapRegion,
+//        overlayImage: UIImage(named: "breezeMap2.png")!
+//    )
+//    .ignoresSafeArea()
+//}
