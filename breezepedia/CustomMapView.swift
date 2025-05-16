@@ -13,12 +13,13 @@ struct CustomMapView: View {
     @State private var annotationPosition: CGPoint = .zero
     @State private var mapViewRef: MKMapView?
     @State private var selectedTenantKey: String?
-    @State var selectedTenant: TenantModel?
+    var selectedTenant: TenantModel?
     @State private var route: MKRoute?
     @State private var showEntranceAnnotation = false
     @State private var entranceCoordinate = CLLocationCoordinate2D(latitude: -6.301453293388013, longitude: 106.653222511091)
     @State private var routingDestinationKey: String? = nil
-    @State private var showNavigation = false
+    
+    var onNavigate: () -> Void = { }
     
     var tenants: [String: TenantModel]
     
@@ -46,16 +47,12 @@ struct CustomMapView: View {
                 annotationPosition: $annotationPosition,
                 mapViewRef: $mapViewRef,
                 selectedTenantKey: $selectedTenantKey,
-                selectedTenant: $selectedTenant,
+                selectedTenant: selectedTenant,
                 route: $route,
                 showEntranceAnnotation: $showEntranceAnnotation,
                 routingDestinationKey: $routingDestinationKey,
-                showNavigation: $showNavigation,
                 tenants: tenants
             )
-//            .edgesIgnoringSafeArea(.all)
-//            NavigationView(tenant: dummyTenants[0])
-                
             
             // Tooltip
             if let tenantKey = selectedTenantKey,
@@ -66,13 +63,7 @@ struct CustomMapView: View {
                     let point = mapView.convert(tenant.coordinate, toPointTo: mapView)
                     
                     VStack {
-                        CustomTooltip(tenant: tenant) {
-                            calculateRoute(to: tenant.coordinate, key: tenant.name)
-                            selectedTenantKey = nil
-                            selectedAnnotation = nil
-                            selectedTenant = nil
-                            showEntranceAnnotation = true
-                        }
+                        Text("")
                     }
                     .position(x: point.x + 80, y: point.y - 40) // adjust offset if needed
                     .animation(.easeInOut, value: tenantKey)
@@ -88,11 +79,15 @@ struct CustomMapView: View {
             guard let key = newKey,
                   let tenant = tenants[key] else {
                 route = nil
-                routingDestinationKey = nil // ✅ reset saat tenant deselect
+                routingDestinationKey = nil
                 return
             }
             
-            let destinationCoordinate = tenant.coordinate
+            // Remove unused line
+            // let destinationCoordinate = tenant.coordinate
+        }
+        .onAppear{
+            calculateRoute(to: selectedTenant!.coordinate, key: selectedTenant!.name)
         }
     }
 }
@@ -102,11 +97,10 @@ struct MapViewWrapper: UIViewRepresentable {
     @Binding var annotationPosition: CGPoint
     @Binding var mapViewRef: MKMapView?
     @Binding var selectedTenantKey: String?
-    @Binding var selectedTenant: TenantModel?
+    var selectedTenant: TenantModel?
     @Binding var route: MKRoute?
     @Binding var showEntranceAnnotation: Bool
     @Binding var routingDestinationKey: String?
-    @Binding var showNavigation: Bool
     
     
     var tenants: [String: TenantModel]
@@ -138,12 +132,12 @@ struct MapViewWrapper: UIViewRepresentable {
         // Membatasi area agar user tidak bisa keluar dari wilayah ini
         let northEast = CLLocationCoordinate2D(latitude: -6.300, longitude: 106.656)
         let southWest = CLLocationCoordinate2D(latitude: -6.303, longitude: 106.653)
-
+        
         let centerLat = (northEast.latitude + southWest.latitude) / 2
         let centerLong = (northEast.longitude + southWest.longitude) / 2
         let spanLat = abs(northEast.latitude - southWest.latitude)
         let spanLong = abs(northEast.longitude - southWest.longitude)
-
+        
         let boundaryRegion = MKCoordinateRegion(
             center: CLLocationCoordinate2D(latitude: centerLat, longitude: centerLong),
             span: MKCoordinateSpan(latitudeDelta: spanLat, longitudeDelta: spanLong)
@@ -182,6 +176,9 @@ struct MapViewWrapper: UIViewRepresentable {
             uiView.addAnnotation(annotation)
         }
         
+        print(selectedTenantKey ?? "key kosong")
+        print(selectedTenant ?? "kosong")
+        
         // Update tooltip visibility based on selectedTenantKey
         //        for annotation in uiView.annotations {
         //            guard let annotationView = uiView.view(for: annotation),
@@ -207,19 +204,16 @@ struct MapViewWrapper: UIViewRepresentable {
                     animated: true
                 )
                 context.coordinator.lastRoute = newRoute
-                showNavigation = true
             }
         } else {
             context.coordinator.lastRoute = nil
             showEntranceAnnotation = false
-            showNavigation = false
             // Jangan zoom apapun
         }
         
         if showEntranceAnnotation {
             if !uiView.annotations.contains(where: { $0 is EntranceAnnotation }) {
                 uiView.addAnnotation(context.coordinator.entranceAnnotation)
-                showNavigation.toggle()
             }
         } else {
             uiView.removeAnnotation(context.coordinator.entranceAnnotation)
@@ -434,7 +428,7 @@ struct MapViewWrapper: UIViewRepresentable {
 
 #Preview {
     CustomMapView(
-        tenants: dummyTenantsDict
+        selectedTenant: dummyTenants[0], tenants: dummyTenantsDict
     )
 }
 

@@ -12,13 +12,13 @@ import MapKit
 struct CustomTooltip: View {
     var tenant: TenantModel
     @State private var goToDetail = false
-    var onNavigate: () -> Void
+    var onNavigate: () -> Void = { }
     
     var body: some View {
         
         VStack(alignment: .leading, spacing: 4) {
             HStack {
-                Image("peak_hour_circle")
+                Image(tenant.image)
                     .resizable()
                     .aspectRatio(contentMode: .fit)
                     .frame(width: 30, height: 30)
@@ -67,16 +67,20 @@ struct CustomTooltip: View {
                 Button() {
                     onNavigate()
                 } label: {
-                    Image("navigation.white.fill")
-                        .resizable()
-                        .scaledToFit()
-                        .frame(width: 17, height: 17)
-                        .aspectRatio(contentMode: .fill)
+                    Text("Directionnn")
+                        .font(.system(size: 12, weight: .bold))
+                        .foregroundColor(.white)
+                        .frame(width: 104, height: 26)
+                        .background(Color(UIColor(
+                            red: 0x70 / 255,
+                            green: 0x42 / 255,
+                            blue: 0x9A / 255,
+                            alpha: 1
+                        )))
+                        .cornerRadius(5)
+                        .shadow(radius: 4, y: 3)
                 }
-                .frame(width: 36, height: 26)
-                .background(.red)
-                .cornerRadius(5)
-                .shadow(radius: 4, y: 3)
+              
             }
             .navigationBarHidden(true)
             .navigationBarBackButtonHidden(true)
@@ -84,7 +88,7 @@ struct CustomTooltip: View {
         }
         .padding(10)
         .background(.ultraThinMaterial)
-        .cornerRadius(10)
+        .cornerRadius(5)
         .shadow(radius: 4)
         .frame(width: 195, height: 215)
     }

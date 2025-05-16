@@ -20,14 +20,14 @@ struct FacilityButton: View {
                 Image(isSelected ? selectedIcon : icon)
                     .resizable()
                     .scaledToFit()
-                    .frame(width: 28, height: 28)
+                    .frame(width: 30, height: 30)
                 Text(label)
-                    .font(.custom("Poppins-Regular", size: 16))
+                    .font(.custom("Poppins-Regular", size: 15))
                     .lineLimit(2)
                     
             
             }
-            .frame(width: 70, height: 70)
+            .frame(width: 94, height: 84)
             .padding(6.5)
             .foregroundColor(isSelected
                              ? .white
@@ -48,7 +48,7 @@ struct FacilityButton: View {
                         : Color.clear
             )
             .overlay(
-                RoundedRectangle(cornerRadius: 10)
+                RoundedRectangle(cornerRadius: 8)
                     .stroke(Color(UIColor(
                         red: 0x70 / 255,
                         green: 0x42 / 255,
@@ -56,9 +56,12 @@ struct FacilityButton: View {
                         alpha: 1
                     )), lineWidth: 2)
             )
-            .cornerRadius(10)
+            .cornerRadius(8)
         }
         .animation(.easeInOut(duration: 0.1), value: isSelected)
+        .padding(.leading,9)
+        .padding(.trailing,5)
+        .padding(.bottom,15)
     }
 }
 

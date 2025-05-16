@@ -40,11 +40,11 @@ struct PreferenceSheet: View {
     
     let categories = ["Local Dish", "Dessert", "Beverages", "Japanese Dish", "Coffee", "Seafood", "Protein", "Snacks", "Western Dish"]
     
-    let facilityTexts = ["Wifi", "Halal", "Spacious", "Silent", "Cheap", "Pet Friendly", "Smoking Area", "Outdoor"]
+    let facilityTexts = ["Wifi", "Halal", "Spacious", "Silent","Pet Friendly", "Smoking Area",]
     
-    let facilityIcons = ["wifi.fill", "halal_circle", "room.fill", "silent.fill", "pricetag.fill", "pet.fill", "mdi_smoking-area", "outfoor.fill"]
+    let facilityIcons = ["wifi.fill", "halal_circle", "room.fill", "silent.fill", "pet.fill", "mdi_smoking-area",]
     
-    let selectedFacilityIcons = ["wifi.white", "halal.white.circle", "Room.white", "silent.white", "pricetag.white", "pet.white", "smoking.white", "outfoor.white"]
+    let selectedFacilityIcons = ["wifi.white", "halal.white.circle", "Room.white", "silent.white", "pricetag.white", "pet.white", "smoking.white",]
     
     @State private var selectedCategory: String? = nil
     @State private var selectedFacilities: Set<String> = []
@@ -73,6 +73,7 @@ struct PreferenceSheet: View {
                 .font(.custom("Poppins-SemiBold", size: 16))
                 .foregroundColor(Color.black.opacity(0.7))
                 .padding(.bottom, 12)
+                .padding(.top,20)
                 .padding(.leading,14)
             
             
@@ -128,6 +129,7 @@ struct PreferenceSheet: View {
                     .foregroundColor(Color.black.opacity(0.7))
                     .padding(.leading,14)
                     .lineLimit(1)
+                    .padding(.bottom,15)
                 
 
                 Spacer()
@@ -142,6 +144,7 @@ struct PreferenceSheet: View {
                         .padding(.horizontal, 8)
                         .padding(.vertical, 4)
                         .padding(.trailing,8)
+                        .padding(.bottom,15)
             
                 }
             }
@@ -155,7 +158,7 @@ struct PreferenceSheet: View {
             )
             
             HStack {
-                Spacer()
+            
                 
                 Button(action: {
                     filterOptions = FilterOptions(
@@ -167,17 +170,21 @@ struct PreferenceSheet: View {
                     Text("Apply Filter")
                         .font(.system(size: 16, weight: .medium))
                         .foregroundColor(.white)
-                        .frame(width: 360, height: 48)
+                        .frame(width: 345, height: 48)
                         .background(.breezepurple)
                         .cornerRadius(5)
                         .shadow(radius: 4, y: 3)
+                        .padding(.leading,9)
+                        .padding(.horizontal,1)
+                        
+                    
                 }
-                .padding(.top, 20)
+                .padding(.top, 10)
                 
-                Spacer()
+             
             }
         }
-        .padding(.horizontal, 40)
+        .padding(.horizontal, 14)
 //        .padding(.vertical, 40)
 //        .presentationDetents([.fraction(0.8), .large])
         .ignoresSafeArea(edges: .all)
@@ -207,10 +214,11 @@ struct CategoriesView: View {
                         ) {
                             selectedItem = selectedItem == item ? nil : item
                         }
-                    }
-                }
-            }
-        }
+                                            }
+                                        }
+                                    }
+                                }
+                                .padding(.horizontal, 14) // Add this line
     }
 }
 
@@ -222,10 +230,10 @@ struct FacilitiesView: View {
 
     var body: some View {
         let items = Array(zip3(texts, icons, selectedIcons))
-        let rows = [
-            Array(items.prefix(4)),
-            Array(items.dropFirst(4).prefix(4))
-        ]
+        let rows = stride(from: 0, to: items.count, by: 3).map {
+            Array(items[$0..<min($0 + 3, items.count)])
+        }
+
 
         VStack(spacing: 8) {
             ForEach(0..<rows.count, id: \.self) { rowIndex in
@@ -246,6 +254,10 @@ struct FacilitiesView: View {
                             }
                         }
                     }
+                    .padding(.horizontal, -14) // ✅ Add this
+                    .padding(.vertical, -7)
+                    .padding(.leading,16)
+                    
                 }
             }
         }

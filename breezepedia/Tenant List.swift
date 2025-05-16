@@ -1,25 +1,24 @@
 import SwiftUI
+import MapKit
 
 struct TenantListView: View {
     @State private var searchText = ""
-    @State private var isShowingPreferences = false // <--- New state for sheet
-    @State private var filterOptions = FilterOptions(selectedCategory: nil, selectedFacilities: []) // <--- New state for selected filters
+    @State private var isShowingPreferences = false
+    @State private var filterOptions = FilterOptions(selectedCategory: nil, selectedFacilities: [])
 
+    
     var filteredTenants: [TenantModel] {
-        // You can later apply `filterOptions` here too
         if searchText.isEmpty {
             return dummyTenants
         } else {
             return dummyTenants.filter { $0.name.localizedCaseInsensitiveContains(searchText) }
         }
     }
-
+    
     var body: some View {
         NavigationStack {
             VStack(spacing: 0) {
-                // Header with Search & Subtitle
                 VStack(spacing: 10) {
-                    // Search bar + Filter button
                     HStack(spacing: 8) {
                         HStack {
                             Image(systemName: "magnifyingglass")
@@ -29,7 +28,7 @@ struct TenantListView: View {
                                 .foregroundColor(.gray)
                                 .padding(.leading,8)
                                 .padding(.trailing,8)
-
+                            
                             TextField("Search tenant", text: $searchText)
                                 .foregroundColor(.black)
                         }
@@ -37,9 +36,9 @@ struct TenantListView: View {
                         .background(Color.white)
                         .cornerRadius(6)
                         .padding(.trailing,-6)
-
+                        
                         Button(action: {
-                            isShowingPreferences = true // 👈 Show sheet on tap
+                            isShowingPreferences = true
                         }) {
                             Image(systemName: "slider.horizontal.3")
                                 .resizable()
@@ -55,8 +54,7 @@ struct TenantListView: View {
                     }
                     .frame(height:20)
                     .padding(.horizontal)
-
-                    // Subtitle
+                    
                     HStack {
                         (
                             Text("Explore ") +
@@ -77,8 +75,7 @@ struct TenantListView: View {
                 .padding(.bottom, 10)
                 .background(Color.breezepurple)
                 .shadow(radius: 4, y: 2)
-
-                // Tenant Cards
+                
                 ScrollView {
                     VStack(spacing: 12) {
                         ForEach(filteredTenants) { tenant in
@@ -96,62 +93,43 @@ struct TenantListView: View {
     }
 }
 
-
 struct TenantCard: View {
     let tenant: TenantModel
-
+    
     var body: some View {
         VStack(alignment: .leading) {
-            HStack(alignment: .top, spacing: 20)
-            {
-//                Rectangle()
-//                    .foregroundColor(.clear)
-//                    .frame(width: 153, height: 164)
-//                    .background(Color(red: 0, green: 0.33, blue: 0.2))
-//                    .cornerRadius(5)
-//                    .padding(.top, 0)
-//                    .padding(.leading, 0)
-//                    .padding(.trailing,-2)
-                Image(tenant.image) // Replace with your image asset name
+            HStack(alignment: .top, spacing: 20) {
+                Image(tenant.image)
                     .resizable()
                     .aspectRatio(contentMode: .fill)
-                    .frame(width: 153, height: 153) // rectangle size
-                    .clipped() // ensures the image doesn't overflow the frame
+                    .frame(width: 153, height: 153)
+                    .clipped()
                     .cornerRadius(5)
                     .padding(.top, 0)
                     .padding(.bottom,9)
-
+                
                 VStack(alignment: .leading, spacing: 5) {
                     Text(tenant.name)
                         .font(.custom("Poppins-SemiBold", size: 20))
                         .foregroundColor(.black.opacity(0.7))
                         .lineLimit(1)
-                   
                         .padding(.top, -6)
-                        .padding(.bottom, 0) // Change 4 to your desired spacing
-
-
+                    
                     Text(tenant.openTime)
                         .foregroundColor(.gray)
                         .padding(.bottom, 2)
                         .font(.custom("Poppins-Regular", size: 15))
                         .padding(.top, -3)
                     
-                      
-
                     Label {
                         Text("\(tenant.cheapest)")
                             .font(.custom("Poppins-Regular", size: 15))
                             .foregroundColor(.black.opacity(0.8))
                     } icon: {
                         Image(systemName: "tag")
-                            .foregroundColor(Color("breezepurple")) // Icon color only
+                            .foregroundColor(Color("breezepurple"))
                     }
-
                     
-                      
-                    
-
                     Label {
                         Text("Capacity: \(tenant.capacity)")
                             .font(.custom("Poppins-Regular", size: 15))
@@ -160,11 +138,7 @@ struct TenantCard: View {
                         Image(systemName: "square.3.stack.3d")
                             .foregroundColor(Color("breezepurple"))
                     }
-
                     
-                    
-
-
                     if tenant.wifi {
                         Label {
                             Text("Wifi Available")
@@ -174,9 +148,8 @@ struct TenantCard: View {
                             Image(systemName: "wifi")
                                 .foregroundColor(Color("breezepurple"))
                         }
-                
                     }
-
+                    
                     if tenant.halal {
                         Label {
                             Text("Halal")
@@ -186,20 +159,17 @@ struct TenantCard: View {
                             Image(systemName: "checkmark.seal")
                                 .foregroundColor(Color("breezepurple"))
                         }
-                     
                     }
                 }
                 .background(Color.white)
                 .cornerRadius(0)
-                .padding(.vertical, 1) // Keeps vertical spacing but aligns horizontally
+                .padding(.vertical, 1)
                 .padding(.bottom,5)
             }
-
-            // Adjustable top padding for buttons
+            
             HStack(spacing: 16) {
-                // Directions Button with stroke
                 NavigationLink(
-                    destination: NavigationView(tenant: tenant),
+                    destination: ContentView(selectedTenant: tenant),
                     label: {
                         Text("Directions")
                             .frame(width: 122, height: 12)
@@ -211,27 +181,25 @@ struct TenantCard: View {
                             .padding(.top,0)
                             .overlay(
                                 RoundedRectangle(cornerRadius: 5)
-                                    .stroke(Color.breezeblue, lineWidth: 1.5) // ✅ Stroke here
+                                    .stroke(Color.breezeblue, lineWidth: 1.5)
                                     .padding(.top,0)
-                                
                             )
                     }
                 )
-
+                
                 NavigationLink(destination: TenantDetailView(tenant: tenant)) {
-                       Text("Menu & Details")
-                           .frame(width: 160, height: 12)
-                           .font(.system(size: 16))
-                           .padding()
-                           .background(Color.breezepurple)
-                           .foregroundColor(.white)
-                           .cornerRadius(5)
-                           .padding(.top, 0)
-                   }
-               }
+                    Text("Menu & Details")
+                        .frame(width: 160, height: 12)
+                        .font(.system(size: 16))
+                        .padding()
+                        .background(Color.breezepurple)
+                        .foregroundColor(.white)
+                        .cornerRadius(5)
+                        .padding(.top, 0)
+                }
+            }
             .font(.subheadline)
             .padding(.top, 0)
-
         }
         .padding()
         .background(Color.white)
@@ -239,6 +207,23 @@ struct TenantCard: View {
     }
 }
 
+struct MapBottomCard: View {
+    let tenant: TenantModel
+    let route: MKRoute
+    
+    var body: some View {
+        VStack(spacing: 8) {
+            Text("Estimated Time: \(Int(route.expectedTravelTime / 60)) min")
+                .font(.headline)
+            Text("Distance: \(String(format: "%.2f", route.distance / 1000)) km")
+                .font(.subheadline)
+        }
+        .padding()
+        .background(Color.white)
+        .cornerRadius(12)
+        .shadow(radius: 5)
+    }
+}
 
 #Preview {
     TenantListView()

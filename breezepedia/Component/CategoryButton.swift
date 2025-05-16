@@ -15,7 +15,7 @@ struct CategoryButton: View {
     var body: some View {
         Button(action: action) {
             Text(label)
-                .font(.custom("Poppins-Regular", size: 16))
+                .font(.custom("Poppins-Regular", size: 15))
                 .padding(.horizontal, 20)
                 .padding(.vertical, 6)
                 .lineLimit(1)
