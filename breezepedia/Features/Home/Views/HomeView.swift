@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct HomeView: View {
-    let viewModel = MapViewModel()
+    @StateObject private var viewModel = MapViewModel()
     
     @ViewBuilder
     var body: some View {

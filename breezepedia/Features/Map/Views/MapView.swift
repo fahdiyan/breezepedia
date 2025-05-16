@@ -53,9 +53,7 @@ struct MapView: UIViewRepresentable {
         
         // Menambahkan semua annotation tenants
         for tenant in tenants {
-            let annotation = MKPointAnnotation()
-            annotation.coordinate = CLLocationCoordinate2D(latitude: tenant.latitude, longitude: tenant.longitude)
-            annotation.title = tenant.name
+            let annotation = TenantAnnotation2(tenant: tenant)
             mapView.addAnnotation(annotation)
         }
         
@@ -64,34 +62,14 @@ struct MapView: UIViewRepresentable {
     
     func updateUIView(_ uiView: MKMapView, context: Context) {}
     
-    func makeCoordinator() -> Coordinator {
-        Coordinator(overlayImage: overlayImage, viewModel: viewModel)
-    }
-    
-    class Coordinator: NSObject, MKMapViewDelegate {
-        let overlayImage: UIImage
-        var viewModel: MapViewModel
-        
-        init(overlayImage: UIImage, viewModel: MapViewModel) {
-            self.overlayImage = overlayImage
-            self.viewModel = viewModel
-        }
-        
-        func mapView(_ mapView: MKMapView, rendererFor overlay: MKOverlay) -> MKOverlayRenderer {
-            return MapOverlayRenderer(overlay: overlay, overlayImage: overlayImage)
-        }
-        
-        func mapView(_ mapView: MKMapView, didSelect view: MKAnnotationView) {
-            guard let title = view.annotation?.title ?? nil,
-                  let selected = dummyTenantsDict2[title] else { return }
-            viewModel.selectedTenant = selected
-        }
+    func makeCoordinator() -> MapCoordinator {
+        MapCoordinator(overlayImage: overlayImage, viewModel: viewModel)
     }
 }
 
 #Preview {
     let viewModel = MapViewModel()
-    return MapView(
+    MapView(
         region: MapRegion.breezeMapRegion,
         overlayImage: UIImage(named: "breezeMap2.png")!,
         tenants: dummyTenants2,
@@ -99,4 +77,3 @@ struct MapView: UIViewRepresentable {
     )
     .ignoresSafeArea()
 }
-

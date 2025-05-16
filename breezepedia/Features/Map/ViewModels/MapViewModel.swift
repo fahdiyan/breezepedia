@@ -11,12 +11,16 @@ import SwiftUI
 class MapViewModel: ObservableObject {
     @Published var region = MapRegion.breezeMapRegion
     @Published var selectedTenant: TenantModel2? = nil
-}
+    
+    let tenants: [TenantModel2] = dummyTenants2
 
-//#Preview {
-//    MapView(
-//        region: MapRegion.breezeMapRegion,
-//        overlayImage: UIImage(named: "breezeMap2.png")!
-//    )
-//    .ignoresSafeArea()
-//}
+    func iconName(for category: String) -> String {
+        switch category {
+        case "Coffee & Dessert": return "room.fill"
+        case "Local Dish": return "navigation"
+        case "Western Dish": return "silent.fill"
+        case "Beverages": return "pet.fill"
+        default: return "pricetag.fill"
+        }
+    }
+}
