@@ -41,11 +41,11 @@ class MapCoordinator: NSObject, MKMapViewDelegate {
         
         if view == nil {
             view = MKMarkerAnnotationView(annotation: annotation, reuseIdentifier: identifier)
-            view?.canShowCallout = true
-            view?.markerTintColor = UIColor(AppColors.Secondary.Orange.p500)
             view?.glyphImage = UIImage(named: viewModel.iconName(for: tenantAnnotation.tenant.category))
+            view?.selectedGlyphImage = UIImage(named: viewModel.iconName(for: tenantAnnotation.tenant.category))
+            view?.markerTintColor = UIColor(AppColors.Secondary.Orange.p500)
             view?.glyphTintColor = UIColor(AppColors.Neutral.White.p900)
-            view?.selectedGlyphImage = UIImage(named: "location")
+            view?.canShowCallout = true
         } else {
             view?.annotation = annotation
         }

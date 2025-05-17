@@ -16,11 +16,15 @@ class MapViewModel: ObservableObject {
 
     func iconName(for category: String) -> String {
         switch category {
-        case "Coffee & Dessert": return "room.fill"
-        case "Local Dish": return "navigation"
-        case "Western Dish": return "silent.fill"
-        case "Beverages": return "pet.fill"
-        default: return "pricetag.fill"
+        case "Coffee": return "coffee"
+        case "Beverage": return "beverage"
+        case "Dessert": return "dessert"
+        case "Seafood": return "seafood"
+        case "Pizza": return "pizza"
+        case "Healthy Food": return "healthyFood"
+        case "Fruit": return "fruit"
+        case "Chicken": return "chicken"
+        default: return "coffee"
         }
     }
 }

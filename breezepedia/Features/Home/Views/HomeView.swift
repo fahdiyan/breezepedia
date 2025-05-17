@@ -31,7 +31,7 @@ struct HomeView: View {
                         .cornerRadius(12)
                         .shadow(color: Color.black.opacity(0.2), radius: 4, x: 0, y: 2)
                     
-                    CustomButton(
+                    AppButton(
                         type: .primary,
                         width: .mini,
                         icon: "filter",
@@ -43,14 +43,14 @@ struct HomeView: View {
                 Spacer()
                 
                 HStack {
-                    CustomButton(
+                    AppButton(
                         type: .secondary,
                         width: .mini,
                         icon: "tenantMenu",
                         action: {}
                     )
                     Spacer()
-                    CustomButton(
+                    AppButton(
                         type: .secondary,
                         width: .mini,
                         label: nil,

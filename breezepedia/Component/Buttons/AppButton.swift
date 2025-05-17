@@ -1,5 +1,5 @@
 //
-//  CustomButton.swift
+//  AppButton.swift
 //  breezepedia
 //
 //  Created by Sabri Ramadhani on 14/05/25.
@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct CustomButton: View {
+struct AppButton: View {
     let type: ButtonType
     let width: ButtonWidth
     let label: String?
@@ -53,7 +53,7 @@ struct CustomButton: View {
 }
 
 #Preview {
-    CustomButton(
+    AppButton(
         type: .primary,
         width: .auto,
         label: "Filter",
