@@ -34,7 +34,7 @@ struct HomeView: View {
                     CustomButton(
                         type: .primary,
                         width: .mini,
-                        icon: "arrow.up.arrow.down",
+                        icon: "filter",
                         action: {}
                     )
                 }
@@ -46,7 +46,7 @@ struct HomeView: View {
                     CustomButton(
                         type: .secondary,
                         width: .mini,
-                        icon: "menucard",
+                        icon: "tenantMenu",
                         action: {}
                     )
                     Spacer()
@@ -54,7 +54,7 @@ struct HomeView: View {
                         type: .secondary,
                         width: .mini,
                         label: nil,
-                        icon: "location",
+                        icon: "navigator2",
                         action: {}
                     )
                 }
