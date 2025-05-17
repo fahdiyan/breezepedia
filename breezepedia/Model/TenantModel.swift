@@ -12,7 +12,7 @@ class TenantModel: Identifiable {
     let id: UUID = UUID()
     let name: String
     let image: String
-    let category: String
+    let category: [String]
     let openTime: String
     let coordinate: CLLocationCoordinate2D
     let coverImage: String
@@ -40,8 +40,8 @@ class TenantModel: Identifiable {
         name: String,
         image: String,
         coverImage: String,
-        category: String,
-        openTime: String,
+        category: [String],
+    openTime: String,
         cheapest: Int,
         wifi: Bool,
         peakHour: String,

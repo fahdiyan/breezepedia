@@ -67,7 +67,7 @@ struct CustomTooltip: View {
                 Button() {
                     onNavigate()
                 } label: {
-                    Text("Directionnn")
+                    Text("Direction")
                         .font(.system(size: 12, weight: .bold))
                         .foregroundColor(.white)
                         .frame(width: 104, height: 26)

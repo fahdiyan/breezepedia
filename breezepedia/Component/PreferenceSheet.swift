@@ -1,10 +1,8 @@
-//
 //  PreferenceSheet.swift
 //  breezepedia
 //
 //  Created by Sabri Ramadhani on 05/04/25.
 //
-
 
 import SwiftUI
 
@@ -26,12 +24,10 @@ struct ContentPreference: View {
     }
 }
 
-
-
-struct ButtonItem : Identifiable{
+struct ButtonItem : Identifiable {
     let id = UUID()
-    let label : String;
-    let icon : String;
+    let label : String
+    let icon : String
 }
 
 struct PreferenceSheet: View {
@@ -50,7 +46,6 @@ struct PreferenceSheet: View {
     @State private var selectedFacilities: Set<String> = []
     @State private var priceRange: ClosedRange<Double> = 20000...300000
 
-    
     var body: some View {
         VStack(alignment: .leading) {
             HStack {
@@ -68,26 +63,23 @@ struct PreferenceSheet: View {
                     .onTapGesture { dismiss() }
                     .padding(.trailing,14)
             }
-            
+
             Text("What’s on your mood today?")
                 .font(.custom("Poppins-SemiBold", size: 16))
                 .foregroundColor(Color.black.opacity(0.7))
                 .padding(.bottom, 12)
                 .padding(.top,20)
                 .padding(.leading,14)
-            
-            
-     
+
             CategoriesView(items: categories, selectedItem: $selectedCategory)
-            
+
             Divider()
                 .frame(height: 1)
                 .overlay(.gray.opacity(0.3))
-               
                 .padding(.top,15)
                 .padding(.leading,14)
                 .padding(.trailing,14)
-            
+
             Text("Adjust the budget, maybe?")
                 .font(.custom("Poppins-SemiBold", size: 16))
                 .foregroundColor(Color.black.opacity(0.7))
@@ -95,7 +87,6 @@ struct PreferenceSheet: View {
                 .padding(.leading,14)
 
             HStack {
-                
                 Text("0k")
                     .font(.system(size: 14))
                     .foregroundColor(.gray)
@@ -103,17 +94,12 @@ struct PreferenceSheet: View {
                     get: { priceRange.upperBound },
                     set: { priceRange = 20000...$0 }
                 ), in: 20000...167000)
-                .accentColor(.breezeblue)
+                .accentColor(.breezepurple)
                 Text("999k")
                     .font(.system(size: 14))
                     .foregroundColor(.gray)
             }
 
-            
-            
-            
-            
-            
             Divider()
                 .frame(height: 1)
                 .overlay(.gray.opacity(0.3))
@@ -121,8 +107,7 @@ struct PreferenceSheet: View {
                 .padding(.bottom,15)
                 .padding(.leading,14)
                 .padding(.trailing,14)
-               
-            
+
             HStack {
                 Text("Any specific facilities?")
                     .font(.custom("Poppins-SemiBold", size: 16))
@@ -130,13 +115,13 @@ struct PreferenceSheet: View {
                     .padding(.leading,14)
                     .lineLimit(1)
                     .padding(.bottom,15)
-                
 
                 Spacer()
 
                 Button(action: {
                     filterOptions.selectedCategory = nil
                     filterOptions.selectedFacilities = []
+                    filterOptions.maxPrice = nil
                 }) {
                     Text("Reset Filter")
                         .font(.custom("Poppins-Regular", size: 16))
@@ -145,10 +130,8 @@ struct PreferenceSheet: View {
                         .padding(.vertical, 4)
                         .padding(.trailing,8)
                         .padding(.bottom,15)
-            
                 }
             }
-
 
             FacilitiesView(
                 texts: facilityTexts,
@@ -156,14 +139,13 @@ struct PreferenceSheet: View {
                 selectedIcons: selectedFacilityIcons,
                 selectedLabels: $selectedFacilities
             )
-            
+
             HStack {
-            
-                
                 Button(action: {
                     filterOptions = FilterOptions(
                         selectedCategory: selectedCategory,
-                        selectedFacilities: selectedFacilities
+                        selectedFacilities: selectedFacilities,
+                        maxPrice: priceRange.upperBound // ✅ Added this
                     )
                     dismiss()
                 }) {
@@ -176,17 +158,11 @@ struct PreferenceSheet: View {
                         .shadow(radius: 4, y: 3)
                         .padding(.leading,9)
                         .padding(.horizontal,1)
-                        
-                    
                 }
                 .padding(.top, 10)
-                
-             
             }
         }
         .padding(.horizontal, 14)
-//        .padding(.vertical, 40)
-//        .presentationDetents([.fraction(0.8), .large])
         .ignoresSafeArea(edges: .all)
     }
 }
@@ -194,7 +170,7 @@ struct PreferenceSheet: View {
 struct CategoriesView: View {
     let items: [String]
     @Binding var selectedItem: String?
-    
+
     var rows: [[String]] {
         [
             Array(items.prefix(3)),
@@ -202,7 +178,7 @@ struct CategoriesView: View {
             Array(items.dropFirst(6))
         ]
     }
-    
+
     var body: some View {
         VStack(alignment: .leading, spacing: 12) {
             ForEach(rows, id: \.self) { row in
@@ -214,11 +190,11 @@ struct CategoriesView: View {
                         ) {
                             selectedItem = selectedItem == item ? nil : item
                         }
-                                            }
-                                        }
-                                    }
-                                }
-                                .padding(.horizontal, 14) // Add this line
+                    }
+                }
+            }
+        }
+        .padding(.horizontal, 14)
     }
 }
 
@@ -233,7 +209,6 @@ struct FacilitiesView: View {
         let rows = stride(from: 0, to: items.count, by: 3).map {
             Array(items[$0..<min($0 + 3, items.count)])
         }
-
 
         VStack(spacing: 8) {
             ForEach(0..<rows.count, id: \.self) { rowIndex in
@@ -253,11 +228,10 @@ struct FacilitiesView: View {
                                 selectedLabels.insert(label)
                             }
                         }
+                        .padding(.horizontal, -14)
+                        .padding(.vertical, -7)
+                        .padding(.leading,16)
                     }
-                    .padding(.horizontal, -14) // ✅ Add this
-                    .padding(.vertical, -7)
-                    .padding(.leading,16)
-                    
                 }
             }
         }
@@ -271,10 +245,11 @@ struct FacilitiesView: View {
 struct FilterOptions {
     var selectedCategory: String?
     var selectedFacilities: Set<String>
+    var maxPrice: Double? // ✅ Added this
 }
 
 #Preview {
     StatefulPreviewWrapper(
-        FilterOptions(selectedCategory: nil, selectedFacilities: [])
+        FilterOptions(selectedCategory: nil, selectedFacilities: [], maxPrice: nil)
     ) { PreferenceSheet(filterOptions: $0) }
 }

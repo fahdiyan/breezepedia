@@ -13,7 +13,7 @@ let dummyTenantsDict: [String: TenantModel] = [
         name: "J.Co Coffee",
         image: "jco_logo1",
         coverImage: "jco_breeze",
-        category: "Coffee & Dessert",
+        category: ["Dessert","Coffee","Snacks"],
         openTime: "Open 08.00 - 20.00",
         cheapest: 10000,
         wifi: true,
@@ -33,7 +33,7 @@ let dummyTenantsDict: [String: TenantModel] = [
         name: "Bebek Bengil",
         image: "bebekbengil_logo",
         coverImage: "bebekbengil_breeze",
-        category: "Local Dish",
+        category: ["Local Dish, Protein" ],
         openTime: "Open 08.00 - 22.00",
         cheapest: 20000,
         wifi: true,
@@ -53,7 +53,7 @@ let dummyTenantsDict: [String: TenantModel] = [
         name: "Burgreens",
         image: "burgreens_logo1",
         coverImage: "bebekbengil_breeze",
-        category: "Western Dish",
+        category: ["Western Dish","Protein"],
         openTime: "Open 08.00 - 22.00",
         cheapest: 20000,
         wifi: true,
@@ -73,7 +73,7 @@ let dummyTenantsDict: [String: TenantModel] = [
         name: "Boost Juice",
         image: "boost_logo3",
         coverImage: "boost_breeze",
-        category: "Beverages",
+        category: ["Beverages","Dessert"],
         openTime: "Open 08.00 - 17.00",
         cheapest: 20000,
         wifi: false,
@@ -93,7 +93,7 @@ let dummyTenantsDict: [String: TenantModel] = [
         name: "Chaterise",
         image: "chaterise_logo",
         coverImage: "boost_breeze",
-        category: "Beverages",
+        category: ["Dessert","Snacks"],
         openTime: "Open 10.00 - 20.00",
         cheapest: 20000,
         wifi: true,
@@ -113,7 +113,7 @@ let dummyTenantsDict: [String: TenantModel] = [
         name: "Sate Senayan",
         image: "satesenayan_logo6",
         coverImage: "boost_breeze",
-        category: "Indonesianfood",
+        category: ["Local Dish","Protein"],
         openTime: "Open 10.00 - 21.00",
         cheapest: 20000,
         wifi: true,
@@ -129,11 +129,11 @@ let dummyTenantsDict: [String: TenantModel] = [
         isSpacious: true
         ),
     "D'Cost Seafood": TenantModel(
-        coordinate: CLLocationCoordinate2D(latitude: -6.301604216577298, longitude: 106.65389819148908),
+        coordinate: CLLocationCoordinate2D(latitude: -6.297360302457948, longitude: 106.65428588120463),
         name: "D'cost Seafood",
         image: "dcost_logo",
         coverImage: "boost_breeze",
-        category: "Indonesianfood",
+        category: ["Local Dish","Seafood"],
         openTime: "Open 10.00 - 20.00",
         cheapest: 20000,
         wifi: true,
@@ -147,7 +147,34 @@ let dummyTenantsDict: [String: TenantModel] = [
         hasOutdoor: false,
         isQuiet: true,
         isSpacious: true
-        )
+        ),
+    
+    
+    "Kenangan Coffee": TenantModel(
+        coordinate: CLLocationCoordinate2D(latitude: -6.297360302457948, longitude: 106.65428588120463),
+        name: "Kenangan Coffee",
+        image: "kenangan_logo",
+        coverImage: "kenangan_breeze",
+        category: ["Coffee","Dessert","Beverages"],
+        openTime: "Open 10.00 - 21.00",
+        cheapest: 30000,
+        wifi: true,
+        peakHour: "17.00 - 21.00",
+        capacity: 50,
+        halal: true,
+        pet: false,
+        menus: dummyMenus["Boost"] ?? [],
+        isCheap: true,
+        hasSmokingArea: false,
+        hasOutdoor: false,
+        isQuiet: true,
+        isSpacious: true
+        ),
+    
+    
+    
+    
+    
 ]
 
 let dummyTenants: [TenantModel] = Array(dummyTenantsDict.values)

@@ -8,12 +8,42 @@ struct TenantListView: View {
 
     
     var filteredTenants: [TenantModel] {
-        if searchText.isEmpty {
-            return dummyTenants
-        } else {
-            return dummyTenants.filter { $0.name.localizedCaseInsensitiveContains(searchText) }
+        dummyTenants.filter { tenant in
+            var matches = true
+            
+            // Search text filter
+            if !searchText.isEmpty {
+                matches = tenant.name.localizedCaseInsensitiveContains(searchText)
+            }
+            
+            if let selectedCategory = filterOptions.selectedCategory {
+                matches = matches && tenant.category.contains(selectedCategory)
+            }
+
+            // Facilities filter (manual mapping)
+            for facility in filterOptions.selectedFacilities {
+                switch facility.lowercased() {
+                    case "wifi":
+                        matches = matches && tenant.wifi
+                    case "halal":
+                        matches = matches && tenant.halal
+                    case "cheap":
+                        matches = matches && tenant.isCheap
+                    case "smoking area":
+                        matches = matches && tenant.hasSmokingArea
+                    case "quiet":
+                        matches = matches && tenant.isQuiet
+                    case "spacious":
+                        matches = matches && tenant.isSpacious
+                    default:
+                        break
+                }
+            }
+            
+            return matches
         }
     }
+
     
     var body: some View {
         NavigationStack {
@@ -31,6 +61,7 @@ struct TenantListView: View {
                             
                             TextField("Search tenant", text: $searchText)
                                 .foregroundColor(.black)
+                                .font(.custom("Poppins-Regular", size: 16))
                         }
                         .padding(10)
                         .background(Color.white)

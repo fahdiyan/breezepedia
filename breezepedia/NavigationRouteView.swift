@@ -3,11 +3,13 @@ import SwiftUI
 struct NavigationRouteView: View {
     var tenant: TenantModel
     
+    @Environment(\.dismiss) var dismiss // This allows us to dismiss the current view
+    
     var body: some View {
         GeometryReader { geometry in
             VStack(spacing: 0) {
                 
-                // Map/Top content placeholder (no top right panel anymore)
+                // Map/Top content placeholder
                 ZStack {
                     Color.clear.frame(height: max(700, 0))
                 }
@@ -31,19 +33,18 @@ struct NavigationRouteView: View {
                                 Text("Start Point")
                                     .font(.custom("Poppins-Regular", size: 16))
                                     .foregroundColor(.gray)
-                                    .padding(.bottom,4)
+                                    .padding(.bottom, 4)
+                                
                                 Text("Main Gate")
                                     .font(.custom("Poppins-SemiBold", size: 20))
                                     .foregroundColor(Color("breezepurple"))
-                                    .foregroundColor(.gray)
-                                
                             }
                             
                             Spacer()
                             
                             Image(systemName: "arrow.right")
                                 .foregroundColor(.breezeblue)
-                                .font(.system(size: 24, weight: .bold)) // Increase weight to make it thicker
+                                .font(.system(size: 24, weight: .bold))
                             
                             Spacer()
                             
@@ -51,27 +52,25 @@ struct NavigationRouteView: View {
                                 Text("Destination")
                                     .font(.custom("Poppins-Regular", size: 16))
                                     .foregroundColor(.gray)
-                                    .padding(.bottom,4)
+                                    .padding(.bottom, 4)
+                                
                                 Text(tenant.name)
                                     .font(.custom("Poppins-SemiBold", size: 20))
                                     .foregroundColor(Color("breezepurple"))
                             }
                         }
                         
-                        // Divider between sections
+                        // Divider
                         Divider()
-                            .padding(.horizontal, 0) // Optional: stretch divider edge to edge
-                            .frame(height: 0.6) // Adjust the height to make the divider thicker
+                            .padding(.horizontal, 0)
+                            .frame(height: 0.6)
                             .background(Color.gray)
-                        
                         
                         // Duration, Distance, Exit Button
                         HStack {
                             Text("2 min")
                                 .font(.custom("Poppins-SemiBold", size: 20))
-                            
                                 .foregroundColor(Color("breezeblue"))
-                            
                             
                             Text("•")
                                 .font(.custom("Poppins-SemiBold", size: 18))
@@ -79,13 +78,12 @@ struct NavigationRouteView: View {
                             
                             Text("150 m")
                                 .font(.custom("Poppins-SemiBold", size: 20))
-                            
                                 .foregroundColor(Color("breezeblue"))
                             
                             Spacer()
                             
                             Button(action: {
-                                // Exit action
+                                dismiss() // This will go back to the previous view
                             }) {
                                 Text("Exit")
                                     .fontWeight(.bold)
@@ -99,10 +97,9 @@ struct NavigationRouteView: View {
                     .padding(.horizontal, 25)
                     .padding(.top, 12)
                     .padding(.bottom, 80)
-                    
                 }
-                .frame(width: geometry.size.width, height: geometry.size.height * 0.3) // Adjust the height based on available space
-                .padding(.top, -50) // Adjust for slight top movement
+                .frame(width: geometry.size.width, height: geometry.size.height * 0.3)
+                .padding(.top, -50)
                 .ignoresSafeArea(.container, edges: .bottom)
             }
             .ignoresSafeArea(.all, edges: .top)

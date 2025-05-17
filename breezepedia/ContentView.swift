@@ -26,10 +26,14 @@ struct ContentView: View {
         dummyTenantsDict.filter { _, tenant in
             let matchesSearch = searchText.isEmpty ||
             tenant.name.lowercased().contains(searchText.lowercased()) ||
-            tenant.category.lowercased().contains(searchText.lowercased())
+            tenant.category.joined(separator: ", ").lowercased().contains(searchText.lowercased())
+
             
             let matchesCategory = filterOptions.selectedCategory == nil ||
-            tenant.category.lowercased().contains(filterOptions.selectedCategory!.lowercased())
+                tenant.category
+                    .map { $0.lowercased() }
+                    .contains(filterOptions.selectedCategory!.lowercased())
+
             
             let matchesFacilities = filterOptions.selectedFacilities.allSatisfy { facility in
                 switch facility.lowercased() {

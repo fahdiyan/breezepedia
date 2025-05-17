@@ -143,7 +143,8 @@ struct TenantInfoView: View {
                 .padding(.leading, 10)
                 .padding(.top, 10)
             
-            Text(tenant.category)
+            Text(tenant.category.joined(separator: ", "))
+
                 .font(.custom("Poppins-Bold.ttf", size: 16))
                 .fontWeight(.bold)
                 .foregroundColor(Color(hue: 0, saturation: 0, brightness: 0.47))
