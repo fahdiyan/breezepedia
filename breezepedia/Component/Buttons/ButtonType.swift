@@ -16,24 +16,26 @@ enum ButtonType {
     var backgroundColor: Color {
         switch self {
         case .primary:
-            return Color.purple
+            return AppColors.Primary.p500
         case .secondary:
-            return Color.white
+            return AppColors.Neutral.White.p900
         case .selected:
-            return Color.purple.opacity(0.5)
+            return AppColors.Primary.p900
         case .unselected:
-            return Color.gray.opacity(0.5)
+            return AppColors.Neutral.White.p800
         }
     }
 
     var foregroundColor: Color {
         switch self {
         case .primary:
-            return Color.white
-        case .secondary, .selected:
-            return Color.purple
+            return AppColors.Neutral.White.p900
+        case .secondary:
+            return AppColors.Primary.p500
+        case .selected:
+            return AppColors.Primary.p300
         case .unselected:
-            return Color.gray
+            return AppColors.Neutral.White.p500
         }
     }
 }

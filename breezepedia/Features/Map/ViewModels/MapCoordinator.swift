@@ -28,6 +28,7 @@ class MapCoordinator: NSObject, MKMapViewDelegate {
         viewModel.selectedTenant = selected
     }
     
+    // Menampilkan annotation bawaan MapKit
     func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
         if annotation is MKUserLocation { return nil }
         
@@ -41,10 +42,10 @@ class MapCoordinator: NSObject, MKMapViewDelegate {
         if view == nil {
             view = MKMarkerAnnotationView(annotation: annotation, reuseIdentifier: identifier)
             view?.canShowCallout = true
-            view?.markerTintColor = .orange
+            view?.markerTintColor = UIColor(AppColors.Secondary.Orange.p500)
             view?.glyphImage = UIImage(named: viewModel.iconName(for: tenantAnnotation.tenant.category))
-            view?.glyphTintColor = .white
-            view?.selectedGlyphImage = UIImage(named: "room.fill")
+            view?.glyphTintColor = UIColor(AppColors.Neutral.White.p900)
+            view?.selectedGlyphImage = UIImage(named: "location")
         } else {
             view?.annotation = annotation
         }

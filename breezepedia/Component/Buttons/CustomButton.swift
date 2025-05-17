@@ -32,10 +32,9 @@ struct CustomButton: View {
         Button(action: action) {
             HStack(spacing: label != nil && icon != nil ? 10 : 0) {
                 if let icon = icon {
-                    Image(systemName: icon)
-                        .resizable()
-                        .scaledToFit()
-                        .frame(width: 24, height: 24)
+                    if let icon = UIImage(named: icon) {
+                        Image(uiImage: icon)
+                    }
                 }
                 if let label = label {
                     Text(label)
