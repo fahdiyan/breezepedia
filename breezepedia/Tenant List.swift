@@ -19,6 +19,10 @@ struct TenantListView: View {
             if let selectedCategory = filterOptions.selectedCategory {
                 matches = matches && tenant.category.contains(selectedCategory)
             }
+            
+            if let maxPrice = filterOptions.maxPrice {
+                matches = matches && tenant.cheapest <= Int(maxPrice)
+            }
 
             // Facilities filter (manual mapping)
             for facility in filterOptions.selectedFacilities {

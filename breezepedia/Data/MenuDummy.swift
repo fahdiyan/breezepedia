@@ -6,7 +6,7 @@
 //
 
 let dummyMenus: [String: [MenuModel]] = [
-    "J.Co": [
+    "J.Co Coffee": [
         MenuModel(
             name: "Jcochino",
             image: "jcochino",
@@ -156,7 +156,7 @@ let dummyMenus: [String: [MenuModel]] = [
             price: 59000
         )
     ],
-    "Boost": [
+    "Boost Juice": [
         MenuModel(
             name: "5 A Day Fit (Premium)",
             image: "adayfit",
@@ -165,7 +165,7 @@ let dummyMenus: [String: [MenuModel]] = [
         ),
         MenuModel(
             name: "Energiser Juice (Premium)",
-            image: "energiser",
+            image: "adayfit",
             description: "Freshly squeezed orange, banana, strawberries & ice + energiser booster",
             price: 55000
         ),
@@ -205,5 +205,266 @@ let dummyMenus: [String: [MenuModel]] = [
             description: "Freshly squeezed orange, apple, carrot, ginger & ice + vita booster",
             price: 65000
         )
-    ]
+    ],
+    
+    "Sate Senayan": [
+        MenuModel(
+            name: "Sate Ayam Bumbu Halus",
+            image: "sateayam",
+            description: "Chicken Satay with smoothed peanut sauce topping",
+            price: 70000
+        ),
+        MenuModel(
+            name: "Gurame Bakar Sambal",
+            image: "guramebakar",
+            description: "Freshly grilled Gurame fish, served over spicy onion sambal.",
+            price: 65000
+        ),
+        MenuModel(
+            name: "Traditional Ketoprak",
+            image: "ketoprak",
+            description: "Packed riced mixed with various vegetables, protein and peanut sauce.",
+            price: 38000
+        ),
+        MenuModel(
+            name: "Soto Ayam",
+            image: "sotoayam",
+            description: "Chicken soup with shredded chicken and vegetables.",
+            price: 75000
+        ),
+        MenuModel(
+            name: "Fried Rice Premium with Egg",
+            image: "nasigoreng",
+            description: "Banana, blueberries, strawberries, oats, whey protein, apple juice, TD4 strawberry yoghurt & ice + energiser booster",
+            price: 20000
+        ),
+        MenuModel(
+            name: "Jeruk Nipis Iced Tea",
+            image: "esteh",
+            description: "Iced tea infused with jeruk nipis and sweetened by syroup.",
+            price: 18000
+        ),
+        MenuModel(
+            name: "Package of Gorengan",
+            image: "gorengan",
+            description: "Fried pastel, kerupuk, cireng, srved with sambal merah.",
+            price: 55000
+        ),
+        MenuModel(
+            name: "Sweetened Coco Klepon",
+            image: "klepon",
+            description: "Coconut cake filled with coconut cream & sprinkled with grated coconut.",
+            price: 15000
+        )
+    ],
+    
+    "Kenangan Coffee": [
+        MenuModel(
+            name: "Iced Kenangan Latte",
+            image: "kenanganlatte",
+            description: "Double shot espresso served over steamed milk with Aren sugar & ice.",
+            price: 38000
+        ),
+        MenuModel(
+            name: "Iced Gula Melaka Latte",
+            image: "gulamelaka",
+            description: "Double shot espresso served over steamed milk with Melaka salted cream & ice.",
+            price: 45000
+        ),
+        MenuModel(
+            name: "Uji Matcha Latte",
+            image: "ujimatcha",
+            description: "Premium Uji Matcha served over steamed milk, ice , and salted cream.",
+            price: 40000
+        ),
+        MenuModel(
+            name: "Iced Creamy Choco",
+            image: "creamychoco",
+            description: "Premium chocolate powder served over milk,ice and chocolaate topping.",
+            price: 35000
+        ),
+        MenuModel(
+            name: "Iced Gula Melaka Frappe",
+            image: "gulamelakafrappe",
+            description: "Blended ice with double shot espresso, served over steamed milk with Melaka salted cream & ice.",
+            price: 45000
+        ),
+        MenuModel(
+            name: "Ice Nutella Temptation",
+            image: "nutellafrappe",
+            description: "Blended ice with double shot espresso, Nutella, steamed milk and whipped cream.",
+            price: 38000
+        ),
+        MenuModel(
+            name: "Hot Cappucino",
+            image: "cappucino",
+            description: "Double shot espresso served over hot steamed milk.",
+            price: 28000
+        ),
+        MenuModel(
+            name: "Egg Cronigiry",
+            image: "eggconigiry",
+            description: "Freshly baked inigiry-shaped croissant filled with egg custard.",
+            price: 20000
+        )
+    ],
+    
+    
+    "D'Cost Seafood": [
+        MenuModel(
+            name: "Iced Kenangan Latte",
+            image: "kenanganlatte",
+            description: "Double shot espresso served over steamed milk with Aren sugar & ice.",
+            price: 38000
+        ),
+        MenuModel(
+            name: "Iced Gula Melaka Latte",
+            image: "gulamelaka",
+            description: "Double shot espresso served over steamed milk with Melaka salted cream & ice.",
+            price: 45000
+        ),
+        MenuModel(
+            name: "Uji Matcha Latte",
+            image: "ujimatcha",
+            description: "Premium Uji Matcha served over steamed milk, ice , and salted cream.",
+            price: 40000
+        ),
+        MenuModel(
+            name: "Iced Creamy Choco",
+            image: "creamychoco",
+            description: "Premium chocolate powder served over milk,ice and chocolaate topping.",
+            price: 35000
+        ),
+        MenuModel(
+            name: "Iced Gula Melaka Frappe",
+            image: "gulamelakafrappe",
+            description: "Blended ice with double shot espresso, served over steamed milk with Melaka salted cream & ice.",
+            price: 45000
+        ),
+        MenuModel(
+            name: "Ice Nutella Temptation",
+            image: "nutellafrappe",
+            description: "Blended ice with double shot espresso, Nutella, steamed milk and whipped cream.",
+            price: 38000
+        ),
+        MenuModel(
+            name: "Hot Cappucino",
+            image: "cappucino",
+            description: "Double shot espresso served over hot steamed milk.",
+            price: 28000
+        ),
+        MenuModel(
+            name: "Egg Cronigiry",
+            image: "eggconigiry",
+            description: "Freshly baked inigiry-shaped croissant filled with egg custard.",
+            price: 20000
+        )
+    ],
+    
+    "Chaterise": [
+        MenuModel(
+            name: "Legendary Fresh Cream Cake",
+            image: "legendcream",
+            description: "Strawberry shortcake with whipped cream and fresh strawberry on top.",
+            price: 45000
+        ),
+        MenuModel(
+            name: "Fresh Cream Chocolate",
+            image: "freshcreamchoco",
+            description: "Chocolate cake with choco whipped cream and fresh strawberry on top.",
+            price: 49000
+        ),
+        MenuModel(
+            name: "Rare Blueberry Cheesecake",
+            image: "blueberrycake",
+            description: "Fresh & soft blueberry cheesecake with fresh blueberry on top.",
+            price: 50000
+        ),
+        MenuModel(
+            name: "Iced Creamy Choco",
+            image: "creamychoco",
+            description: "Premium chocolate powder served over milk,ice and chocolate topping.",
+            price: 35000
+        ),
+        MenuModel(
+            name: "Fluffy Souffle Cake",
+            image: "fluffysouffle",
+            description: "Freshly baked soft and tender souffle cake.",
+            price: 35000
+        ),
+        MenuModel(
+            name: "Uji Matcha Mile Crepe",
+            image: "ujimatcha",
+            description: "Mile Crepe with Uji Matcha cream and powder.",
+            price: 48000
+        ),
+        MenuModel(
+            name: "White Zebra",
+            image: "whitezebra",
+            description: "Layered crepe cake, served with creme brule on top of the layer.",
+            price: 69000
+        ),
+        MenuModel(
+            name: "Roll Brulee",
+            image: "rollbrulee",
+            description: "Freshly baked roll cake with grilled creme brulee on top.",
+            price: 35000
+        )
+    ],
+    
+    "Marugame Udon": [
+        MenuModel(
+            name: "Beef Abura Udon",
+            image: "beefabura",
+            description: "Strawberry shortcake with whipped cream and fresh strawberry on top.",
+            price: 55000
+        ),
+        MenuModel(
+            name: "Beef Curry Udon",
+            image: "beefcurry",
+            description: "Chocolate cake with choco whipped cream and fresh strawberry on top.",
+            price: 58000
+        ),
+        MenuModel(
+            name: "Katsu Curry Udon",
+            image: "katsucurry",
+            description: "Fresh & soft blueberry cheesecake with fresh blueberry on top.",
+            price: 55000
+        ),
+        MenuModel(
+            name: "Kake Udon",
+            image: "kakeudon",
+            description: "Premium chocolate powder served over milk,ice and chocolate topping.",
+            price: 65000
+        ),
+        MenuModel(
+            name: "Teriyaki Abura Udon",
+            image: "teriyakiabura",
+            description: "Freshly baked soft and tender souffle cake.",
+            price: 47000
+        ),
+        MenuModel(
+            name: "Tori Baitan Udon",
+            image: "toribaitan2",
+            description: "Mile Crepe with Uji Matcha cream and powder.",
+            price: 40000
+        ),
+        MenuModel(
+            name: "Spicy Tori Baitan Udon",
+            image: "toribairan",
+            description: "Layered crepe cake, served with creme brule on top of the layer.",
+            price: 55000
+        ),
+        MenuModel(
+            name: "Niku Zaru Udon",
+            image: "nikuzaru",
+            description: "Freshly baked roll cake with grilled creme brulee on top.",
+            price: 40000
+        )
+    
+    ],
+    
+    
+    
+    
 ]

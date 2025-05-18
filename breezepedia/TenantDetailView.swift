@@ -41,10 +41,11 @@ struct TenantDetailView: View {
                                         .resizable()
                                         .scaledToFit()
                                         .aspectRatio(contentMode: .fill)
-                                        .frame(width: 90, height: 90)
+                                        .frame(width: 95, height: 95)
                                         .padding(.top,5)
-                                        .padding(.bottom,15)
+                                        .padding(.bottom,10)
                                         .cornerRadius(2)
+                                       
                                     
                                     TenantInfoView(tenant: tenant)
                                 }
@@ -84,11 +85,12 @@ struct TenantDetailView: View {
                                 VStack(spacing: 18) {
                                     ForEach(tenant.menus) { menu in
                                         MenuCard(menu: menu)
+                                        
                                     }
                                 }
                             }
                             .padding(.vertical, 24)
-                            .padding(.horizontal, 30)
+                            .padding(.horizontal, 24)
                         }
                     }
                 }
@@ -102,7 +104,7 @@ struct TenantDetailView: View {
                     Button(action: {
                         // Navigation
                     }) {
-                        Image("navigation_circle_sticky")
+                        Image("navigation_blue")
                             .resizable()
                             .frame(width: 66, height: 66)
                             .padding(.vertical, 50)
@@ -137,7 +139,7 @@ struct TenantInfoView: View {
     var body: some View {
         VStack(alignment: .leading) {
             Text(tenant.name)
-                .font(.system(size: 24, weight: .bold))
+                .font(.custom("Poppins-SemiBold", size: 24))
                 .foregroundColor(Color(hue: 0, saturation: 0, brightness: 0.3))
                 .frame(height: 30)
                 .padding(.leading, 10)

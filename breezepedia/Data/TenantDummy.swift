@@ -91,24 +91,24 @@ let dummyTenantsDict: [String: TenantModel] = [
     "Chaterise": TenantModel(
         coordinate: CLLocationCoordinate2D(latitude: -6.301604216577298, longitude: 106.65389819148908),
         name: "Chaterise",
-        image: "chaterise_logo",
-        coverImage: "boost_breeze",
+        image: "chaterise_logo2",
+        coverImage: "chaterise_breeze",
         category: ["Dessert","Snacks"],
         openTime: "Open 10.00 - 20.00",
-        cheapest: 20000,
+        cheapest: 35000,
         wifi: true,
         peakHour: "17.00 - 21.00",
         capacity: 50,
         halal: true,
         pet: false,
-        menus: dummyMenus["Boost"] ?? [],
+        menus: dummyMenus["Chaterise"] ?? [],
         isCheap: true,
         hasSmokingArea: false,
         hasOutdoor: false,
         isQuiet: true,
         isSpacious: true
         ),
-    "SateSenayan": TenantModel(
+    "Sate Senayan": TenantModel(
         coordinate: CLLocationCoordinate2D(latitude: -6.301604216577298, longitude: 106.65389819148908),
         name: "Sate Senayan",
         image: "satesenayan_logo6",
@@ -121,7 +121,7 @@ let dummyTenantsDict: [String: TenantModel] = [
         capacity: 50,
         halal: true,
         pet: false,
-        menus: dummyMenus["Boost"] ?? [],
+        menus: dummyMenus["Sate Senayan"] ?? [],
         isCheap: true,
         hasSmokingArea: false,
         hasOutdoor: false,
@@ -132,7 +132,7 @@ let dummyTenantsDict: [String: TenantModel] = [
         coordinate: CLLocationCoordinate2D(latitude: -6.297360302457948, longitude: 106.65428588120463),
         name: "D'cost Seafood",
         image: "dcost_logo",
-        coverImage: "boost_breeze",
+        coverImage: "dcostbreeze",
         category: ["Local Dish","Seafood"],
         openTime: "Open 10.00 - 20.00",
         cheapest: 20000,
@@ -141,7 +141,7 @@ let dummyTenantsDict: [String: TenantModel] = [
         capacity: 50,
         halal: true,
         pet: false,
-        menus: dummyMenus["Boost"] ?? [],
+        menus: dummyMenus["D'Cost Seafood"] ?? [],
         isCheap: true,
         hasSmokingArea: true,
         hasOutdoor: false,
@@ -151,7 +151,7 @@ let dummyTenantsDict: [String: TenantModel] = [
     
     
     "Kenangan Coffee": TenantModel(
-        coordinate: CLLocationCoordinate2D(latitude: -6.297360302457948, longitude: 106.65428588120463),
+        coordinate: CLLocationCoordinate2D(latitude:-6.301535449449427, longitude: 106.65424077084593),
         name: "Kenangan Coffee",
         image: "kenangan_logo",
         coverImage: "kenangan_breeze",
@@ -159,11 +159,11 @@ let dummyTenantsDict: [String: TenantModel] = [
         openTime: "Open 10.00 - 21.00",
         cheapest: 30000,
         wifi: true,
-        peakHour: "17.00 - 21.00",
-        capacity: 50,
+        peakHour: "13.00 - 19.00",
+        capacity: 25,
         halal: true,
         pet: false,
-        menus: dummyMenus["Boost"] ?? [],
+        menus: dummyMenus["Kenangan Coffee"] ?? [],
         isCheap: true,
         hasSmokingArea: false,
         hasOutdoor: false,
@@ -171,7 +171,26 @@ let dummyTenantsDict: [String: TenantModel] = [
         isSpacious: true
         ),
     
-    
+    "Marugame Udon": TenantModel(
+        coordinate: CLLocationCoordinate2D(latitude:-6.301535449449427, longitude: 106.65424077084593),
+        name: "Marugame Udon",
+        image: "marugame_logo",
+        coverImage: "marugamebreeze",
+        category: ["Japanese","Protein"],
+        openTime: "Open 10.00 - 22.00",
+        cheapest: 45000,
+        wifi: false,
+        peakHour: "12.00 - 19.30",
+        capacity: 25,
+        halal: true,
+        pet: false,
+        menus: dummyMenus["Marugame Udon"] ?? [],
+        isCheap: true,
+        hasSmokingArea: false,
+        hasOutdoor: false,
+        isQuiet: true,
+        isSpacious: true
+        ),
     
     
     
