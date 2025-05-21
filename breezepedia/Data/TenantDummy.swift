@@ -68,7 +68,7 @@ let dummyTenantsDict: [String: TenantModel] = [
         isQuiet: true,
         isSpacious: true
     ),
-    "Boost": TenantModel(
+    "Boost Juice": TenantModel(
         coordinate: CLLocationCoordinate2D(latitude: -6.301604216577298, longitude: 106.65389819148908),
         name: "Boost Juice",
         image: "Boost",

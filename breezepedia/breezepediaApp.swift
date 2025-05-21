@@ -12,7 +12,7 @@ struct breezepediaApp: App {
     var body: some Scene {
         WindowGroup {
 //            TenantDetailView()
-            ContentView()
+            ScreenView()
         }
     }
 }

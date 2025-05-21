@@ -9,16 +9,16 @@ import SwiftUI
 import MapKit
 
 struct CustomMapView: View {
-    @State private var selectedAnnotation: MKPointAnnotation?
+    @State private var selectedAnnotation: TenantAnnotation?
     @State private var annotationPosition: CGPoint = .zero
     @State private var mapViewRef: MKMapView?
     @State private var selectedTenantKey: String?
-    @State var selectedTenant: TenantModel?
+    @State var selectedTenant: TenantModel = dummyTenants[0]
     @State private var route: MKRoute?
     @State private var showEntranceAnnotation = false
     @State private var entranceCoordinate = CLLocationCoordinate2D(latitude: -6.301453293388013, longitude: 106.653222511091)
     @State private var routingDestinationKey: String? = nil
-    @State private var showNavigation = false
+    @State private var showNavigation: Bool = false
     
     var tenants: [String: TenantModel]
     
@@ -27,6 +27,7 @@ struct CustomMapView: View {
         request.source = MKMapItem(placemark: MKPlacemark(coordinate: entranceCoordinate))
         request.destination = MKMapItem(placemark: MKPlacemark(coordinate: destination))
         request.transportType = .walking
+//        self.showNavigation = true
         
         let directions = MKDirections(request: request)
         directions.calculate { response, error in
@@ -55,30 +56,30 @@ struct CustomMapView: View {
             )
             .edgesIgnoringSafeArea(.all)
             
+            // Show Navigation Bar
+            if showNavigation {
+//                RouteCardView(showNavigation: $showNavigation, tenant: selectedTenant, route: route,)
+                RouteCardView(showNavigation: $showNavigation, tenant: selectedTenant, selectedAnnotation: $selectedAnnotation, mapViewRef: $mapViewRef, selectedTenantKey: $selectedTenantKey, route: $route, showEntranceAnnotation: $showEntranceAnnotation, routingDestinationKey: $routingDestinationKey)
+            }
+            
             // Tooltip
             if let tenantKey = selectedTenantKey,
-               let tenant = tenants[tenantKey],
-               let mapView = mapViewRef {
-                
-                GeometryReader { geometry in
-                    let point = mapView.convert(tenant.coordinate, toPointTo: mapView)
-                    
-                    VStack {
-                        CustomTooltip(tenant: tenant) {
-                            calculateRoute(to: tenant.coordinate, key: tenant.name)
-                            selectedTenantKey = nil
-                            selectedAnnotation = nil
-                            selectedTenant = nil
-                            showEntranceAnnotation = true
-                        }
+               let tenant = tenants[tenantKey] {
+
+                VStack {
+                    CustomTooltip(tenant: tenant, showNavigation: $showNavigation) {
+                        calculateRoute(to: tenant.coordinate, key: tenant.name)
+                        selectedTenantKey = nil
+                        selectedAnnotation = nil
+//                        selectedTenant = nil
+                        showEntranceAnnotation = true
                     }
-                    .position(x: point.x + 80, y: point.y - 40) // adjust offset if needed
-                    .animation(.easeInOut, value: tenantKey)
-                    .onAppear {
-                        // Clear the route when a new tooltip appears
-                        route = nil
-                        showEntranceAnnotation = false
-                    }
+                }
+                .position(x: annotationPosition.x, y: annotationPosition.y - 150)
+                .animation(.easeInOut, value: annotationPosition)
+                .onAppear {
+                    route = nil
+                    showEntranceAnnotation = false
                 }
             }
         }
@@ -90,17 +91,17 @@ struct CustomMapView: View {
                 return
             }
             
-            let destinationCoordinate = tenant.coordinate
+            _ = tenant.coordinate
         }
     }
 }
 
 struct MapViewWrapper: UIViewRepresentable {
-    @Binding var selectedAnnotation: MKPointAnnotation?
+    @Binding var selectedAnnotation: TenantAnnotation?
     @Binding var annotationPosition: CGPoint
     @Binding var mapViewRef: MKMapView?
     @Binding var selectedTenantKey: String?
-    @Binding var selectedTenant: TenantModel?
+    @Binding var selectedTenant: TenantModel
     @Binding var route: MKRoute?
     @Binding var showEntranceAnnotation: Bool
     @Binding var routingDestinationKey: String?
@@ -180,18 +181,6 @@ struct MapViewWrapper: UIViewRepresentable {
             uiView.addAnnotation(annotation)
         }
         
-        // Update tooltip visibility based on selectedTenantKey
-        //        for annotation in uiView.annotations {
-        //            guard let annotationView = uiView.view(for: annotation),
-        //                  let tenantAnnotation = annotation as? TenantAnnotation else { continue }
-        //
-        //            if tenantAnnotation.key == selectedTenantKey {
-        //                annotationView.detailCalloutAccessoryView?.isHidden = false
-        //            } else {
-        //                annotationView.detailCalloutAccessoryView?.isHidden = true
-        //            }
-        //        }
-        
         // Remove existing route overlays
         uiView.removeOverlays(uiView.overlays)
         
@@ -209,15 +198,14 @@ struct MapViewWrapper: UIViewRepresentable {
             }
         } else {
             context.coordinator.lastRoute = nil
-            showEntranceAnnotation = false
-            showNavigation = false
+//            showEntranceAnnotation = false
+//            showNavigation = false
             // Jangan zoom apapun
         }
         
         if showEntranceAnnotation {
             if !uiView.annotations.contains(where: { $0 is EntranceAnnotation }) {
                 uiView.addAnnotation(context.coordinator.entranceAnnotation)
-                showNavigation.toggle()
             }
         } else {
             uiView.removeAnnotation(context.coordinator.entranceAnnotation)
@@ -278,7 +266,7 @@ struct MapViewWrapper: UIViewRepresentable {
             guard let tenantAnnotation = view.annotation as? TenantAnnotation else { return }
             
             self.parent.selectedTenantKey = nil
-            self.parent.selectedTenant = nil
+//            self.parent.selectedTenant = nil
             DispatchQueue.main.asyncAfter(deadline: .now() + 0.01) {
                 self.parent.selectedTenantKey = tenantAnnotation.key
                 self.parent.selectedTenant = tenantAnnotation.tenant
@@ -288,21 +276,22 @@ struct MapViewWrapper: UIViewRepresentable {
             
             let point = mapView.convert(tenantAnnotation.coordinate, toPointTo: mapView)
             parent.annotationPosition = point
-            parent.selectedAnnotation = tenantAnnotation.annotation
+            parent.selectedAnnotation = tenantAnnotation
         }
         
         func mapView(_ mapView: MKMapView, regionDidChangeAnimated animated: Bool) {
-            // Update position only if annotation is selected
-            if let annotation = parent.selectedAnnotation {
-                let point = mapView.convert(annotation.coordinate, toPointTo: mapView)
-                DispatchQueue.main.async {
-                    self.parent.annotationPosition = point
-                }
-            }
+            updateAnnotationPosition(in: mapView)
         }
         
         func mapViewDidChangeVisibleRegion(_ mapView: MKMapView) {
-            if let annotation = parent.selectedAnnotation {
+            updateAnnotationPosition(in: mapView)
+        }
+        
+        private func updateAnnotationPosition(in mapView: MKMapView) {
+            if let key = parent.selectedTenantKey,
+               let annotation = mapView.annotations.first(where: {
+                   ($0 as? TenantAnnotation)?.key == key
+               }) {
                 let point = mapView.convert(annotation.coordinate, toPointTo: mapView)
                 DispatchQueue.main.async {
                     self.parent.annotationPosition = point
@@ -399,27 +388,6 @@ struct MapViewWrapper: UIViewRepresentable {
         }
     }
     
-    class TenantAnnotation: NSObject, MKAnnotation {
-        let annotation: MKPointAnnotation
-        let coordinate: CLLocationCoordinate2D
-        let tenant: TenantModel
-        let key: String
-        
-        init(tenant: TenantModel, key: String) {
-            self.annotation = MKPointAnnotation()
-            self.coordinate = tenant.coordinate
-            self.tenant = tenant
-            self.key = tenant.name
-            self.annotation.coordinate = tenant.coordinate
-            self.annotation.title = tenant.name
-            super.init()
-        }
-        
-        var title: String? {
-            tenant.name
-        }
-    }
-    
     class EntranceAnnotation: NSObject, MKAnnotation {
         let coordinate: CLLocationCoordinate2D
         var title: String? = "Lobby Utama"
@@ -427,6 +395,27 @@ struct MapViewWrapper: UIViewRepresentable {
         init(coordinate: CLLocationCoordinate2D) {
             self.coordinate = coordinate
         }
+    }
+}
+
+class TenantAnnotation: NSObject, MKAnnotation {
+    let annotation: MKPointAnnotation
+    let coordinate: CLLocationCoordinate2D
+    let tenant: TenantModel
+    let key: String
+    
+    init(tenant: TenantModel, key: String) {
+        self.annotation = MKPointAnnotation()
+        self.coordinate = tenant.coordinate
+        self.tenant = tenant
+        self.key = tenant.name
+        self.annotation.coordinate = tenant.coordinate
+        self.annotation.title = tenant.name
+        super.init()
+    }
+    
+    var title: String? {
+        tenant.name
     }
 }
 

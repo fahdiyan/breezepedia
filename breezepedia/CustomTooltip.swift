@@ -12,6 +12,7 @@ import MapKit
 struct CustomTooltip: View {
     var tenant: TenantModel
     @State private var goToDetail = false
+    @Binding var showNavigation: Bool
     var onNavigate: () -> Void
     
     var body: some View {
@@ -66,6 +67,7 @@ struct CustomTooltip: View {
                 Spacer()
                 Button() {
                     onNavigate()
+                    self.showNavigation.toggle()
                 } label: {
                     Image("navigation.white.fill")
                         .resizable()
@@ -91,5 +93,5 @@ struct CustomTooltip: View {
 }
 
 #Preview {
-    CustomTooltip(tenant: dummyTenants[0]) {}
+    CustomTooltip(tenant: dummyTenants[0], showNavigation: Binding.constant(true)) {}
 }

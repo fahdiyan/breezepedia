@@ -7,12 +7,13 @@
 
 import SwiftUI
 import MapKit
+import TipKit
 
 struct ContentView: View {
     @State private var showSheet = false
     @State private var selectedAnnotation: MKAnnotation?
     @State private var annotationPosition: CGPoint = .zero
-    
+    @StateObject var tipManager = TipSequenceManager()
     @State private var searchText: String = ""
     
     @State private var filterOptions = FilterOptions(selectedCategory: nil, selectedFacilities: [])
@@ -20,23 +21,23 @@ struct ContentView: View {
     var filteredTenants: [String: TenantModel] {
         dummyTenantsDict.filter { _, tenant in
             let matchesSearch = searchText.isEmpty ||
-                tenant.name.lowercased().contains(searchText.lowercased()) ||
-                tenant.category.lowercased().contains(searchText.lowercased())
-
+            tenant.name.lowercased().contains(searchText.lowercased()) ||
+            tenant.category.lowercased().contains(searchText.lowercased())
+            
             let matchesCategory = filterOptions.selectedCategory == nil ||
-                tenant.category.lowercased().contains(filterOptions.selectedCategory!.lowercased())
-
+            tenant.category.lowercased().contains(filterOptions.selectedCategory!.lowercased())
+            
             let matchesFacilities = filterOptions.selectedFacilities.allSatisfy { facility in
                 switch facility.lowercased() {
-                    case "wifi": return tenant.wifi
-                    case "halal": return tenant.halal
-                    case "spacious": return tenant.isSpacious
-                    case "silent": return tenant.isQuiet
-                    case "cheap": return tenant.isCheap
-                    case "pet friendly": return tenant.pet
-                    case "smoking area": return tenant.hasSmokingArea
-                    case "outdoor": return tenant.hasOutdoor
-                    default: return true
+                case "wifi": return tenant.wifi
+                case "halal": return tenant.halal
+                case "spacious": return tenant.isSpacious
+                case "silent": return tenant.isQuiet
+                case "cheap": return tenant.isCheap
+                case "pet friendly": return tenant.pet
+                case "smoking area": return tenant.hasSmokingArea
+                case "outdoor": return tenant.hasOutdoor
+                default: return true
                 }
             }
             
@@ -55,13 +56,29 @@ struct ContentView: View {
                     VStack {
                         Spacer()
                         HStack {
-                            Image("logo_breezepedia_white")
-                                .resizable()
-                                .frame(width: 82, height: 65)
-                            Spacer()
                             SearchField(searchText: $searchText, hintText: "Search tenant")
+                                .popoverTip(SearchTip(), arrowEdge: .bottom)
+                                .opacity(tipManager.currentStep == 0 ? 1 : 0)
+                            // Preference Button
+                            Button(action: {
+                                showSheet.toggle()
+                            }) {
+                                Image("filter_icon")
+                                    .resizable()
+                                    .frame(width: 40, height: 40)
+                            }
+                            .popoverTip(FilterTip(), arrowEdge: .bottom)
+                            .sheet(isPresented: $showSheet) {
+                                PreferenceSheet(filterOptions: $filterOptions)
+                                    .cornerRadius(25)
+                            }
+                            .onChange(of: searchText) { newValue in
+                                if !newValue.isEmpty {
+                                    filterOptions = FilterOptions(selectedCategory: nil, selectedFacilities: [])
+                                }
+                            }
                         }
-                        .padding(.leading, 10)
+                        .padding(.leading, 15)
                         .padding(.trailing, 18)
                         
                         HStack {
@@ -73,6 +90,7 @@ struct ContentView: View {
                                 .font(.system(size: 16, weight: .regular))
                         }
                         .foregroundColor(.white)
+                        .padding(.top, 4)
                         .padding(.bottom, 15)
                     }
                     .frame(width: .infinity, height: 125)
@@ -82,41 +100,20 @@ struct ContentView: View {
                         blue: 0x9A / 255,
                         alpha: 1
                     )))
-                    .padding(.top, 45)
+                    .padding(.top, 24)
                     .shadow(radius: 4, y: 2)
                     
                     Spacer()
-                    
-                    // Preference Button
-                    Button(action: {
-                        showSheet.toggle()
-                    }) {
-                        Text("Choose Preference")
-                            .font(.system(size: 16, weight: .medium))
-                            .foregroundColor(.white)
-                            .frame(width: 220, height: 48)
-                            .background(Color(UIColor(
-                                red: 0x70 / 255,
-                                green: 0x42 / 255,
-                                blue: 0x9A / 255,
-                                alpha: 1
-                            )))
-                            .cornerRadius(10)
-                            .shadow(radius: 4, y: 3)
-                    }
-                    .sheet(isPresented: $showSheet) {
-                        PreferenceSheet(filterOptions: $filterOptions)
-                            .cornerRadius(25)
-                    }
-                    .padding(.bottom, 64)
-                    .onChange(of: searchText) { newValue in
-                        if !newValue.isEmpty {
-                            filterOptions = FilterOptions(selectedCategory: nil, selectedFacilities: [])
-                        }
-                    }
                 }
                 .ignoresSafeArea(.all)
             }
+        }
+        .onAppear {
+            tipManager.reset()
+            try? Tips.resetDatastore()
+        }
+        .task {
+            try? Tips.configure()
         }
     }
 }
