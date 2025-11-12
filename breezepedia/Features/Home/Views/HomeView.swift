@@ -10,13 +10,16 @@ import SwiftUI
 struct HomeView: View {
     @StateObject private var viewModel = MapViewModel()
     
+    @State private var searchText: String = ""
+    @State private var showSheet = false
+    @State private var filterOptions = FilterOptions(selectedCategory: nil, selectedFacilities: [])
+    
     @ViewBuilder
     var body: some View {
         ZStack {
             if let image = UIImage(named: "breezeMap2") {
                 MapView(
-                    region: MapRegion.breezeMapRegion,
-                    overlayImage: image,
+                    region: MapRegion.breezeMapRegion,                    overlayImage: image,
                     tenants: dummyTenants2,
                     viewModel: viewModel
                 )
@@ -27,16 +30,28 @@ struct HomeView: View {
             
             VStack (alignment: .center) {
                 HStack {
-                    Color.white.frame(width: 300, height: 44)
-                        .cornerRadius(12)
-                        .shadow(color: Color.black.opacity(0.2), radius: 4, x: 0, y: 2)
+//                    Color.white.frame(width: 300, height: 44)
+//                        .cornerRadius(12)
+//                        .shadow(color: Color.black.opacity(0.2), radius: 4, x: 0, y: 2)
+                    SearchField(searchText: $searchText, hintText: "Search tenant")
                     
                     AppButton(
                         type: .primary,
                         width: .mini,
                         icon: "filter",
-                        action: {}
+                        action: {
+                            showSheet.toggle()
+                        }
                     )
+                    .sheet(isPresented: $showSheet) {
+                        PreferenceSheet(filterOptions: $filterOptions)
+                            .cornerRadius(25)
+                    }
+                    .onChange(of: searchText) { newValue in
+                        if !newValue.isEmpty {
+                            filterOptions = FilterOptions(selectedCategory: nil, selectedFacilities: [])
+                        }
+                    }
                 }
                 .padding(16)
                 
